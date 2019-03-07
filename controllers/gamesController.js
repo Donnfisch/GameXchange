@@ -20,6 +20,16 @@ module.exports = {
       res.json(dbGames);
     });
   },
+  myGames: (req, res) => {
+    db.sequelize.query(`SELECT id, userId, w.gameId, have, want, trade, g.platform, g.title, g.region, g.publisher, g.version FROM wishLists w
+    LEFT JOIN
+    (SELECT * FROM games) as g
+    ON (g.gameId = w.gameId) WHERE userId = 1`, { type: db.sequelize.QueryTypes.SELECT})
+    .then(dbGames => {
+      res.json(dbGames);
+    });
+  },
+
   matchGames: (req, res) => {
     console.log(req.params.direction);
     let currentUser = 2;

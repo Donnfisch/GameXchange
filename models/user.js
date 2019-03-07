@@ -74,12 +74,12 @@ module.exports = function(sequelize, DataTypes) {
     // associations can be defined here
   };
 
-  // user.prototype.validatePassword = function(password) {
-  //   return bcrypt.compareSync(
-  //     password,
-  //     this.password
-  //   );
-  // };
+  user.prototype.validatePassword = function(password) {
+    return bcrypt.compareSync(
+      password,
+      this.password
+    );
+  };
 
   user.sync();
 
