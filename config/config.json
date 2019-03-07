@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password":  "root",
+    "database": "games_db",
+    "host": "localhost",
+    "dialect": "mysql",
+    "port": 3306
+  },
+  "test": {
+    "username": "root",
+    "password": "root",
+    "database": "testdb",
+    "host": "localhost",
+    "dialect": "mysql",
+    "logging": false
+  },
+  "production": {
+    "username": "pvt01o4u9t26lmai",
+    "password": "otp4mny5g09dmnqo",
+    "database": "f1j3r2qp2v2euwem",
+    "host": "h7xe2knj2qb6kxal.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "dialect": "mysql",
+    "logging": false
+  }
+}
