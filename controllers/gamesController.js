@@ -2,24 +2,32 @@ const db = require("../models");
 
 // Defining methods for the gamesController
 module.exports = {
+  
+  // Lists all games
   findAll: (req, res) => {
     db.Game.findAll({ where: {status: "approved"}, limit:50
     }).then(dbGames => {
       res.json(dbGames);
     });
   },
+
+  // Find game by id
   findById: (req, res) => {
     db.Game.findByPk(req.params.id)
       .then(dbGame => {
       res.json(dbGame);
     });
   },
+
+  // Search games by title
   findByTitle: (req, res) => {
     db.Game.findAll({ where: {title: { $like: '%' + req.params.title + '%'}}, limit:50
     }).then(dbGames => {
       res.json(dbGames);
     });
   },
+
+  // Returns user's games along with have/want/trade status
   myGames: (req, res) => {
     db.sequelize.query(`SELECT id, userId, w.gameId, have, want, trade, g.platform, g.title, g.region, g.publisher, g.version FROM wishLists w
     LEFT JOIN
@@ -30,6 +38,7 @@ module.exports = {
     });
   },
 
+  // Matches users trades with others
   matchGames: (req, res) => {
     console.log(req.params.direction);
     let currentUser = 2;
@@ -81,13 +90,17 @@ module.exports = {
       .then(dbGames => {
         res.json(dbGames);
       });
+  },
+
+  // Create game
+  create: function(req, res) {
+    console.log(req.body);
+    req.body.status = "requested";
+    db.Game.create(req.body)
+      .then(dbGame => res.json(dbGame))
+      .catch(err => res.status(422).json(err));
   }
-  // create: function(req, res) {
-  //   db.Book
-  //     .create(req.body)
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // },
+
   // update: function(req, res) {
   //   db.Book
   //     .findOneAndUpdate({ _id: req.params.id }, req.body)

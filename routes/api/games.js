@@ -4,7 +4,7 @@ const gamesController = require("../../controllers/gamesController");
 // Matches with "/api/games..."
 router.route("/")
   .get(gamesController.findAll)
-  // .post(gamesController.create);
+  .post(gamesController.create);
 
 router.route("/id/:id")
   .get(gamesController.findById)
