@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
+
 "use strict";
 var models = require("../models");
 
