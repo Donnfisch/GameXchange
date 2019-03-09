@@ -1,7 +1,5 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-"use strict";
-var models = require("../models");
+// "use strict";
+const models = require("../models");
 
 
 module.exports = {
@@ -16,7 +14,7 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    var fields = {
+    const fields = {
       username: "DrDre",
       password: "stillDRE",
       email: "dre@aftermath.com",
@@ -24,14 +22,14 @@ module.exports = {
       lastname: "Dre",
       address: "187 Inglewood Dr",
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
     return models.user.create(fields).then(() => {
       console.log("user created");
     });
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface, Sequelize) => 
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
@@ -39,10 +37,10 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-    return queryInterface.bulkDelete(
+     queryInterface.bulkDelete(
       "user",
       null,
       {}
-    );
-  }
+    )
+  ,
 };
