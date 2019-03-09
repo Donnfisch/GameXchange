@@ -1,29 +1,29 @@
-var Sequelize = require("sequelize");
+const Sequelize = require("sequelize");
 
-module.exports = function(sequelize, DataTypes) {
-  var game = sequelize.define("Game", {
+module.exports = (sequelize, DataTypes) => {
+  const game = sequelize.define("Game", {
     gameId: {
       type: Sequelize.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     title: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     platform: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        isIn: [["PS4", "XBox One", "Nintento Switch"]]
-      }
+        isIn: [["PS4", "XBox One", "Nintento Switch"]],
+      },
     },
     region: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        isIn: [["USA","Japan","Europe"]]
-      }
+        isIn: [["USA", "Japan", "Europe"]],
+      },
     },
     publisher: DataTypes.STRING,
     version: DataTypes.STRING,
@@ -31,18 +31,18 @@ module.exports = function(sequelize, DataTypes) {
       type: Sequelize.INTEGER,
       // allowNull: false,
       references: {
-        model: "users", 
-        key: "userId", 
-      }
+        model: "users",
+        key: "userId",
+      },
     },
     votes: DataTypes.INTEGER,
     status: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        isIn: [["requested","approved","denied"]]
-      }
-    }
+        isIn: [["requested", "approved", "denied"]],
+      },
+    },
   });
   return game;
 };

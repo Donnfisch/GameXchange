@@ -27,7 +27,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-eslint": "^10.0.1",
     "bcrypt": "^3.0.4",
+    "eslint-plugin-jsx-control-statements": "^2.2.1",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
     "mongoose": "^5.3.16",

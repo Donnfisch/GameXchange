@@ -3,9 +3,9 @@ const db = require("../models");
 module.exports = {
 
   // Returns user's games along with have/want/trade status
-    // TODO: Need to catch currentUser
+  // TODO: Need to catch currentUser
   findAll: (req, res) => {
-    let currentUser = 1;
+    const currentUser = 1;
     db.sequelize.query(`SELECT id, 
         userid, 
         w.gameid, 
@@ -28,9 +28,9 @@ module.exports = {
   },
 
   // Matches users trades with others
-    // TODO: Need to catch currentUser
+  // TODO: Need to catch currentUser
   findMatches: (req, res) => {
-    let currentUser = 2;
+    const currentUser = 2;
     let userIdACompare = "!=";
     let userIdBCompare = "=";
     let userToMatch = "m.myUserId";
@@ -80,12 +80,13 @@ module.exports = {
         res.json(dbGames);
       });
   },
-  
+
   // Add or update wishList items
-    // TODO: catch currentUser
-    // TODO: Pull ADD UUID to REACT to gen unique IDs
-    // TODO: Create logic
-    // TOTO: Bless the rains down in Africa
+  // TODO: catch currentUser
+  // TODO: Pull ADD UUID to REACT to gen unique IDs
+  // TODO: Create logic
+  // TOTO: Bless the rains down in Africa
+
   upsert: (req, res) => {
     console.log('UPSERT');
     console.log(req.body);
@@ -95,5 +96,5 @@ module.exports = {
     // }).then(dbGames => {
     //   res.json(dbGames);
     // });
-  }
-}
+  },
+};

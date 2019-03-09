@@ -10,8 +10,8 @@ router.route("/")
 
 // Return trade matches
 router.route("/match/")
-  .get(inventoryController.findMatches)
+  .get(inventoryController.findMatches);
 router.route("/match/:direction")
-  .get(inventoryController.findMatches)
+  .get(inventoryController.findMatches);
 
 module.exports = router;

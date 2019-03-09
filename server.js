@@ -2,7 +2,7 @@ const express = require("express");
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
-var db = require("./models");
+const db = require("./models");
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -13,8 +13,9 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes);
 
-db.sequelize.sync({ force: false }).then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
+db.sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
+    console.log(`App listening on PORT ${PORT}`);
   });
 });
