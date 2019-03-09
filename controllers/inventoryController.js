@@ -83,6 +83,9 @@ module.exports = {
   
   // Add or update wishList items
     // TODO: catch currentUser
+    // TODO: Pull ADD UUID to REACT to gen unique IDs
+    // TODO: Create logic
+    // TOTO: Bless the rains down in Africa
   upsert: (req, res) => {
     console.log('UPSERT');
     console.log(req.body);
