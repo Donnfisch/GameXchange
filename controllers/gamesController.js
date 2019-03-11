@@ -5,7 +5,7 @@ module.exports = {
 
   // Lists all games
   findAll: (req, res) => {
-    db.Game.findAll({
+    db.game.findAll({
       where: { status: "approved" }, limit: 50,
     }).then(dbGames => {
       res.json(dbGames);
@@ -14,7 +14,7 @@ module.exports = {
 
   // Find game by id
   findById: (req, res) => {
-    db.Game.findByPk(req.params.id)
+    db.game.findByPk(req.params.id)
       .then(dbGame => {
         res.json(dbGame);
       });
@@ -22,7 +22,7 @@ module.exports = {
 
   // Search games by title
   findByTitle: (req, res) => {
-    db.Game.findAll({
+    db.game.findAll({
       where: { title: { $like: `%${req.params.title}%` } }, limit: 50,
     }).then(dbGames => {
       res.json(dbGames);
@@ -31,8 +31,8 @@ module.exports = {
 
   // Create game
   create: (req, res) => {
-    req.body.status = "requested";
-    db.Game.create(req.body)
+    // req.body.status = "requested";
+    db.game.create(req.body)
       .then(dbGame => res.json(dbGame))
       .catch(err => res.status(422).json(err));
   },

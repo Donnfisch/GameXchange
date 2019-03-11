@@ -1,12 +1,7 @@
 const Sequelize = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  const game = sequelize.define("Game", {
-    gameId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
+  const game = sequelize.define("game", {
     title: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -15,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        isIn: [["PS4", "XBox One", "Nintento Switch"]],
+        isIn: [["PS4", "XBox One", "Switch"]],
       },
     },
     region: {
@@ -27,15 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     publisher: DataTypes.STRING,
     version: DataTypes.STRING,
-    requestedBy: {
-      type: Sequelize.INTEGER,
-      // allowNull: false,
-      references: {
-        model: "users",
-        key: "userId",
-      },
-    },
-    votes: DataTypes.INTEGER,
+    upVotes: DataTypes.INTEGER,
+    downVotes: DataTypes.INTEGER,
     status: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -43,6 +31,26 @@ module.exports = (sequelize, DataTypes) => {
         isIn: [["requested", "approved", "denied"]],
       },
     },
+  },
+  {
+    hooks: {
+      beforeCreate: (gameData) => {
+        const updatedGameData = gameData;
+        updatedGameData.status = "requested";
+        updatedGameData.status = 0;
+        updatedGameData.status = 0;
+        return updatedGameData;
+      },
+    },
   });
+
+  game.associate = models => {
+    game.belongsTo(models.user, {
+      forgeinKey: {
+        allowNull: false,
+      },
+      // as: 'requestedBy',
+    });
+  };
   return game;
 };

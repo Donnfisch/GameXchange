@@ -17,7 +17,7 @@ module.exports = {
         g.region, 
         g.publisher, 
         g.version 
-    FROM   wishlists w 
+    FROM   inventorys w 
         LEFT JOIN (SELECT * 
                   FROM   games) AS g 
               ON ( g.gameid = w.gameid ) 
@@ -66,8 +66,8 @@ module.exports = {
                                     B.userid AS theirUserId, 
                                     A.want   AS want, 
                                     B.have   AS have 
-                            FROM    wishLists A, 
-                                    wishLists B 
+                            FROM    inventorys A, 
+                                    inventorys B 
                             WHERE  A.want <> 0 
                                     AND B.have <> 0 
                                     AND A.gameid = B.gameid 
@@ -81,7 +81,7 @@ module.exports = {
       });
   },
 
-  // Add or update wishList items
+  // Add or update inventory items
   // TODO: catch currentUser
   // TODO: Pull ADD UUID to REACT to gen unique IDs
   // TODO: Create logic
@@ -91,7 +91,7 @@ module.exports = {
     console.log('UPSERT');
     console.log(req.body);
     // let currentUser = 1;
-    // db.wishList.create({
+    // db.inventory.create({
     //   where: { status: "approved" }, limit: 50
     // }).then(dbGames => {
     //   res.json(dbGames);

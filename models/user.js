@@ -1,6 +1,7 @@
 // "use strict";
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
+const uuid = require("uuid/v4");
 
 /*
   ? Is this where error handling (or at least messages) supposed to happen?
@@ -12,10 +13,10 @@ const bcrypt = require("bcrypt");
 */
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define("user", {
-    userId: {
-      type: Sequelize.INTEGER,
+    id: {
+      allowNull: false,
+      type: Sequelize.UUID,
       primaryKey: true,
-      autoIncrement: true,
     },
     username: {
       type: Sequelize.STRING,
@@ -61,15 +62,29 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     hooks: {
-      beforeCreate: (user) => {
+      beforeCreate: (userData) => {
         const salt = bcrypt.genSaltSync();
-        user.password = bcrypt.hashSync(user.password, salt);
+        const updatedUserData = userData;
+        if (!userData.id) updatedUserData.id = uuid();
+        updatedUserData.password = bcrypt.hashSync(updatedUserData.password, salt);
+        return updatedUserData;
+      },
+
+      beforeUpdate: (userData) => {
+        const salt = bcrypt.genSaltSync();
+        const updatedUserData = userData;
+        updatedUserData.password = bcrypt.hashSync(updatedUserData.password, salt);
+        return updatedUserData;
       },
     },
   });
 
+
   user.associate = models => {
-    // associations can be defined here
+    user.hasMany(models.inventory, {
+      onDelete: "cascade",
+    });
+    user.hasMany(models.game);
   };
 
   user.prototype.validatePassword = password => bcrypt.compareSync(

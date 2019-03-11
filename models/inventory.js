@@ -2,23 +2,7 @@
 const Sequelize = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  const wishList = sequelize.define("wishList", {
-    userId: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: {
-        model: "users",
-        key: "userId",
-      },
-    },
-    gameId: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: {
-        model: "games",
-        key: "gameID",
-      },
-    },
+  const inventory = sequelize.define("inventory", {
     have: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
@@ -35,5 +19,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  return wishList;
+
+  inventory.associate = models => {
+    inventory.belongsTo(models.game, {
+      forgeinKey: {
+        allowNull: false,
+      },
+    });
+    inventory.belongsTo(models.user, {
+      forgeinKey: {
+        allowNull: false,
+      },
+    });
+  };
+
+  return inventory;
 };
