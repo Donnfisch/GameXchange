@@ -5,9 +5,9 @@ module.exports = {
   // Returns user's games along with have/want/trade status
   // TODO: Need to catch currentUser
   findAll: (req, res) => {
-    const currentUser = 1;
-    db.sequelize.query(`SELECT id, 
-        userid, 
+    const currentUser = "5272e292-3c40-4eea-a3df-707b760fdf00";
+    db.sequelize.query(`SELECT w.id, 
+        w.userid, 
         w.gameid, 
         have, 
         want, 
@@ -17,11 +17,11 @@ module.exports = {
         g.region, 
         g.publisher, 
         g.version 
-    FROM   inventorys w 
+    FROM   inventories w 
         LEFT JOIN (SELECT * 
                   FROM   games) AS g 
-              ON ( g.gameid = w.gameid ) 
-    WHERE  userid = ${currentUser}`, { type: db.sequelize.QueryTypes.SELECT })
+              ON ( g.id = w.gameid ) 
+    WHERE  w.userid = "${currentUser}"`, { type: db.sequelize.QueryTypes.SELECT })
       .then(dbGames => {
         res.json(dbGames);
       });
@@ -30,7 +30,7 @@ module.exports = {
   // Matches users trades with others
   // TODO: Need to catch currentUser
   findMatches: (req, res) => {
-    const currentUser = 2;
+    const currentUser = "5272e292-3c40-4eea-a3df-707b760fdf00";
     let userIdACompare = "!=";
     let userIdBCompare = "=";
     let userToMatch = "m.myUserId";
@@ -39,20 +39,20 @@ module.exports = {
       userIdBCompare = "!=";
       userToMatch = "m.theirUserId";
     }
-    db.sequelize.query(`SELECT g.gameid, 
+    db.sequelize.query(`SELECT g.id, 
       g.title, 
       g.platform, 
       g.region, 
       g.publisher, 
       g.version, 
-      h.userid, 
+      h.id, 
       h.username, 
       h.firstname, 
       h.lastname, 
       h.address, 
       h.email 
     FROM games g 
-    INNER JOIN (SELECT u.userid, 
+    INNER JOIN (SELECT u.id, 
                       u.username, 
                       u.firstname, 
                       u.lastname, 
@@ -66,16 +66,16 @@ module.exports = {
                                     B.userid AS theirUserId, 
                                     A.want   AS want, 
                                     B.have   AS have 
-                            FROM    inventorys A, 
-                                    inventorys B 
+                            FROM    inventories A, 
+                                    inventories B 
                             WHERE  A.want <> 0 
                                     AND B.have <> 0 
                                     AND A.gameid = B.gameid 
-                                    AND A.userid ${userIdACompare} ${currentUser} 
-                                    AND B.userid ${userIdBCompare} ${currentUser}) AS m 
-                            ON ( u.userid = ${userToMatch} )) AS h 
-          ON ( g.gameid = h.mygameid )
-          ORDER BY email`, { type: db.sequelize.QueryTypes.SELECT })
+                                    AND A.userid ${userIdACompare} "${currentUser}" 
+                                    AND B.userid ${userIdBCompare} "${currentUser}") AS m 
+                            ON ( u.id = ${userToMatch} )) AS h 
+          ON ( g.id = h.mygameid )
+          ORDER BY email;`, { type: db.sequelize.QueryTypes.SELECT })
       .then(dbGames => {
         res.json(dbGames);
       });
