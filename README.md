@@ -38,6 +38,7 @@ GameXchange will do the hard work for you and find the closest match to you of s
 <a name="technology"></a>
 ## Technology
 
+ - React.js
  - HTML
  - CSS
  - Bootstrap
@@ -45,10 +46,9 @@ GameXchange will do the hard work for you and find the closest match to you of s
  - jQuery
  - Node.js
  - Express.js
- - Handlebars
  - MySQL
  - Sequelize
- - Bcript.js
+ - Bcrypt.js
 
 
  <a name="liveSite"></a>

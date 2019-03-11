@@ -9,11 +9,11 @@ router.route("/")
   .post(gamesController.create);
 
 // Return game by id
-  router.route("/id/:id")
-  .get(gamesController.findById)
+router.route("/id/:id")
+  .get(gamesController.findById);
 
-// Search by title (Add platform?)  
+// Search by title (Add platform?)
 router.route("/title/:title")
-  .get(gamesController.findByTitle)
+  .get(gamesController.findByTitle);
 
 module.exports = router;

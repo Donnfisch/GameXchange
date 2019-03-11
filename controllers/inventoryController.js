@@ -3,9 +3,9 @@ const db = require("../models");
 module.exports = {
 
   // Returns user's games along with have/want/trade status
-    // TODO: Need to catch currentUser
+  // TODO: Need to catch currentUser
   findAll: (req, res) => {
-    let currentUser = 1;
+    const currentUser = 1;
     db.sequelize.query(`SELECT id, 
         userid, 
         w.gameid, 
@@ -17,7 +17,7 @@ module.exports = {
         g.region, 
         g.publisher, 
         g.version 
-    FROM   wishlists w 
+    FROM   inventorys w 
         LEFT JOIN (SELECT * 
                   FROM   games) AS g 
               ON ( g.gameid = w.gameid ) 
@@ -28,9 +28,9 @@ module.exports = {
   },
 
   // Matches users trades with others
-    // TODO: Need to catch currentUser
+  // TODO: Need to catch currentUser
   findMatches: (req, res) => {
-    let currentUser = 2;
+    const currentUser = 2;
     let userIdACompare = "!=";
     let userIdBCompare = "=";
     let userToMatch = "m.myUserId";
@@ -66,8 +66,8 @@ module.exports = {
                                     B.userid AS theirUserId, 
                                     A.want   AS want, 
                                     B.have   AS have 
-                            FROM    wishLists A, 
-                                    wishLists B 
+                            FROM    inventorys A, 
+                                    inventorys B 
                             WHERE  A.want <> 0 
                                     AND B.have <> 0 
                                     AND A.gameid = B.gameid 
@@ -80,20 +80,21 @@ module.exports = {
         res.json(dbGames);
       });
   },
-  
-  // Add or update wishList items
-    // TODO: catch currentUser
-    // TODO: Pull ADD UUID to REACT to gen unique IDs
-    // TODO: Create logic
-    // TOTO: Bless the rains down in Africa
+
+  // Add or update inventory items
+  // TODO: catch currentUser
+  // TODO: Pull ADD UUID to REACT to gen unique IDs
+  // TODO: Create logic
+  // TOTO: Bless the rains down in Africa
+
   upsert: (req, res) => {
     console.log('UPSERT');
     console.log(req.body);
     // let currentUser = 1;
-    // db.wishList.create({
+    // db.inventory.create({
     //   where: { status: "approved" }, limit: 50
     // }).then(dbGames => {
     //   res.json(dbGames);
     // });
-  }
-}
+  },
+};
