@@ -45,12 +45,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   game.associate = models => {
-    game.belongsTo(models.user, {
-      forgeinKey: {
-        allowNull: false,
-      },
-      // as: 'requestedBy',
-    });
+    game.belongsTo(models.user, { forgeinKey: { allowNull: false } });
+    game.hasMany(models.inventory);
   };
   return game;
 };

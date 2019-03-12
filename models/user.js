@@ -1,4 +1,3 @@
-// "use strict";
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
 const uuid = require("uuid/v4");
@@ -11,6 +10,7 @@ const uuid = require("uuid/v4");
   ? DOM to inform the user, but as of now breaks the server with "Unhandled rejection: Validation"
   ? Would like the server to keep running and handle appropriately.
 */
+
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define("user", {
     id: {
@@ -81,10 +81,8 @@ module.exports = (sequelize, DataTypes) => {
 
 
   user.associate = models => {
-    user.hasMany(models.inventory, {
-      onDelete: "cascade",
-    });
-    user.hasMany(models.game);
+    user.hasMany(models.inventory, { onDelete: "cascade" });
+    user.hasMany(models.game, {});
   };
 
   user.prototype.validatePassword = password => bcrypt.compareSync(
