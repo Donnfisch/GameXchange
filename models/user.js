@@ -1,4 +1,3 @@
-// "use strict";
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
 const uuid = require("uuid/v4");
@@ -82,10 +81,8 @@ module.exports = (sequelize, DataTypes) => {
 
 
   user.associate = models => {
-    user.hasMany(models.inventory, {
-      onDelete: "cascade",
-    });
-    user.hasMany(models.game);
+    user.hasMany(models.inventory, { onDelete: "cascade" });
+    user.hasMany(models.game, {});
   };
 
   user.prototype.validatePassword = password => bcrypt.compareSync(
