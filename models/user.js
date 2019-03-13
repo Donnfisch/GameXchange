@@ -11,6 +11,7 @@ const uuid = require("uuid/v4");
   ? DOM to inform the user, but as of now breaks the server with "Unhandled rejection: Validation"
   ? Would like the server to keep running and handle appropriately.
 */
+// eslint-disable-next-line no-unused-vars
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define("user", {
     id: {
