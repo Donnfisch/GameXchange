@@ -1,14 +1,13 @@
-import React from "react";
-import Books from "./pages/Books";
-import Nav from "./components/Nav";
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div>
-      <Nav />
-      <Books />
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        Bare Bones
+      </div>
+    );
+  }
 }
 
 export default App;
