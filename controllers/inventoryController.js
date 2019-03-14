@@ -6,19 +6,29 @@ module.exports = {
   // TODO: Need to catch currentUser
   findAll: (req, res) => {
     const currentUser = "5272e292-3c40-4eea-a3df-707b760fdf00";
-    db.inventory.findUserInventory(currentUser)
-      .then(dbInventory => {
-        res.json(dbInventory);
-      });
+    db.inventory.findAll({
+      where: { userId: currentUser },
+      include: [db.game],
+    }).then(dbInventory => {
+      res.json(dbInventory);
+    });
   },
+
+  // findAll: (req, res) => {
+  //   const currentUser = "5272e292-3c40-4eea-a3df-707b760fdf00";
+  //   db.inventory.findUserInventory(currentUser)
+  //     .then(dbInventory => {
+  //       res.json(dbInventory);
+  //     });
+  // },
 
   // Matches users trades with others
   // TODO: Need to catch currentUser
   findMatches: (req, res) => {
     const currentUser = "5272e292-3c40-4eea-a3df-707b760fdf00";
     db.inventory.findMatches(currentUser, req.params.direction)
-      .then(dbInventory => {
-        res.json(dbInventory);
+      .then(dbMatches => {
+        res.json(dbMatches);
       });
   },
 

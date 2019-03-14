@@ -17,6 +17,14 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false,
       allowNull: false,
     },
+    gameId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    userId: {
+      type: Sequelize.UUID,
+      allowNull: false,
+    },
   });
 
   inventory.associate = models => {
@@ -24,24 +32,24 @@ module.exports = (sequelize, DataTypes) => {
     inventory.belongsTo(models.user, { forgeinKey: { allowNull: false } });
   };
 
-  inventory.findUserInventory = currentUser => (sequelize.query(
-    `SELECT w.id,
-      w.userid,
-      w.gameid,
-      have,
-      want,
-      trade,
-      g.platform,
-      g.title,
-      g.region,
-      g.publisher,
-      g.version
-    FROM inventories w
-    LEFT JOIN (SELECT * FROM games) AS g
-      ON ( g.id = w.gameid )
-    WHERE  w.userid = "${currentUser}"`,
-    { type: sequelize.QueryTypes.SELECT }
-  ));
+  // inventory.findUserInventory = currentUser => (sequelize.query(
+  //   `SELECT w.id,
+  //     w.userid,
+  //     w.gameid,
+  //     have,
+  //     want,
+  //     trade,
+  //     g.platform,
+  //     g.title,
+  //     g.region,
+  //     g.publisher,
+  //     g.version
+  //   FROM inventories w
+  //   LEFT JOIN (SELECT * FROM games) AS g
+  //     ON ( g.id = w.gameid )
+  //   WHERE  w.userid = "${currentUser}"`,
+  //   { type: sequelize.QueryTypes.SELECT }
+  // ));
 
   inventory.findMatches = (currentUser, direction) => {
     let userIdACompare = "!=";
