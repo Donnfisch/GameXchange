@@ -37,8 +37,8 @@ module.exports = (sequelize, DataTypes) => {
       beforeCreate: (gameData) => {
         const updatedGameData = gameData;
         updatedGameData.status = "requested";
-        updatedGameData.status = 0;
-        updatedGameData.status = 0;
+        updatedGameData.upVotes = 0;
+        updatedGameData.downVotes = 0;
         return updatedGameData;
       },
     },
