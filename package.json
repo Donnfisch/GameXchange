@@ -1,7 +1,7 @@
 {
-  "name": "mern",
-  "version": "1.0.0",
-  "description": "",
+  "name": "gamesxchange",
+  "version": "0.6.9",
+  "description": "Built on the shoulders of fart.js",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
