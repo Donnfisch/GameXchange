@@ -55,39 +55,12 @@ passport.use(
 );
 
 
-// router.get('/login', (req, res, next) => {
-//   passport.authenticate('local', (err, user) => {
-//     if (err) { return next(err); }
-//     if (!user) { return res.redirect('/login'); }
-//     req.logIn(user, () => {
-//       if (err) { return next(err); }
-//       return res.redirect(`/users/${user.username}`);
-//     });
-//     return res.status(403);
-//   })(req, res, next);
-// });
 // const auth = (req, res, next) => {
-// 	res.send('Poop');
-// 	passport.authenticate('local', (req, res) => {
-// 		res.json({ id: req.user.id, username: req.user.username });
-// 	});
-// } 
+//   res.send('Poop');
+// };
 
-router.route('/login')
-  .post(authController.loginDammit)
-  .get((req, res) => res.send({ message: "Fuck yourself" }));
-
-
-
-
-
-
-
-
-
-
-
-
-
+// router.route('/login')
+//   .post(auth)
+//   .get((req, res) => res.send({ message: "Fuck yourself" }));
 
 module.exports = router;
