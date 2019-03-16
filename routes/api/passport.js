@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 const User = require('../../models/user');
+const authController = require("../../controllers/authController");
 
 passport.use(
   new LocalStrategy(
@@ -54,27 +55,39 @@ passport.use(
 );
 
 
-router.get('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user) => {
-    if (err) { return next(err); }
-    if (!user) { return res.redirect('/login'); }
-    req.logIn(user, () => {
-      if (err) { return next(err); }
-      return res.redirect(`/users/${user.username}`);
-    });
-    return res.status(403);
-  })(req, res, next);
-});
+// router.get('/login', (req, res, next) => {
+//   passport.authenticate('local', (err, user) => {
+//     if (err) { return next(err); }
+//     if (!user) { return res.redirect('/login'); }
+//     req.logIn(user, () => {
+//       if (err) { return next(err); }
+//       return res.redirect(`/users/${user.username}`);
+//     });
+//     return res.status(403);
+//   })(req, res, next);
+// });
+// const auth = (req, res, next) => {
+// 	res.send('Poop');
+// 	passport.authenticate('local', (req, res) => {
+// 		res.json({ id: req.user.id, username: req.user.username });
+// 	});
+// } 
 
-router.post('/login',
-  passport.authenticate('local',
-    {
-      successRedirect: '/',
-      failureRedirect: '/login',
-    }));
+router.route('/login')
+  .post(authController.loginDammit)
+  .get((req, res) => res.send({ message: "Fuck yourself" }));
 
-// router.route('/login').post((req,res) => {
-// 	res.send(403)
-// })
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
