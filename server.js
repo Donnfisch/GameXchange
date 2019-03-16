@@ -18,41 +18,41 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 app.use(passport);
-// app.use(routes);
+app.use(routes);
 
-app.get('/api', (req, res) => {
-  res.json({
-    message: 'Welcome to the API',
-  });
-});
+// app.get('/api', (req, res) => {
+//   res.json({
+//     message: 'Welcome to the API',
+//   });
+// });
 
-app.post('/api/posts', verifyToken, (req, res) => {
-  jwt.verify(req.token, 'secretkey', (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      res.json({
-        messge: 'Post created...',
-        authData,
-      });
-    }
-  });
-});
+// app.post('/api/posts', verifyToken, (req, res) => {
+//   jwt.verify(req.token, 'secretkey', (err, authData) => {
+//     if (err) {
+//       res.sendStatus(403);
+//     } else {
+//       res.json({
+//         messge: 'Post created...',
+//         authData,
+//       });
+//     }
+//   });
+// });
 
-app.post('/api/login', (req, res) => {
-  // Mock user
-  const user = {
-    id: 1,
-    username: 'shane',
-    email: 'test@example.com',
-  };
+// app.post('/api/login', (req, res) => {
+//   // Mock user
+//   const user = {
+//     id: 1,
+//     username: 'shane',
+//     email: 'test@example.com',
+//   };
 
-  jwt.sign({ user }, 'secretkey', (err, token) => {
-    res.json({
-      token,
-    });
-  });
-});
+//   jwt.sign({ user }, 'secretkey', (err, token) => {
+//     res.json({
+//       token,
+//     });
+//   });
+// });
 
 // Verify Token
 function verifyToken(req, res, next) {
