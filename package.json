@@ -6,7 +6,7 @@
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "start:dev": "concurrently -n \"SERVER,CLIENT\" -c\"[bgBlue.bold,bgMagenta.bold]\" -p \"{name}-{time}\" -t \"HH:mm:ss.SS\"  -i \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "start:back": "nodemon --ignore 'client/*'",
     "client": "cd client && npm run start",
     "seed": "node scripts/seedDB.js",
