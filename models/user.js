@@ -85,10 +85,23 @@ module.exports = (sequelize, DataTypes) => {
     user.hasMany(models.game, {});
   };
 
-  user.prototype.validatePassword = password => bcrypt.compareSync(
-    password,
-    this.password
-  );
+  user.prototype.validatePassword = function (password) {
+    console.log(password);
+    console.log(this.password);
+    return bcrypt.compareSync(
+      password,
+      this.password
+    );
+  };
+
+  // user.prototype.validatePassword = password => {
+  //   console.log(password);
+  //   console.log(this.password);
+  //   bcrypt.compareSync(
+  //     password,
+  //     this.password
+  //   );
+  // };
 
   user.sync();
 
