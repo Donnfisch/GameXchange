@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export class Ad extends Component {
-  render() {
-    return (
-      <div>
-        <p>(Ad Component)</p>
-      </div>
-    );
-  }
-}
+const Ad = () => (
+  <div style={adDivStyle}>
+    <p>(Ad Component)</p>
+  </div>
+);
+
+const adDivStyle = {
+  position: "center",
+  textAlign: "center",
+};
 
 export default Ad;

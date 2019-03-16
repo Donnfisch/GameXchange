@@ -1,13 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Footer extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Footer Component</h1>
-      </div>
-    );
-  }
-}
+const Footer = () => (
+  <footer className="bg-secondary" style={footerStyle}>
+    <div className="container">
+      <p>Copywrite © 2019</p>
+    </div>
+  </footer>
+);
+
+const footerStyle = {
+  position: "fixed",
+  bottom: "0",
+  width: "100%",
+  height: "65px",
+  lineHeight: "55px",
+  textAlign: "center",
+  borderTop: "8px solid #000000",
+  fontSize: "24px",
+};
 
 export default Footer;
