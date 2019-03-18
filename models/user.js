@@ -11,7 +11,7 @@ const uuid = require("uuid/v4");
   ? Would like the server to keep running and handle appropriately.
 */
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const user = sequelize.define("user", {
     id: {
       allowNull: false,
@@ -85,9 +85,10 @@ module.exports = (sequelize, DataTypes) => {
     user.hasMany(models.game, {});
   };
 
+  // eslint-disable-next-line func-names
   user.prototype.validatePassword = function (password) {
-    console.log(password);
-    console.log(this.password);
+  //   console.log(password);
+  //   console.log(this.password);
     return bcrypt.compareSync(
       password,
       this.password

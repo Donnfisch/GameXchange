@@ -1,42 +1,41 @@
-var passport = require("passport");
-var jwt = require("jsonwebtoken");
+const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
 module.exports = function (app) {
-  app.post("/api/auth", function (request, response) {
+  app.post("/api/auth", (request, response) => {
     passport.authenticate(
       "local", {
-        session: false
+        session: false,
       },
-      function (error, user, info) {
+      (error, user, info) => {
         if (error || !user) {
           return response.status(403).json({
             message: "Unable to Authrize",
-            user: user,
-            error: error,
-            info: info
+            user,
+            error,
+            info,
           });
         }
         request.login(user, {
-          session: false
-        }, function (error) {
+          session: false,
+        }, (error) => {
           if (error) {
             response.send(error);
           }
-          var sanitizedUser = {
+          const sanitizedUser = {
             id: user.id,
             username: user.username,
-            email: user.email
+            email: user.email,
           };
 
           // generate a signed son web token with the contents of user object and return it in the response
           const token = jwt.sign(sanitizedUser, "your_jwt_secret");
           response.json({
             user: sanitizedUser,
-            token: token
+            token,
           });
         });
       }
     )(request, response);
   });
-
 };

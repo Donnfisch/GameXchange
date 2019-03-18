@@ -1,9 +1,10 @@
 const logger = require("morgan");
 const express = require("express");
-const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
+const passport = require('passport');
+// const passport = require('./routes/api/passport');
 // const jwt = require('jsonwebtoken');
 const models = require("./models");
 const routes = require("./routes");
@@ -16,34 +17,44 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 if (process.env.NODE_ENV === "production") {
-  // eslint-disable-next-line no-console
-  console.log("WTF!");
   app.use(express.static("client/build"));
 }
 
-passport.use(new LocalStrategy(
-  {
-    usernameField: "username",
-    passwordField: "password"
-  },
-  function(username, password, cb) {
-    models.user.findOne({
-      where: {
-        username: username
-      }
-    }).then(
-      function(user) {
-        if (!user || !user.validatePassword(password)) {
-          return cb(null, false, {message: "Incorrect email or password."});
-        }
-        return cb(null, user, {message: "Logged In Successfully"});
-      }
-    ).catch(function(error) {
-      cb(error);
-      throw error;
-    });
-  }
-));
+// ? For now, I've given up trying to port this logic into another file. passport is an object with
+// ? methods on it. Invoking those methods elsewhere doesn't make them persist on the object
+// ? somehow (although everything i've put to the console seemds to indicate otherwise).
+// ? It's fugly, but it works. So I guess let's just leave it here ¯\_(ツ)_/¯
+
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "username",
+      passwordField: "password",
+    },
+    ((username, password, done) => {
+      models.user.findOne({
+        where: {
+          username,
+        },
+      })
+        .then(
+          (user) => {
+            if (!user) {
+              return done(null, false, { message: 'Incorrect username.' });
+            }
+            if (!user.validatePassword(password)) {
+              return done(null, false, { message: "Incorrect password." });
+            }
+            return done(null, user, { message: "Logged In Successfully" });
+          }
+        )
+        .catch((error) => {
+          done(error);
+          throw error;
+        });
+    })
+  )
+);
 
 passport.use(
   new JWTStrategy(
@@ -62,75 +73,48 @@ passport.use(
   )
 );
 
-// app.use(routes);
-
+// // console.log("===============================================");
+// // console.log("PASSPORT TYPE: " + typeof (passport));
+// // console.log("PASSPORT = " + JSON.stringify(passport))
+// // console.log("PASSPORT.USE = " + passport.use)
+// // console.log("REQUIRING API/PASSPORT TYPE: " + typeof require('./routes/api/passport'));
+// // console.log("REQUIRE API/PASSPORT = " + JSON.stringify(require("./routes/api/passport")));
+// // console.log("REQUIRE OG  PASSPORT = " + JSON.stringify(require("passport")));
+// // console.log("===============================================");
+// // console.log("APP: " + typeof app)
+// // console.log("REQUIRING AuthRoutes: " + typeof require("./routes/authRoutes"));
+// // console.log("===============================================");
 
 // Routes
-let secureRoute = require("./routes/apiRoutes");
+
+// ! Using
+// app.use(routes);
+// ! here above the other route declarations will break the shit. Postman gives:
+
+// <!DOCTYPE html>
+// <html lang="en">
+//     <head>
+//         <meta charset="utf-8">
+//         <title>Error</title>
+//     </head>
+//     <body>
+//         <pre>Error: ENOENT: no such file or directory, stat &#39;/home/shane/Desktop/gamexchange/client/build/index.html&#39;</pre>
+//     </body>
+// </html>
+
+const secureRoute = require("./routes/api");
 require("./routes/authRoutes")(app);
 app.use("/api", passport.authenticate("jwt", { session: false }), secureRoute);
-require("./routes/htmlRoutes")(app);
 
+// ? On the other hand, using it down here
+app.use(routes);
+// ? Doesn't seem to bother anything. Question is... WTF
 
-// app.get('/api', (req, res) => {
-//   res.json({
-//     message: 'Welcome to the API',
-//   });
-// });
-
-// app.post('/api/posts', verifyToken, (req, res) => {
-//   jwt.verify(req.token, 'secretkey', (err, authData) => {
-//     if (err) {
-//       res.sendStatus(403);
-//     } else {
-//       res.json({
-//         messge: 'Post created...',
-//         authData,
-//       });
-//     }
-//   });
-// });
-
-// app.post('/api/login', (req, res) => {
-//   // Mock user
-//   const user = {
-//     id: 1,
-//     username: 'shane',
-//     email: 'test@example.com',
-//   };
-
-//   jwt.sign({ user }, 'secretkey', (err, token) => {
-//     res.json({
-//       token,
-//     });
-//   });
-// });
-
-// // Verify Token
-// function verifyToken(req, res, next) {
-//   // Get auth header value
-//   const bearerHeader = req.headers.authorization;
-//   // check it bearer is undefined
-//   if (typeof bearerHeader !== 'undefined') {
-//     // Split at the space
-//     const bearer = bearerHeader.split(' ');
-//     // Get token from array
-//     const bearerToken = bearer[1];
-//     // Set the token
-//     req.token = bearerToken;
-//     // Next middleware
-//     next();
-//   } else {
-//     // Forbidden
-//     res.sendStatus(403);
-//   }
-// }
-
+// Initialize Database
 models.sequelize.sync({ force: false }).then(() => {
+  // Start the Server
   app.listen(PORT, () => {
     // eslint-disable-next-line no-console
     console.log(`App listening on PORT ${PORT}`);
-    // console.log(passport.stack[0].route);
-    console.log(models.user.findOne({ where: { username: 'JDoe' } }));
   });
 });
