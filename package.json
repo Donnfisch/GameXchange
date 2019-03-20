@@ -26,15 +26,19 @@
     "nodemon": "^1.18.7"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "bcrypt": "^3.0.4",
     "eslint-plugin-jsx-control-statements": "^2.2.1",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.3.16",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.5",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "sequelize": "^4.43.0",
     "uuid": "^3.3.2"
   }
