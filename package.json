@@ -29,12 +29,17 @@
     "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "bcrypt": "^3.0.4",
+    "bootstrap": "^4.3.1",
     "eslint-plugin-jsx-control-statements": "^2.2.1",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
     "mongoose": "^5.3.16",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.5",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-router": "^5.0.0",
+    "reactstrap": "^7.1.0",
     "sequelize": "^4.43.0",
     "uuid": "^3.3.2"
   }
