@@ -6,8 +6,8 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const db = require("../models");
 // const User = require("../models/user");
-// Defining methods for the authController
 
+// Defining methods for the authController
 passport.use(
   new LocalStrategy(
     {
@@ -60,6 +60,7 @@ module.exports = {
 
   // Login user
   login: (req, res) => {
+    console.log('AUTH CONTROLLER');
     passport.authenticate(
       "local", {
         session: false,
@@ -96,7 +97,6 @@ module.exports = {
       }
     )(req, res);
   },
-
 };
 
 // router.get('/login', (req, res, next) => {
