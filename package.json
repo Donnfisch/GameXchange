@@ -1,12 +1,12 @@
 {
-  "name": "mern",
-  "version": "1.0.0",
-  "description": "",
+  "name": "gamesxchange",
+  "version": "0.6.9",
+  "description": "Built on the shoulders of fart.js",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "start:dev": "concurrently -n \"SERVER,CLIENT\" -c\"[bgBlue.bold,bgMagenta.bold]\" -p \"{name}-{time}\" -t \"HH:mm:ss.SS\"  -i \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "start:back": "nodemon --ignore 'client/*'",
     "client": "cd client && npm run start",
     "seed": "node scripts/seedDB.js",
@@ -26,20 +26,27 @@
     "nodemon": "^1.18.7"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "bcrypt": "^3.0.4",
     "bootstrap": "^4.3.1",
     "eslint-plugin-jsx-control-statements": "^2.2.1",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.3.16",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.5",
+<<<<<<< HEAD
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-router": "^5.0.0",
     "reactstrap": "^7.1.0",
+=======
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+>>>>>>> master
     "sequelize": "^4.43.0",
     "uuid": "^3.3.2"
   }
