@@ -4,7 +4,7 @@ import tacoAd from '../img/tacoad.gif';
 
 function serveAd() {
   const adArray = [tacoAd, legoAd];
-  return adArray[0];
+  return adArray[Math.floor(Math.random() * adArray.length)];
 }
 
 const Ad = () => (
