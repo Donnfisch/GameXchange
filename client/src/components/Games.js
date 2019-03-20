@@ -7,7 +7,6 @@ class Games extends Component {
     return (
       <div>
         <h1 style={h1Style}>Games Component</h1>
-
         <table style={tableStyle}>
           <tr>
             <th>Title</th>
