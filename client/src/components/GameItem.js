@@ -1,11 +1,31 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export class GameItem extends Component {
   render() {
+    // console.log(this.props.game.inventories);
+    let have = false;
+    let want = false;
+    let trade = false;
+    if (this.props.game.inventories) {
+      have = this.props.game.inventories[0].have;
+      want = this.props.game.inventories[0].want;
+      trade = this.props.game.inventories[0].trade;
+    }
     return (
-
       <tr>
+        <td>
+          <input type="checkbox" className="haveCheckBox" value={this.props.game.id} checked={have} />
+        </td>
+        <td>
+          <input type="checkbox" className="wantCheckBox" value={this.props.game.id} checked={want} />
+        </td>
+        <td>
+          <input type="checkbox" className="tradeCheckBox" value={this.props.game.id} checked={trade} />
+        </td>
         <td>
           {this.props.game.title}
         </td>

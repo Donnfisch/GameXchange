@@ -11,6 +11,9 @@ class Games extends Component {
         <table style={tableStyle}>
           <thead>
             <tr>
+              <th>Have</th>
+              <th>Want</th>
+              <th>Trade</th>
               <th>Title</th>
               <th>Platform</th>
               <th>Region</th>
