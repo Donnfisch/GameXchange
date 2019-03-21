@@ -1,5 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import GameItem from './GameItem';
 
 class Games extends Component {
@@ -27,6 +28,10 @@ class Games extends Component {
     );
   }
 }
+
+Games.propTypes = {
+  games: PropTypes.object.isRequired,
+};
 
 export default Games;
 

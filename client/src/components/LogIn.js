@@ -13,10 +13,10 @@ export class LogIn extends Component {
   }
 
   handleChange = event => {
-    // console.log(this.state);
     this.setState({
       [event.target.id]: event.target.value,
     });
+    console.log(this.state);
   }
 
 

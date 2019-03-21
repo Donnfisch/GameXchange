@@ -78,7 +78,13 @@ class App extends Component {
         userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
       },
     ],
+  };
+
+  refreshGames = gamesArray => {
+    // this.state.games = (gamesArray);
+    this.setState({ games: gamesArray });
   }
+
 
   render() {
     // console.log(this.state.games);
