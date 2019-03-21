@@ -8,16 +8,20 @@ class Games extends Component {
       <div>
         <h1 style={h1Style}>Games Component</h1>
         <table style={tableStyle}>
-          <tr>
-            <th>Title</th>
-            <th>Platform</th>
-            <th>Region</th>
-            <th>Publisher</th>
-            <th>Version</th>
-          </tr>
-          {this.props.games.map((game) => (
-            <GameItem key={game.id} game={game} />
-          ))}
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Platform</th>
+              <th>Region</th>
+              <th>Publisher</th>
+              <th>Version</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.games.map((game) => (
+              <GameItem key={game.id} game={game} />
+            ))}
+          </tbody>
         </table>
       </div>
     );

@@ -27,27 +27,14 @@ export class LogIn extends Component {
         password,
       })
       .then(res => {
-        console.log(res);
+        console.log(res.data.user.id);
+        document.cookie = `token=${res.data.token}`;
+        document.cookie = `uuid=${res.data.user.id}`;
       })
       .catch(error => {
         console.log(error);
       });
   }
-
-
-  // authenticateUser = (username, password) => $.ajax({
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     type: "POST",
-  //     url: "/api/auth",
-  //     data: JSON.stringify(
-  //       {
-  //         username,
-  //         password,
-  //       }
-  //     ),
-  //   })
 
   handleSubmit = event => {
     event.preventDefault();
@@ -60,7 +47,7 @@ export class LogIn extends Component {
 
   render() {
     return (
-      <form className="form-signin">
+      <form className="form-signin" onSubmit={this.handleSubmit}>
         <input
           type="text"
           className="form-control mb-2"
