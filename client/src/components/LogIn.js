@@ -28,8 +28,8 @@ export class LogIn extends Component {
       })
       .then(res => {
         console.log(res.data.user.id);
-        document.cookie = `token=${res.data.token}`;
         document.cookie = `uuid=${res.data.user.id}`;
+        document.cookie = `token=${res.data.token}`;
       })
       .catch(error => {
         console.log(error);

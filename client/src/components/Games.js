@@ -23,7 +23,7 @@ class Games extends Component {
           </thead>
           <tbody>
             {this.props.games.map((game) => (
-              <GameItem key={game.id} game={game} />
+              <GameItem changeGameStatus={this.props.changeGameStatus} key={game.id} game={game} />
             ))}
           </tbody>
         </table>
