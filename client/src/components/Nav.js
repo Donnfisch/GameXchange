@@ -10,7 +10,7 @@ class Nav extends Component {
         <a className="navbar-brand" href="/">
           GameXchange
         </a>
-        <Search />
+        <Search handleSearch={this.props.handleSearch} />
         <LogIn />
         <NavLinks />
       </nav>
