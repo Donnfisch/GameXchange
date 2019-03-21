@@ -18,13 +18,13 @@ export class GameItem extends Component {
     return (
       <tr>
         <td>
-          <input type="checkbox" className="haveCheckBox" value={this.props.game.id} checked={have} />
+          <input type="checkbox" className="haveCheckBox" value={this.props.game.id} checked={have} onChange={this.props.changeGameStatus.bind(this, have, want, trade, this.props.game.id)} />
         </td>
         <td>
-          <input type="checkbox" className="wantCheckBox" value={this.props.game.id} checked={want} />
+          <input type="checkbox" className="wantCheckBox" value={this.props.game.id} checked={want} onChange={this.props.changeGameStatus.bind(this, have, want, trade, this.props.game.id)} />
         </td>
         <td>
-          <input type="checkbox" className="tradeCheckBox" value={this.props.game.id} checked={trade} />
+          <input type="checkbox" className="tradeCheckBox" value={this.props.game.id} checked={trade} onChange={this.props.changeGameStatus.bind(this, have, want, trade, this.props.game.id)} />
         </td>
         <td>
           {this.props.game.title}
@@ -42,10 +42,6 @@ export class GameItem extends Component {
           {this.props.game.version}
         </td>
       </tr>
-
-    // <p>{this.props.game.title}</p>
-    // {/* <p>game item</p> */}
-
     );
   }
 }

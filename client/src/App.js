@@ -123,7 +123,8 @@ class App extends Component {
 
   handleSearch = (searchTerm, event) => {
     event.preventDefault();
-    const token = document.cookie.split(";")
+    console.log(document.cookie);
+    const token = document.cookie.split("; ")
       .filter(
         (element) => element.indexOf('token=') === 0
       )[0].split("=")[1];
@@ -146,7 +147,7 @@ class App extends Component {
   handleMyGames = (event) => {
     event.preventDefault();
     console.log('My Games ROUTE');
-    const token = document.cookie.split(";")
+    const token = document.cookie.split("; ")
       .filter(
         (element) => element.indexOf('token=') === 0
       )[0].split("=")[1];
@@ -167,13 +168,39 @@ class App extends Component {
       });
   }
 
+  changeGameStatus = (have, want, trade, boxId, event) => {
+    console.log(`${boxId}:HAVE=${have} WANT=${want} TRADE=${trade}`);
+    const token = document.cookie.split("; ")
+      .filter(
+        (element) => element.indexOf('token=') === 0
+      )[0].split("=")[1];
+    axios
+      .post(`/api/inventory/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        have: "true",
+        want: "false",
+        trade: "false",
+        gameId: "1000",
+        userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
+      })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   render() {
     // console.log(this.state.games);
     return (
       <div>
         <Nav handleSearch={this.handleSearch} handleMyGames={this.handleMyGames} />
         <Ad />
-        <Games games={this.state.games} />
+        <Games games={this.state.games} changeGameStatus={this.changeGameStatus} />
         <Ad />
         <Footer />
       </div>
