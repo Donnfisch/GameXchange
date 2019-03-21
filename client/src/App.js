@@ -3,6 +3,7 @@ import Games from "./components/Games";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Ad from "./components/Ad";
+const axios = require('axios');
 
 class App extends Component {
   state = {
@@ -78,13 +79,40 @@ class App extends Component {
         userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
       },
     ],
+  };
+
+  refreshGames = gamesArray => {
+    // this.state.games = (gamesArray);
+    this.setState({ games: gamesArray });
+  }
+
+  handleSearch = (searchTerm, event) => {
+    event.preventDefault();
+    const token = document.cookie.split(";")
+      .filter(
+        (element) => element.indexOf('token=') === 0
+      )[0].split("=")[1];
+    axios
+      .get(`/api/games/title/${searchTerm}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(res => {
+        console.log(res.data);
+        this.setState({ games: res.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
     // console.log(this.state.games);
     return (
       <div>
-        <Nav />
+        <Nav handleSearch={this.handleSearch} />
         <Ad />
         <Games games={this.state.games} />
         <Ad />

@@ -58,6 +58,8 @@ passport.use(
 
 module.exports = {
 
+  // auth: ()
+
   // Login user
   login: (req, res) => {
     console.log('AUTH CONTROLLER');

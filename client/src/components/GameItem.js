@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class GameItem extends Component {
   render() {
@@ -28,5 +29,9 @@ export class GameItem extends Component {
     );
   }
 }
+
+GameItem.propTypes = {
+  game: PropTypes.array.isRequired,
+};
 
 export default GameItem;
