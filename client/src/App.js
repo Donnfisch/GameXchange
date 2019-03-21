@@ -10,7 +10,7 @@ class App extends Component {
     games: [
       {
         id: 1,
-        title: "Black Desert Online",
+        title: "TEST Black Desert Online",
         platform: "PS4",
         region: "USA",
         publisher: "Pearl Abyss",
@@ -21,6 +21,13 @@ class App extends Component {
         createdAt: "2019-03-12T00:13:09.000Z",
         updatedAt: "2019-03-12T00:13:09.000Z",
         userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
+        // inventories: [
+        //   {
+        //     have: "false",
+        //     want: "false",
+        //     trade: "false",
+        //   },
+        // ],
       },
       {
         id: 2,
@@ -35,6 +42,13 @@ class App extends Component {
         createdAt: "2019-03-12T00:13:09.000Z",
         updatedAt: "2019-03-12T00:13:09.000Z",
         userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
+        // inventories: [
+        //   {
+        //     have: "false",
+        //     want: "false",
+        //     trade: "false",
+        //   },
+        // ],
       },
       {
         id: 3,
@@ -49,6 +63,13 @@ class App extends Component {
         createdAt: "2019-03-12T00:13:09.000Z",
         updatedAt: "2019-03-12T00:13:09.000Z",
         userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
+        // inventories: [
+        //   {
+        //     have: "false",
+        //     want: "false",
+        //     trade: "false",
+        //   },
+        // ],
       },
       {
         id: 4,
@@ -63,6 +84,13 @@ class App extends Component {
         createdAt: "2019-03-12T00:13:09.000Z",
         updatedAt: "2019-03-12T00:13:09.000Z",
         userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
+        // inventories: [
+        //   {
+        //     have: "false",
+        //     want: "false",
+        //     trade: "false",
+        //   },
+        // ],
       },
       {
         id: 5,
@@ -77,6 +105,13 @@ class App extends Component {
         createdAt: "2019-03-12T00:13:09.000Z",
         updatedAt: "2019-03-12T00:13:09.000Z",
         userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
+        // inventories: [
+        //   {
+        //     have: "false",
+        //     want: "false",
+        //     trade: "false",
+        //   },
+        // ],
       },
     ],
   };
@@ -100,8 +135,32 @@ class App extends Component {
         },
       })
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({ games: res.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  handleMyGames = (event) => {
+    event.preventDefault();
+    console.log('My Games ROUTE');
+    const token = document.cookie.split(";")
+      .filter(
+        (element) => element.indexOf('token=') === 0
+      )[0].split("=")[1];
+    axios
+      .get(`/api/inventory/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(res => {
+        // console.log(res.data);
+        this.setState({ games: res.data });
+        // console.log(this.state.games[0].inventories[0].have);
       })
       .catch(error => {
         console.log(error);
@@ -112,7 +171,7 @@ class App extends Component {
     // console.log(this.state.games);
     return (
       <div>
-        <Nav handleSearch={this.handleSearch} />
+        <Nav handleSearch={this.handleSearch} handleMyGames={this.handleMyGames} />
         <Ad />
         <Games games={this.state.games} />
         <Ad />

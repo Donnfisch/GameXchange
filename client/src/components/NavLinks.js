@@ -4,7 +4,7 @@ export class NavLinks extends Component {
   render() {
     return (
       <div>
-        <p>(Link Component)</p>
+        <a href="#" onClick={this.props.handleMyGames}>My Games</a>
       </div>
     );
   }

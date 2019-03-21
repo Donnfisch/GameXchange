@@ -17,27 +17,6 @@ class Search extends Component {
     });
   }
 
-  // handleSubmit = event => {
-  //   event.preventDefault();
-  //   const token = document.cookie.split(";")
-  //     .filter(
-  //       (element) => element.indexOf('token=') === 0
-  //     )[0].split("=")[1];
-  //   axios
-  //     .get(`/api/games/title/${this.state.searchTerm}`, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then(res => {
-  //       console.log(res.data);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }
-
   render() {
     const { searchTerm, platform } = this.state;
 
