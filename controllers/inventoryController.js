@@ -1,15 +1,18 @@
+const jwt = require("jsonwebtoken");
 const db = require("../models");
 
 module.exports = {
 
   // Returns user's games along with have/want/trade status
-  // TODO: Need to catch currentUser
+  // TODO: Need to catch currentUser PROPERLY
   findAll: (req, res) => {
-    const currentUser = "5272e292-3c40-4eea-a3df-707b760fdf00";
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const user = jwt.verify(token, 'your_jwt_secret');
+    console.log(user.id);
     db.game.findAll({
       include: [{
         model: db.inventory,
-        where: { userId: currentUser },
+        where: { userId: user.id },
       }],
     }).then(dbInventory => {
       res.json(dbInventory);
@@ -67,7 +70,7 @@ module.exports = {
   },
 
   // Add or update inventory items
-  // TODO: catch currentUser
+  // TODO: catch currentUser PROPERLY
   // TOTO: Bless the rains down in Africa
   upsertOrDelete: (req, res) => {
     // const currentUser = "5272e292-3c40-4eea-a3df-707b760fdf00";
