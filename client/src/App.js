@@ -123,7 +123,7 @@ class App extends Component {
 
   handleSearch = (searchTerm, event) => {
     event.preventDefault();
-    console.log(document.cookie);
+    // console.log(document.cookie);
     const token = document.cookie.split("; ")
       .filter(
         (element) => element.indexOf('token=') === 0
@@ -136,7 +136,13 @@ class App extends Component {
         },
       })
       .then(res => {
-        // console.log(res.data);
+        console.log(res.data);
+        res.data.map(game => {
+          if (!game.inventories[0]) {
+            game.inventories.push({ have: false, want: false, trade: false });
+          }
+          return game;
+        });
         this.setState({ games: res.data });
       })
       .catch(error => {
@@ -169,6 +175,7 @@ class App extends Component {
   }
 
   changeGameStatus = (have, want, trade, boxId, event) => {
+    // console.log(event);
     console.log(`${boxId}:HAVE=${have} WANT=${want} TRADE=${trade}`);
     const token = document.cookie.split("; ")
       .filter(
@@ -180,13 +187,24 @@ class App extends Component {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        have: "true",
-        want: "false",
-        trade: "false",
-        gameId: "1000",
+        have,
+        want,
+        trade,
+        gameId: boxId,
         userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
       })
       .then(res => {
+        this.setState({
+          games: this.state.games.map(game => {
+            if (game.id === boxId) {
+              game.inventories[0].have = have;
+              game.inventories[0].want = want;
+              game.inventories[0].trade = trade;
+            }
+            return game;
+          }),
+
+        });
         console.log(res.data);
       })
       .catch(error => {
