@@ -63,7 +63,7 @@ export class LogIn extends Component {
       <form className="form-signin">
         <input
           type="text"
-          className="form-control mb-2"
+          className="form-control form-control-sm"
           placeholder="Username"
           id="userName"
           value={this.state.userName}
@@ -73,7 +73,7 @@ export class LogIn extends Component {
         />
         <input
           type="password"
-          className="form-control mb-2"
+          className="form-control form-control-sm"
           placeholder="Password"
           id="password"
           value={this.state.password}
@@ -81,7 +81,7 @@ export class LogIn extends Component {
           required
         />
         <button
-          className="btn btn-lg btn-primary btn-block mb-1"
+          className="btn btn-primary btn-sm "
           type="submit"
           // id="loginSubmit"
         >

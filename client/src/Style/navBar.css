@@ -1,5 +1,38 @@
-.navbar,
-.navbar-default {
+.navbar {
+    font-size: 18px;
     background-color: #9802ac;
+    font-family: "News Cycle";
+    font-weight: 700;
+}
+    
+
+
+.nav-link {
+    color: #ffcd38 !important;
+}
+   
+
+.form-search {
+    padding-top: 10px;
+    
+} 
+
+.form-signin {
+    margin-right: 50px;
+    margin-left: 30px;
 }
 
+.input-group {
+    background-color: #9802ac;
+    color: #ffcd38 !important;
+}
+
+.btn {
+    color: #ffcd38 !important;
+    background-color: #5c0168;
+    border-color: black;
+}
+
+.form-signin {
+    
+}
