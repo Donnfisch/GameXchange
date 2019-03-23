@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 const axios = require('axios');
 
-export class LogIn extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -78,4 +78,4 @@ export class LogIn extends Component {
   }
 }
 
-export default LogIn;
+export default Login;

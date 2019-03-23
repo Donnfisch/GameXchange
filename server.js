@@ -2,7 +2,7 @@ const logger = require("morgan");
 const express = require("express");
 const routes = require("./routes");
 const db = require("./models");
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 // Configure middleware
