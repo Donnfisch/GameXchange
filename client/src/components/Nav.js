@@ -1,7 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import Search from "./Search";
 import NavTabs from "./NavTabs";
+import Search from "./Search";
 
 class Nav extends Component {
   render() {
@@ -11,7 +11,10 @@ class Nav extends Component {
           GameXchange
         </a>
         <Search handleSearch={this.props.handleSearch} />
-        <NavTabs handleMyGames={this.props.handleMyGames} />
+        <NavTabs
+          handleMyGames={this.props.handleMyGames}
+          isLoggedIn={this.props.isLoggedIn}
+        />
       </nav>
     );
   }
