@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Games from "./components/Games";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Ad from "./components/Ad";
+import Welcome from "./components/Welcome";
 const axios = require('axios');
 
 class App extends Component {
@@ -14,90 +16,6 @@ class App extends Component {
         platform: "PS4",
         region: "USA",
         publisher: "Pearl Abyss",
-        version: null,
-        upVotes: null,
-        downVotes: null,
-        status: "approved",
-        createdAt: "2019-03-12T00:13:09.000Z",
-        updatedAt: "2019-03-12T00:13:09.000Z",
-        userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
-        // inventories: [
-        //   {
-        //     have: "false",
-        //     want: "false",
-        //     trade: "false",
-        //   },
-        // ],
-      },
-      {
-        id: 2,
-        title: "Bloodstained: Ritual of the Night",
-        platform: "PS4",
-        region: "USA",
-        publisher: "505 Games",
-        version: null,
-        upVotes: null,
-        downVotes: null,
-        status: "approved",
-        createdAt: "2019-03-12T00:13:09.000Z",
-        updatedAt: "2019-03-12T00:13:09.000Z",
-        userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
-        // inventories: [
-        //   {
-        //     have: "false",
-        //     want: "false",
-        //     trade: "false",
-        //   },
-        // ],
-      },
-      {
-        id: 3,
-        title: "Bubsy: Paws on Fire!",
-        platform: "PS4",
-        region: "USA",
-        publisher: "Accolade",
-        version: null,
-        upVotes: null,
-        downVotes: null,
-        status: "approved",
-        createdAt: "2019-03-12T00:13:09.000Z",
-        updatedAt: "2019-03-12T00:13:09.000Z",
-        userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
-        // inventories: [
-        //   {
-        //     have: "false",
-        //     want: "false",
-        //     trade: "false",
-        //   },
-        // ],
-      },
-      {
-        id: 4,
-        title: "Catherine: Full Body",
-        platform: "PS4",
-        region: "USA",
-        publisher: "Atlus",
-        version: null,
-        upVotes: null,
-        downVotes: null,
-        status: "approved",
-        createdAt: "2019-03-12T00:13:09.000Z",
-        updatedAt: "2019-03-12T00:13:09.000Z",
-        userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
-        // inventories: [
-        //   {
-        //     have: "false",
-        //     want: "false",
-        //     trade: "false",
-        //   },
-        // ],
-      },
-      {
-        id: 5,
-        title: "Code Vein",
-        platform: "PS4",
-        region: "USA",
-        publisher: "Bandai Namco Ent.",
         version: null,
         upVotes: null,
         downVotes: null,
@@ -215,13 +133,52 @@ class App extends Component {
   render() {
     // console.log(this.state.games);
     return (
-      <div>
-        <Nav handleSearch={this.handleSearch} handleMyGames={this.handleMyGames} />
-        <Ad />
-        <Games games={this.state.games} changeGameStatus={this.changeGameStatus} />
+    // <React.Fragment>
+    //   <Router>
+    //     <React.Fragment>
+    //       <Nav
+    //         handleSearch={this.handleSearch}
+    //         handleMyGames={this.handleMyGames}
+    //         isLoggedIn={isLoggedIn}
+    //       />
+    //       <Ad />
+    // <Route exact path="/" />
+    //       <Route
+    //         path="/login"
+    //         component={Login}
+    //         handleLogin={this.handleLogin}
+    //       />
+    //       <Route path="/matches" component={Matches} />
+    //       <Route
+    //         path="/mygames"
+    //         component={Games}
+    //         games={this.state.games}
+    //         changeGameStatus={this.changeGameStatus}
+    //       />
+    //     </React.Fragment>
+    //   </Router>
+    //   <Ad />
+    //   <Footer />
+    // </React.Fragment>
+
+
+      <React.Fragment>
+        <Router>
+          <React.Fragment>
+            <Nav handleSearch={this.handleSearch} handleMyGames={this.handleMyGames} />
+            <Ad />
+            <Route
+              exact
+              path="/"
+              component={Welcome}
+            />
+
+            {/* <Games games={this.state.games} changeGameStatus={this.changeGameStatus} /> */}
+          </React.Fragment>
+        </Router>
         <Ad />
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }
