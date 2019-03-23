@@ -1,11 +1,13 @@
-/* eslint-d
- * 
- * 
- * 
-*********************************************************************************************************************************************************************************************************************************************************************************/
+/* eslint-disable no-console */
+import axios from "axios";
+
+/** ***************************************************************
+ * * API Utilities perform function calls to the serverside API   *
+ * ************************************************************** */
 
 export default {
   // AuthenticateUser posts login information to server API for authentication
+  // When authenticated, user info is set in cookie
   authenticateUser(username, password) {
     axios.post(`/api/auth`, {
       username,

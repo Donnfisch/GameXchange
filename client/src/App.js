@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Login from "./components/Login";
-import Games from "./components/Games";
-import Nav from "./components/Nav";
-import Footer from "./components/Footer";
 import Ad from "./components/Ad";
+import Footer from "./components/Footer";
+import Games from "./components/Games";
+import Login from "./components/Login";
+import Matches from './components/Matches';
+import Nav from "./components/Nav";
 import API from "./utils/API";
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
 
   render() {
     // console.log(this.state.games);
+    const { isLoggedIn } = { ...this.state };
     return (
       <React.Fragment>
         <Router>
@@ -27,6 +29,7 @@ class App extends Component {
             <Nav
               handleSearch={API.handleSearch}
               handleMyGames={API.handleMyGames}
+              isLoggedIn={isLoggedIn}
             />
             <Ad />
             <Route exact path="/" />
