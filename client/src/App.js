@@ -9,8 +9,14 @@ import API from "./utils/API";
 
 class App extends Component {
   state = {
-    games: [],
+    user: {
+      id: null,
+      name: null,
+      isLoggedIn: false,
+      games: [],
+    },
   };
+
 
   render() {
     // console.log(this.state.games);
@@ -18,11 +24,15 @@ class App extends Component {
       <React.Fragment>
         <Router>
           <React.Fragment>
-            <Nav handleSearch={API.handleSearch} handleMyGames={API.handleMyGames} />
+            <Nav
+              handleSearch={API.handleSearch}
+              handleMyGames={API.handleMyGames}
+            />
             <Ad />
             <Route exact path="/" />
             <Route path="/login" component={Login} />
             <Route path="/mygames" component={Games} />
+            <Route path="/matches" component={Matches} />
           </React.Fragment>
         </Router>
         <Ad />

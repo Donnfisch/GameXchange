@@ -1,6 +1,7 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-const axios = require('axios');
+import API from '../utils/API';
 
 export class Login extends Component {
   constructor(props) {
@@ -18,26 +19,10 @@ export class Login extends Component {
     });
   }
 
-
-  authenticateUser = (username, password) => {
-    axios
-      .post(`/api/auth`, {
-        username,
-        password,
-      })
-      .then(res => {
-        console.log(res.data.user.id);
-        document.cookie = `uuid=${res.data.user.id}`;
-        document.cookie = `token=${res.data.token}`;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
   handleSubmit = event => {
     event.preventDefault();
-    this.authenticateUser(this.state.userName, this.state.password);
+    API.authenticateUser(this.state.userName, this.state.password)
+      .then(res => res.redirect("/mygames"));
   }
 
   validateForm() {

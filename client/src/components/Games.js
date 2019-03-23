@@ -1,7 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import GameItem from './GameItem';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import GameItem from "./GameItem";
 
 class Games extends Component {
   render() {
@@ -22,8 +22,12 @@ class Games extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.games.map((game) => (
-              <GameItem changeGameStatus={this.props.changeGameStatus} key={game.id} game={game} />
+            {this.props.games.map(game => (
+              <GameItem
+                changeGameStatus={this.props.changeGameStatus}
+                key={game.id}
+                game={game}
+              />
             ))}
           </tbody>
         </table>
@@ -33,7 +37,7 @@ class Games extends Component {
 }
 
 Games.propTypes = {
-  games: PropTypes.object.isRequired,
+  games: PropTypes.object.isRequired
 };
 
 export default Games;
@@ -45,7 +49,7 @@ const tableStyle = {
   // height: "65px",
   // lineHeight: "55px",
   marginLeft: "auto",
-  marginRight: "auto",
+  marginRight: "auto"
   // textAlign: "center",
   // borderTop: "8px solid #000000",
   // fontSize: "24px",
@@ -53,5 +57,5 @@ const tableStyle = {
 
 const h1Style = {
   align: "center",
-  textAlign: "center",
+  textAlign: "center"
 };
