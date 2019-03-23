@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Games from "./components/Games";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Ad from "./components/Ad";
+import Welcome from "./components/Welcome";
 const axios = require('axios');
 
 class App extends Component {
@@ -131,13 +133,52 @@ class App extends Component {
   render() {
     // console.log(this.state.games);
     return (
-      <div>
-        <Nav handleSearch={this.handleSearch} handleMyGames={this.handleMyGames} />
-        <Ad />
-        <Games games={this.state.games} changeGameStatus={this.changeGameStatus} />
+    // <React.Fragment>
+    //   <Router>
+    //     <React.Fragment>
+    //       <Nav
+    //         handleSearch={this.handleSearch}
+    //         handleMyGames={this.handleMyGames}
+    //         isLoggedIn={isLoggedIn}
+    //       />
+    //       <Ad />
+    // <Route exact path="/" />
+    //       <Route
+    //         path="/login"
+    //         component={Login}
+    //         handleLogin={this.handleLogin}
+    //       />
+    //       <Route path="/matches" component={Matches} />
+    //       <Route
+    //         path="/mygames"
+    //         component={Games}
+    //         games={this.state.games}
+    //         changeGameStatus={this.changeGameStatus}
+    //       />
+    //     </React.Fragment>
+    //   </Router>
+    //   <Ad />
+    //   <Footer />
+    // </React.Fragment>
+
+
+      <React.Fragment>
+        <Router>
+          <React.Fragment>
+            <Nav handleSearch={this.handleSearch} handleMyGames={this.handleMyGames} />
+            <Ad />
+            <Route
+              exact
+              path="/"
+              component={Welcome}
+            />
+
+            {/* <Games games={this.state.games} changeGameStatus={this.changeGameStatus} /> */}
+          </React.Fragment>
+        </Router>
         <Ad />
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }
