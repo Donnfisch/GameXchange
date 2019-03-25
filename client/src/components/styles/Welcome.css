@@ -1,0 +1,10 @@
+.ui.message {
+    background-image: url('./images/welcome.png') !important;
+    background-size: contain !important;
+    
+  }
+
+.ui.message {
+    height: 450px;
+    width: 900px;
+}
