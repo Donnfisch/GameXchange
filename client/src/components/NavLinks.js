@@ -11,16 +11,9 @@ export class NavLinks extends Component {
 
   onClickMatches = (event) => {
     event.preventDefault();
-    const { handleMyGames, history } = this.props;
-    history.push('/games');
-    handleMyGames();
-  }
-
-  onClickMatches = (event) => {
-    event.preventDefault();
-    const { handleMyGames, history } = this.props;
-    history.push('/games');
-    handleMyGames();
+    const { handleMatches, history } = this.props;
+    history.push('/matches');
+    handleMatches();
   }
 
   onClickProfile = (event) => {
@@ -33,9 +26,9 @@ export class NavLinks extends Component {
   render() {
     return (
       <React.Fragment>
-        <a href="" onClick={this.onClickGames}> My Games </a>
-        <a href="" onClick={this.onClickMatches}> Matches </a>
-        <a href="" onClick={this.onClickProfile}> Profile </a>
+        <a href="#" onClick={this.onClickGames}> My Games </a>
+        <a href="#" onClick={this.onClickMatches}> Matches </a>
+        <a href="#" onClick={this.onClickProfile}> Profile </a>
         {/* <Link to="/logout"> Log Out </Link> */}
       </React.Fragment>
     );

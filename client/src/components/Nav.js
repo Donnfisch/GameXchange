@@ -13,7 +13,7 @@ class Nav extends Component {
         </a>
         <Search handleSearch={this.props.handleSearch} />
         <LogIn />
-        <NavLinks history={this.props.history} handleMyGames={this.props.handleMyGames} />
+        <NavLinks history={this.props.history} handleMyGames={this.props.handleMyGames} handleMatches={this.props.handleMatches} />
       </nav>
     );
   }
