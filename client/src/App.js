@@ -5,12 +5,9 @@ import Footer from "./components/Footer";
 import Games from "./components/Games";
 import Nav from "./components/Nav";
 import Profile from "./components/Profile";
-
 import Registration from "./components/Registration";
 import Welcome from "./components/Welcome";
-
 import Matches from "./components/Matches";
-
 const axios = require('axios');
 
 class App extends Component {
@@ -82,15 +79,9 @@ class App extends Component {
         },
       },
     ],
-    // incomingMatches: [
-    //   {
-
-    //   }
-    // ]
   };
 
   refreshGames = gamesArray => {
-    // this.state.games = (gamesArray);
     this.setState({ games: gamesArray });
   }
 
@@ -123,7 +114,6 @@ class App extends Component {
   }
 
   handleMyGames = () => {
-    // event.preventDefault();
     console.log('My Games ROUTE');
     const token = document.cookie.split("; ")
       .filter(
@@ -137,9 +127,7 @@ class App extends Component {
         },
       })
       .then(res => {
-        // console.log(res.data);
         this.setState({ games: res.data });
-        // console.log(this.state.games[0].inventories[0].have);
       })
       .catch(error => {
         console.log(error);
@@ -147,23 +135,22 @@ class App extends Component {
   }
 
   changeGameStatus = (have, want, trade, boxId, event) => {
-    // console.log(event);
-    console.log(`${boxId}:HAVE=${have} WANT=${want} TRADE=${trade}`);
     const token = document.cookie.split("; ")
       .filter(
         (element) => element.indexOf('token=') === 0
       )[0].split("=")[1];
+    console.log(token);
     axios
       .post(`/api/inventory/`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
         have,
         want,
         trade,
         gameId: boxId,
-        userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(res => {
         this.setState({
@@ -185,7 +172,6 @@ class App extends Component {
   }
 
   handleMatchesOut = () => {
-    // event.preventDefault();
     console.log('Match Route OUT');
     const token = document.cookie.split("; ")
       .filter(
@@ -201,7 +187,6 @@ class App extends Component {
       .then(res => {
         console.log(res.data);
         this.setState({ matchesOut: res.data });
-        // console.log(this.state.games[0].inventories[0].have);
       })
       .catch(error => {
         console.log(error);
@@ -209,7 +194,6 @@ class App extends Component {
   }
 
   handleMatchesIn = () => {
-    // event.preventDefault();
     console.log('Match Route IN');
     const token = document.cookie.split("; ")
       .filter(
@@ -225,7 +209,6 @@ class App extends Component {
       .then(res => {
         console.log(res.data);
         this.setState({ matchesIn: res.data });
-        // console.log(this.state.games[0].inventories[0].have);
       })
       .catch(error => {
         console.log(error);
