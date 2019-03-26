@@ -1,3 +1,11 @@
 .ui.card {
-  
+  margin-left: 10%;
+  size: 20%;
+}
+
+.ui.card>.image>img, .ui.cards>.card>.image>img {
+  display: block;
+  width: 20%;
+  height: auto;
+  border-radius: inherit;
 }
