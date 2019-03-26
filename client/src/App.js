@@ -187,7 +187,7 @@ class App extends Component {
         <React.Fragment>
           <Route
             render={({ history }) => (
-              <Nav handleSearch={this.handleSearch} handleMyGames={this.handleMyGames} history={history} />
+              <Nav handleSearch={this.handleSearch} handleMyGames={this.handleMyGames} handleMatches={this.handleMatches} history={history} />
             )}
           />
           <Ad />
@@ -212,7 +212,6 @@ class App extends Component {
               component={Profile}
             />
           </Switch>
-          {/* <Games games={this.state.games} changeGameStatus={this.changeGameStatus} /> */}
           <Ad />
           <Footer />
         </React.Fragment>
