@@ -32,8 +32,8 @@ class Registration extends Component {
   handleSubmit = event => {
     const { email, username, password } = this.state;
     event.preventDefault();
-    this.validateUserData(email, username)
-      .then(this.createUser(email, username, password));
+    // this.validateUserData(email, username)
+    this.createUser(email, username, password);
   }
 
   validateUserData = (email, username) => {
@@ -52,7 +52,7 @@ class Registration extends Component {
 
   createUser = (email, username, password) => {
     axios
-      .post('api/user/create', {
+      .post('api/auth/user/create', {
         email,
         username,
         password,
@@ -143,7 +143,7 @@ class Registration extends Component {
             this.state.formErrors.email
           )}`}
         >
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username">Usefdsfname</label>
           <input
             type="text"
             required
