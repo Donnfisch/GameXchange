@@ -7,6 +7,8 @@ class Matches extends Component {
     return (
       <div>
         <h1 style={h1Style}>Match Component</h1>
+        <h2 style={h2Style}>Users Searching for Your Games</h2>
+
         <table style={tableStyle}>
           <thead>
             <tr>
@@ -16,15 +18,35 @@ class Matches extends Component {
               <th>Publisher</th>
               <th>Version</th>
               <th>Username</th>
+              <th>E-mail</th>
             </tr>
           </thead>
           <tbody>
-            {this.props.matches.map((match) => (
+            {this.props.matchesOut.map((match) => (
               <MatchItem key={match.id} match={match} />
             ))}
           </tbody>
         </table>
-        { JSON.stringify(this.props.matches)}
+        <h2 style={h2Style}>Users Who Have The Games You Want</h2>
+        <table style={tableStyle}>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Platform</th>
+              <th>Region</th>
+              <th>Publisher</th>
+              <th>Version</th>
+              <th>Username</th>
+              <th>E-mail</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.matchesIn.map((match) => (
+              <MatchItem key={match.id} match={match} />
+            ))}
+          </tbody>
+        </table>
+
       </div>
     );
   }
@@ -46,6 +68,11 @@ const tableStyle = {
 };
 
 const h1Style = {
+  align: "center",
+  textAlign: "center",
+};
+
+const h2Style = {
   align: "center",
   textAlign: "center",
 };

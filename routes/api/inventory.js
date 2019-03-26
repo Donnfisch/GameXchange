@@ -9,9 +9,9 @@ router.route("/")
   .post(inventoryController.upsertOrDelete);
 
 // Return trade matches
-router.route("/match/")
-  .get(inventoryController.findMatches);
-router.route("/match/:direction")
-  .get(inventoryController.findMatches);
+router.route("/match/in/")
+  .get(inventoryController.findMatchesIn);
+router.route("/match/out/")
+  .get(inventoryController.findMatchesOut);
 
 module.exports = router;

@@ -38,7 +38,7 @@ class App extends Component {
         // ],
       },
     ],
-    matches: [
+    matchesOut: [
       {
         id: 1,
         game: {
@@ -60,6 +60,33 @@ class App extends Component {
         },
       },
     ],
+    matchesIn: [
+      {
+        id: 1,
+        game: {
+          id: 1,
+          title: "MATCH Black Desert Online",
+          platform: "PS4",
+          region: "USA",
+          publisher: "Pearl Abyss",
+          version: null,
+          upVotes: null,
+          downVotes: null,
+          status: "approved",
+        },
+        user: {
+          address: "address",
+          email: "email",
+          firstname: "first name",
+          lastname: "last name",
+        },
+      },
+    ],
+    // incomingMatches: [
+    //   {
+
+    //   }
+    // ]
   };
 
   refreshGames = gamesArray => {
@@ -157,15 +184,15 @@ class App extends Component {
       });
   }
 
-  handleMatches = () => {
+  handleMatchesOut = () => {
     // event.preventDefault();
-    console.log('Match Route');
+    console.log('Match Route OUT');
     const token = document.cookie.split("; ")
       .filter(
         (element) => element.indexOf('token=') === 0
       )[0].split("=")[1];
     axios
-      .get(`/api/inventory/match/`, {
+      .get(`/api/inventory/match/out`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -173,7 +200,31 @@ class App extends Component {
       })
       .then(res => {
         console.log(res.data);
-        this.setState({ matches: res.data });
+        this.setState({ matchesOut: res.data });
+        // console.log(this.state.games[0].inventories[0].have);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  handleMatchesIn = () => {
+    // event.preventDefault();
+    console.log('Match Route IN');
+    const token = document.cookie.split("; ")
+      .filter(
+        (element) => element.indexOf('token=') === 0
+      )[0].split("=")[1];
+    axios
+      .get(`/api/inventory/match/in`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(res => {
+        console.log(res.data);
+        this.setState({ matchesIn: res.data });
         // console.log(this.state.games[0].inventories[0].have);
       })
       .catch(error => {
@@ -187,7 +238,13 @@ class App extends Component {
         <React.Fragment>
           <Route
             render={({ history }) => (
-              <Nav handleSearch={this.handleSearch} handleMyGames={this.handleMyGames} handleMatches={this.handleMatches} history={history} />
+              <Nav
+                handleSearch={this.handleSearch}
+                handleMyGames={this.handleMyGames}
+                handleMatchesOut={this.handleMatchesOut}
+                handleMatchesIn={this.handleMatchesIn}
+                history={history}
+              />
             )}
           />
           <Ad />
@@ -205,7 +262,7 @@ class App extends Component {
             <Route
               exact
               path="/matches"
-              component={() => <Matches matches={this.state.matches} />}
+              component={() => <Matches matchesOut={this.state.matchesOut} matchesIn={this.state.matchesIn} />}
             />
             <Route
               path="/profile"
