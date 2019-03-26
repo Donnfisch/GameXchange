@@ -11,6 +11,7 @@ class Registration extends Component {
       password: "",
       formErrors: {
         email: "",
+        username: "",
         password: "",
         password2: "",
       },
@@ -19,6 +20,7 @@ class Registration extends Component {
       passwordValid: false,
       password2Valid: false,
       formValid: false,
+      serverResponse: "",
     };
   }
 
@@ -31,9 +33,15 @@ class Registration extends Component {
 
   handleSubmit = event => {
     const { email, username, password } = this.state;
+    let firstname = "John";
+    let lastname = "Doe" 
+    let address = "poop";
+    console.log("FFFFFFFFFFFFFF")
     event.preventDefault();
+    console.log("UUUUUUU")
     // this.validateUserData(email, username)
-    this.createUser(email, username, password);
+    this.createUser(email, username, password, firstname, lastname, address);
+    console.log("KKKKKKKKKKKK")
   }
 
   validateUserData = (email, username) => {
@@ -50,18 +58,41 @@ class Registration extends Component {
       });
   }
 
-  createUser = (email, username, password) => {
+  createUser = (email, username, password, firstname, lastname, address) => {
     axios
-      .post('api/auth/user/create', {
+      .post(`/api/auth/user/create`, {
         email,
         username,
         password,
+        firstname,
+        lastname,
+        address,
       })
       .then(res => {
-        console.log(res.data.user);
+        this.setState({serverResponse: res.data});
+        console.log(res.data);
       })
       .catch(error => {
-        console.log(error);
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log("YO WE GOT RASPONZE")
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log("YO HERE BE REQUEZT")
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("NOW YU RELLY FKDUP")
+          console.log('Error', error.message);
+        }
+        console.log("GODAM NUTHIN")
+        console.log(error.config);
       });
   }
 
@@ -80,8 +111,8 @@ class Registration extends Component {
         fieldValidationErrors.email = emailValid ? "" : " is invalid";
         break;
       case "username":
-        usernameValid = value.length >= 6;
-        fieldValidationErrors.password = usernameValid ? "" : " is too short";
+        usernameValid = value.length >= 2;
+        fieldValidationErrors.username = usernameValid ? "" : " is too short";
         break;
       case "password":
         passwordValid = value.length >= 6;
@@ -89,7 +120,7 @@ class Registration extends Component {
         break;
       case "password2":
         password2Valid = value === this.state.password;
-        fieldValidationErrors.password2 = passwordValid ? "" : " must match";
+        fieldValidationErrors.password2 = password2Valid ? "" : " must match";
         break;
       default:
         break;
@@ -98,6 +129,7 @@ class Registration extends Component {
       {
         formErrors: fieldValidationErrors,
         emailValid,
+        usernameValid,
         passwordValid,
         password2Valid,
       },
@@ -117,11 +149,9 @@ class Registration extends Component {
 
   render() {
     return (
+      <React.Fragment>
       <form className="demoForm">
         <h2>Sign up</h2>
-        <div className="panel panel-default">
-          <FormErrors formErrors={this.state.formErrors} />
-        </div>
         <div
           className={`form-group ${this.errorClass(
             this.state.formErrors.email
@@ -184,6 +214,9 @@ class Registration extends Component {
             onChange={this.handleUserInput}
           />
         </div>
+        <div className="panel panel-default">
+          <FormErrors formErrors={this.state.formErrors} />
+        </div>
         <button
           type="submit"
           onClick={this.handleSubmit}
@@ -193,6 +226,7 @@ class Registration extends Component {
           Sign up
         </button>
       </form>
+      </React.Fragment>
     );
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "gamesxchange",
+  "name": "gamesexchange",
   "version": "0.6.9",
   "description": "Built on the shoulders of fart.js",
   "main": "server.js",
@@ -8,7 +8,7 @@
     "start:prod": "node server.js",
     "start:dev": "concurrently -n \"SERVER,CLIENT\" -c\"[bgBlue.bold,bgMagenta.bold]\" -p \"{name}-{time}\" -t \"HH:mm:ss.SS\"  -i \"nodemon --ignore 'client/*'\" \"yarn run client\"",
     "start:back": "nodemon --ignore 'client/*'",
-    "client": "cd client && yarn run start",
+    "client": "cd client && CHOKIDAR_USEPOLLING=true yarn run start",
     "seed": "node scripts/seedDB.js",
     "install": "cd client && yarn install",
     "build": "cd client && yarn run build",

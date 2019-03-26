@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function NavTabs({ isLoggedIn }) {
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     return (
       <React.Fragment>
         <Link to="/mygames"> My Games </Link>
@@ -20,4 +20,3 @@ NavTabs.propTypes = {
 };
 
 export default NavTabs;
-w

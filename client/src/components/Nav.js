@@ -1,8 +1,8 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import Search from "./Search";
-import NavLinks from "./NavLinks";
 import LogIn from "./LogIn";
+import NavTabs from "./NavTabs";
+import Search from "./Search";
 
 class Nav extends Component {
   render() {
@@ -13,7 +13,7 @@ class Nav extends Component {
         </a>
         <Search handleSearch={this.props.handleSearch} />
         <LogIn />
-        <NavLinks history={this.props.history} handleMyGames={this.props.handleMyGames} />
+        <NavTabs history={this.props.history} handleMyGames={this.props.handleMyGames} />
       </nav>
     );
   }

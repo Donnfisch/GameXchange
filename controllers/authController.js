@@ -100,19 +100,18 @@ module.exports = {
   },
 
   createUser: (req, res) => {
-    db.user.findOrCreate({
-      where: {
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-      },
-    })
+    console.log("YO FUCKFACE")
+    console.log(req.body)
+    db.user.findOrCreate(req.body, { individualHooks: true })
       .then(([user, created]) => {
         console.log(user.get({
           plain: true,
         }));
         console.log(created);
-        res.send(user);
+        return res.send(user);
       });
   },
 };
+
+
+// findone user or email then bloody do it
