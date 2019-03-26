@@ -47,16 +47,12 @@ class App extends Component {
           upVotes: null,
           downVotes: null,
           status: "approved",
-          inventories: [
-            {
-              user: {
-                address: "address",
-                email: "email",
-                firstname: "first name",
-                lastname: "last name",
-              },
-            },
-          ],
+        },
+        user: {
+          address: "address",
+          email: "email",
+          firstname: "first name",
+          lastname: "last name",
         },
       },
     ],
@@ -159,7 +155,7 @@ class App extends Component {
 
   handleMatches = () => {
     // event.preventDefault();
-    // console.log('My Games ROUTE');
+    console.log('Match Route');
     const token = document.cookie.split("; ")
       .filter(
         (element) => element.indexOf('token=') === 0

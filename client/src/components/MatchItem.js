@@ -19,7 +19,6 @@ export class MatchItem extends Component {
       <tr>
         <td>
           {this.props.match.game.title}
-          {/* { JSON.stringify(this.props.match)} */}
         </td>
         <td>
           {this.props.match.game.platform}
@@ -34,7 +33,7 @@ export class MatchItem extends Component {
           {this.props.match.game.version}
         </td>
         <td>
-          {this.props.match.user}
+          {this.props.match.user.username}
         </td>
         {/* <td>
           {this.props.match.game.inventories[0].user.username}
