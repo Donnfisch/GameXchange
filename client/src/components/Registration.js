@@ -143,7 +143,7 @@ class Registration extends Component {
             this.state.formErrors.email
           )}`}
         >
-          <label htmlFor="username">Usefdsfname</label>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             required

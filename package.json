@@ -4,15 +4,15 @@
   "description": "Built on the shoulders of fart.js",
   "main": "server.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start": "if-env NODE_ENV=production && yarn run start:prod || yarn run start:dev",
     "start:prod": "node server.js",
-    "start:dev": "concurrently -n \"SERVER,CLIENT\" -c\"[bgBlue.bold,bgMagenta.bold]\" -p \"{name}-{time}\" -t \"HH:mm:ss.SS\"  -i \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "start:dev": "concurrently -n \"SERVER,CLIENT\" -c\"[bgBlue.bold,bgMagenta.bold]\" -p \"{name}-{time}\" -t \"HH:mm:ss.SS\"  -i \"nodemon --ignore 'client/*'\" \"yarn run client\"",
     "start:back": "nodemon --ignore 'client/*'",
-    "client": "cd client && npm run start",
+    "client": "cd client && yarn run start",
     "seed": "node scripts/seedDB.js",
-    "install": "cd client && npm install",
-    "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "install": "cd client && yarn install",
+    "build": "cd client && yarn run build",
+    "heroku-postbuild": "yarn run build"
   },
   "author": "",
   "license": "ISC",
