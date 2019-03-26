@@ -35,6 +35,9 @@ export class MatchItem extends Component {
         <td>
           {this.props.match.user.username}
         </td>
+        <td>
+          {this.props.match.user.email}
+        </td>
         {/* <td>
           {this.props.match.game.inventories[0].user.username}
         </td> */}

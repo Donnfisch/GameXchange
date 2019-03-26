@@ -19,7 +19,7 @@ module.exports = {
   },
 
   // Matches games others want, with games user has to trade
-  findMatches: (req, res) => {
+  findMatchesOut: (req, res) => {
     const token = req.headers.authorization.replace('Bearer ', '');
     const user = jwt.verify(token, 'your_jwt_secret');
     db.inventory.findAll({
@@ -36,10 +36,48 @@ module.exports = {
         attributes: [
           // 'id',
           'username',
+          // 'firstname',
+          // 'lastname',
+          // 'address',
           'email',
-          'firstname',
-          'lastname',
-          'address',
+        ],
+      },
+      {
+        model: db.game,
+        attributes: [
+          'id',
+          'title',
+          'platform',
+          'publisher',
+          'version',
+        ],
+      }],
+    }).then(dbInventory => {
+      res.json(dbInventory);
+    });
+  },
+
+  // Matches games user wants, with games others have to trade
+  findMatchesIn: (req, res) => {
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const user = jwt.verify(token, 'your_jwt_secret');
+    db.inventory.findAll({
+      where: {
+        trade: true,
+        userId: { $not: user.id },
+      },
+      attributes: [
+        // 'id',
+        'trade',
+      ],
+      include: [{
+        model: db.user,
+        attributes: [
+          // 'id',
+          'username',
+          // 'firstname',
+          // 'lastname',
+          // 'address',
           'email',
         ],
       },
