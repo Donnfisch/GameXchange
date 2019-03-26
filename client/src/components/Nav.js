@@ -31,7 +31,7 @@ export default class Nav extends Component {
           <Search handleSearch={this.props.handleSearch} />
         </Menu.Item>
         <Menu.Item>
-          <NavLinks history={this.props.history} handleMyGames={this.props.handleMyGames} />
+          <NavLinks history={this.props.history} handleMyGames={this.props.handleMyGames} handleMatches={this.props.handleMatches} />
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>
