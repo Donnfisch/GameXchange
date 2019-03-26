@@ -11,16 +11,9 @@ export class NavLinks extends Component {
 
   onClickMatches = (event) => {
     event.preventDefault();
-    const { handleMyGames, history } = this.props;
-    history.push('/games');
-    handleMyGames();
-  }
-
-  onClickMatches = (event) => {
-    event.preventDefault();
-    const { handleMyGames, history } = this.props;
-    history.push('/games');
-    handleMyGames();
+    const { handleMatches, history } = this.props;
+    history.push('/matches');
+    handleMatches();
   }
 
   onClickProfile = (event) => {
