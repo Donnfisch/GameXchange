@@ -24,9 +24,19 @@ module.exports = {
   findMatchesOut: (req, res) => {
     const token = req.headers.authorization.replace('Bearer ', '');
     const user = jwt.verify(token, jwtSecret);
+    let outerTradeWant = 'want';
+    let innerTradeWant = 'trade';
+
+    if (req.params.direction === 'in') {
+      outerTradeWant = 'trade';
+      innerTradeWant = 'want';
+    }
+
+    console.log(req.params);
+
     db.inventory.findAll({
       where: {
-        want: true,
+        [outerTradeWant]: true,
         userId: { $not: user.id },
       },
       attributes: [
@@ -54,7 +64,7 @@ module.exports = {
         include: [{
           model: db.inventory,
           where: {
-            trade: true,
+            [innerTradeWant]: true,
             userId: user.id,
           },
           attributes: [],
@@ -62,6 +72,7 @@ module.exports = {
       }],
       order: [
         [db.user, 'email', 'DESC'],
+        [db.game, 'title', 'ASC'],
       ],
     }).then(dbInventory => {
       res.json(dbInventory);
@@ -69,52 +80,52 @@ module.exports = {
   },
 
   // Matches games user wants, with games others have to trade
-  findMatchesIn: (req, res) => {
-    const token = req.headers.authorization.replace('Bearer ', '');
-    const user = jwt.verify(token, jwtSecret);
-    db.inventory.findAll({
-      where: {
-        trade: true,
-        userId: { $not: user.id },
-      },
-      attributes: [
-        // 'trade',
-        'id',
-      ],
-      include: [{
-        model: db.user,
-        attributes: [
-          'id',
-          'username',
-          'email',
-        ],
-      },
-      {
-        model: db.game,
-        required: true,
-        attributes: [
-          'id',
-          'title',
-          'platform',
-          'publisher',
-          'version',
-        ],
-        include: [{
-          model: db.inventory,
-          where: {
-            want: true,
-            userId: user.id,
-          },
-          attributes: [],
-        }],
-      }],
-      order: [
-        [db.user, 'email', 'DESC'],
-      ],
-    }).then(dbInventory => {
-      res.json(dbInventory);
-    });
-  },
+  // findMatchesIn: (req, res) => {
+  //   const token = req.headers.authorization.replace('Bearer ', '');
+  //   const user = jwt.verify(token, jwtSecret);
+  //   db.inventory.findAll({
+  //     where: {
+  //       trade: true,
+  //       userId: { $not: user.id },
+  //     },
+  //     attributes: [
+  //       // 'trade',
+  //       'id',
+  //     ],
+  //     include: [{
+  //       model: db.user,
+  //       attributes: [
+  //         'id',
+  //         'username',
+  //         'email',
+  //       ],
+  //     },
+  //     {
+  //       model: db.game,
+  //       required: true,
+  //       attributes: [
+  //         'id',
+  //         'title',
+  //         'platform',
+  //         'publisher',
+  //         'version',
+  //       ],
+  //       include: [{
+  //         model: db.inventory,
+  //         where: {
+  //           want: true,
+  //           userId: user.id,
+  //         },
+  //         attributes: [],
+  //       }],
+  //     }],
+  //     order: [
+  //       [db.user, 'email', 'DESC'],
+  //     ],
+  //   }).then(dbInventory => {
+  //     res.json(dbInventory);
+  //   });
+  // },
 
   // Add or update inventory items
   upsertOrDelete: (req, res) => {
