@@ -11,10 +11,10 @@ export class NavLinks extends Component {
 
   onClickMatches = (event) => {
     event.preventDefault();
-    const { handleMatchesOut, history } = this.props;
+    const { handleMatches, history } = this.props;
     history.push('/matches');
-    handleMatchesOut('out');
-    handleMatchesOut('in');
+    handleMatches('out');
+    handleMatches('in');
   }
 
   onClickProfile = (event) => {
