@@ -12,29 +12,7 @@ const axios = require('axios');
 
 class App extends Component {
   state = {
-    games: [
-      {
-        id: 1,
-        title: "TEST Black Desert Online",
-        platform: "PS4",
-        region: "USA",
-        publisher: "Pearl Abyss",
-        version: null,
-        upVotes: null,
-        downVotes: null,
-        status: "approved",
-        createdAt: "2019-03-12T00:13:09.000Z",
-        updatedAt: "2019-03-12T00:13:09.000Z",
-        userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
-        // inventories: [
-        //   {
-        //     have: "false",
-        //     want: "false",
-        //     trade: "false",
-        //   },
-        // ],
-      },
-    ],
+    games: [],
     matchesOut: [],
     matchesIn: [],
   };
@@ -57,7 +35,7 @@ class App extends Component {
         },
       })
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         res.data.map(game => {
           if (!game.inventories[0]) {
             game.inventories.push({ have: false, want: false, trade: false });
@@ -72,7 +50,6 @@ class App extends Component {
   }
 
   handleMyGames = () => {
-    console.log('My Games ROUTE');
     const token = document.cookie.split("; ")
       .filter(
         (element) => element.indexOf('token=') === 0
@@ -92,12 +69,12 @@ class App extends Component {
       });
   }
 
-  changeGameStatus = (have, want, trade, boxId, event) => {
+  changeGameStatus = (have, want, trade, boxId) => {
     const token = document.cookie.split("; ")
       .filter(
         (element) => element.indexOf('token=') === 0
       )[0].split("=")[1];
-    console.log(token);
+    // console.log(token);
     axios
       .post(`/api/inventory/`, {
         have,
@@ -122,7 +99,7 @@ class App extends Component {
           }),
 
         });
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch(error => {
         console.log(error);
@@ -130,7 +107,6 @@ class App extends Component {
   }
 
   handleMatches = (direction) => {
-    console.log('Match Route OUT');
     const token = document.cookie.split("; ")
       .filter(
         (element) => element.indexOf('token=') === 0
@@ -143,7 +119,7 @@ class App extends Component {
         },
       })
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         (direction === 'out') ? this.setState({ matchesOut: res.data }) : this.setState({ matchesIn: res.data });
       })
       .catch(error => {
@@ -161,7 +137,6 @@ class App extends Component {
                 handleSearch={this.handleSearch}
                 handleMyGames={this.handleMyGames}
                 handleMatches={this.handleMatches}
-                // handleMatchesIn={this.handleMatchesIn}
                 history={history}
               />
             )}

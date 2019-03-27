@@ -9,7 +9,6 @@ module.exports = {
   findAll: (req, res) => {
     const token = req.headers.authorization.replace('Bearer ', '');
     const user = jwt.verify(token, jwtSecret);
-    // console.log(user.id);
     db.game.findAll({
       include: [{
         model: db.inventory,
