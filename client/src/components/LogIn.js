@@ -26,7 +26,7 @@ export class LogIn extends Component {
         password,
       })
       .then(res => {
-        console.log(res.data.user.id);
+        // console.log(res.data.user.id);
         document.cookie = `uuid=${res.data.user.id}`;
         document.cookie = `token=${res.data.token}`;
       })

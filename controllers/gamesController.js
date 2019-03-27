@@ -40,7 +40,7 @@ module.exports = {
       }],
     }).then(dbGames => {
       console.log(dbGames);
-      console.log('FART');
+      // console.log('FART');
       res.json(dbGames);
     });
   },

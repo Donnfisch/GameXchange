@@ -1,40 +1,39 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export class MatchItem extends Component {
-  render() {
-    return (
-      <tr>
-        <td>
-          {this.props.match.game.id}
-          {' '}
-          {this.props.match.game.title}
-        </td>
-        <td>
-          {this.props.match.game.platform}
-        </td>
-        <td>
-          {this.props.match.game.region}
-        </td>
-        <td>
-          {this.props.match.game.publisher}
-        </td>
-        <td>
-          {this.props.match.game.version}
-        </td>
-        <td>
-          {this.props.match.user.username}
-        </td>
-        <td>
-          {this.props.match.user.email}
-        </td>
-      </tr>
-    );
-  }
-}
+const MatchItem = props => {
+  const { match } = props;
+  const { game, user } = match;
+  const {
+    title, platform, region, publisher, version,
+  } = game;
+  const { username, email } = user;
+  return (
+    <tr>
+      <td>
+        {title}
+      </td>
+      <td>
+        {platform}
+      </td>
+      <td>
+        {region}
+      </td>
+      <td>
+        {publisher}
+      </td>
+      <td>
+        {version}
+      </td>
+      <td>
+        {username}
+      </td>
+      <td>
+        {email}
+      </td>
+    </tr>
+  );
+};
 
 MatchItem.propTypes = {
   match: PropTypes.object.isRequired,
