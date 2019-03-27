@@ -35,50 +35,8 @@ class App extends Component {
         // ],
       },
     ],
-    matchesOut: [
-      {
-        id: 1,
-        game: {
-          id: 1,
-          title: "MATCH Black Desert Online",
-          platform: "PS4",
-          region: "USA",
-          publisher: "Pearl Abyss",
-          version: null,
-          upVotes: null,
-          downVotes: null,
-          status: "approved",
-        },
-        user: {
-          address: "address",
-          email: "email",
-          firstname: "first name",
-          lastname: "last name",
-        },
-      },
-    ],
-    matchesIn: [
-      {
-        id: 1,
-        game: {
-          id: 1,
-          title: "MATCH Black Desert Online",
-          platform: "PS4",
-          region: "USA",
-          publisher: "Pearl Abyss",
-          version: null,
-          upVotes: null,
-          downVotes: null,
-          status: "approved",
-        },
-        user: {
-          address: "address",
-          email: "email",
-          firstname: "first name",
-          lastname: "last name",
-        },
-      },
-    ],
+    matchesOut: [],
+    matchesIn: [],
   };
 
   refreshGames = gamesArray => {
@@ -171,14 +129,14 @@ class App extends Component {
       });
   }
 
-  handleMatchesOut = () => {
+  handleMatches = (direction) => {
     console.log('Match Route OUT');
     const token = document.cookie.split("; ")
       .filter(
         (element) => element.indexOf('token=') === 0
       )[0].split("=")[1];
     axios
-      .get(`/api/inventory/match/out`, {
+      .get(`/api/inventory/match/${direction}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -186,29 +144,7 @@ class App extends Component {
       })
       .then(res => {
         console.log(res.data);
-        this.setState({ matchesOut: res.data });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  handleMatchesIn = () => {
-    console.log('Match Route IN');
-    const token = document.cookie.split("; ")
-      .filter(
-        (element) => element.indexOf('token=') === 0
-      )[0].split("=")[1];
-    axios
-      .get(`/api/inventory/match/in`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(res => {
-        console.log(res.data);
-        this.setState({ matchesIn: res.data });
+        (direction === 'out') ? this.setState({ matchesOut: res.data }) : this.setState({ matchesIn: res.data });
       })
       .catch(error => {
         console.log(error);
@@ -224,8 +160,8 @@ class App extends Component {
               <Nav
                 handleSearch={this.handleSearch}
                 handleMyGames={this.handleMyGames}
-                handleMatchesOut={this.handleMatchesOut}
-                handleMatchesIn={this.handleMatchesIn}
+                handleMatches={this.handleMatches}
+                // handleMatchesIn={this.handleMatchesIn}
                 history={history}
               />
             )}
