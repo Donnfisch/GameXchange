@@ -1,14 +1,16 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import MatchItem from './MatchItem';
 
 class Matches extends Component {
   render() {
+    const { matchesOut, matchesIn } = this.props;
+    if (matchesOut === undefined || matchesIn === undefined) return null;
     return (
       <div>
         <h1 style={h1Style}>Match Component</h1>
         <h2 style={h2Style}>Users Searching for Your Games</h2>
-
         <table style={tableStyle}>
           <thead>
             <tr>
@@ -22,7 +24,7 @@ class Matches extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.matchesOut.map((match) => (
+            {matchesOut.map((match) => (
               <MatchItem key={match.id} match={match} />
             ))}
           </tbody>
@@ -41,30 +43,26 @@ class Matches extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.matchesIn.map((match) => (
+            {matchesIn.map((match) => (
               <MatchItem key={match.id} match={match} />
             ))}
           </tbody>
         </table>
-
       </div>
     );
   }
 }
 
+Matches.propTypes = {
+  matchesOut: PropTypes.array.isRequired,
+  matchesIn: PropTypes.array.isRequired,
+};
+
 export default Matches;
 
 const tableStyle = {
-  // position: "fixed",
-  // bottom: "0",
-  // width: "100%",
-  // height: "65px",
-  // lineHeight: "55px",
   marginLeft: "auto",
   marginRight: "auto",
-  // textAlign: "center",
-  // borderTop: "8px solid #000000",
-  // fontSize: "24px",
 };
 
 const h1Style = {
