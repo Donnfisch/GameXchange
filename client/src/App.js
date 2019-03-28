@@ -12,7 +12,10 @@ const axios = require('axios');
 
 class App extends Component {
   state = {
-    games: [],
+    games: [{
+      id: "0",
+      inventories: [{}],
+    }],
     matchesOut: [],
     matchesIn: [],
   };

@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => (
   <footer className="bg-secondary" style={footerStyle}>
     <div className="container">
-      <p>Copywrite © 2019</p>
+      <p>Copyright © 2019</p>
     </div>
   </footer>
 );
