@@ -11,7 +11,7 @@ const uuid = require("uuid/v4");
   ? Would like the server to keep running and handle appropriately.
 */
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const user = sequelize.define("user", {
     id: {
       allowNull: false,

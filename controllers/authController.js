@@ -87,6 +87,7 @@ module.exports = {
             token,
           });
         });
+        return null;
       }
     )(req, res);
   },
