@@ -16,7 +16,13 @@ class App extends Component {
       id: "0",
       inventories: [{}],
     }],
-    matchesOut: [],
+    matchesOut: [
+      //     {
+      //     user: {
+      //       username: 'test user',
+      //     },
+      //   }
+    ],
     matchesIn: [],
   };
 

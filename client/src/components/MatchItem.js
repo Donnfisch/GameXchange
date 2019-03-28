@@ -9,7 +9,7 @@ const MatchItem = props => {
   } = game;
   const { username, email } = user;
   return (
-    <tr>
+    <React.Fragment>
       <td>
         {title}
       </td>
@@ -31,7 +31,8 @@ const MatchItem = props => {
       <td>
         {email}
       </td>
-    </tr>
+    </React.Fragment>
+
   );
 };
 
