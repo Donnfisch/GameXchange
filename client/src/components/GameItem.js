@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import "./styles/Games.css";
 
 const GameItem = ({ game, changeGameStatus }) => {
   const {
@@ -8,14 +9,14 @@ const GameItem = ({ game, changeGameStatus }) => {
   const { have, want, trade } = inventories[0];
   return (
     <tr>
-      <td>
-        <input type="checkbox" className="haveCheckBox" value={id} checked={have} onChange={changeGameStatus.bind(this, !have, want, trade, id)} />
+      <td width="10" className="inventoryCheckbox">
+        <input type="checkbox" value={id} checked={have} onChange={changeGameStatus.bind(this, !have, want, trade, id)} />
       </td>
-      <td>
-        <input type="checkbox" className="wantCheckBox" value={id} checked={want} onChange={changeGameStatus.bind(this, have, !want, trade, id)} />
+      <td width="10" className="inventoryCheckbox">
+        <input type="checkbox" value={id} checked={want} onChange={changeGameStatus.bind(this, have, !want, trade, id)} />
       </td>
-      <td>
-        <input type="checkbox" className="tradeCheckBox" value={id} checked={trade} onChange={changeGameStatus.bind(this, have, want, !trade, id)} />
+      <td width="10" className="inventoryCheckbox">
+        <input type="checkbox" value={id} checked={trade} onChange={changeGameStatus.bind(this, have, want, !trade, id)} />
       </td>
       <td>
         {title}
@@ -35,7 +36,6 @@ const GameItem = ({ game, changeGameStatus }) => {
     </tr>
   );
 };
-
 
 GameItem.propTypes = {
   game: PropTypes.object.isRequired,
