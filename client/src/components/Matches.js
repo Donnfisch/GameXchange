@@ -1,28 +1,37 @@
-/* eslint-disable react/prefer-stateless-function */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MatchItem from './MatchItem';
 
 class Matches extends Component {
-  state = {};
+  state = {
+    gameFilter: [],
+  };
 
-  onClickIncomingGame = (filterName, event) => {
+  onClickGame = (nameFilter, gameId, event) => {
     event.preventDefault();
-    this.setState({ filter: filterName });
+    console.log(gameId);
+    this.setState({
+      gameFilter: [...this.state.gameFilter, gameId],
+    });
+    this.setState({ nameFilter });
   };
 
   mapFilter = direction => {
     const { matchesOut, matchesIn } = this.props;
-    const { filter } = this.state;
+    const { nameFilter } = this.state;
     let matches;
     (direction === 'out') ? matches = matchesOut : matches = matchesIn;
     return (
       <tbody>
-        {matches.length > 0 && !filter
+        {matches.length > 0 && !nameFilter
         && matches.map((match) => (this.renderRow(match)))}
-        {matches.length > 0 && filter
-            && matches.filter(match => match.user.username === filter)
+        {matches.length > 0 && nameFilter
+            && matches.filter(match => match.user.username === nameFilter)
+            // .filter(match => match.game.id !== this.state.gameFilter[0])
+
+              .filter(match => this.state.gameFilter.every((gameFilter) => gameFilter !== match.game.id))
+
+
               .map((match) => (this.renderRow(match)))}
       </tbody>
     );
@@ -30,20 +39,23 @@ class Matches extends Component {
 
   clearFilter = (event) => {
     event.preventDefault();
-    this.setState({ filter: undefined });
+    this.setState({ nameFilter: undefined });
   }
 
   renderRow = (match) => (
-    <tr onClick={(e) => this.onClickIncomingGame(match.user.username, e)}>
+    <tr key={match.id} onClick={(e) => this.onClickGame(match.user.username, match.game.id, e)}>
       <MatchItem key={match.id} match={match} />
     </tr>
   )
 
   render() {
+    const { nameFilter } = this.state;
     return (
       <div>
         <h1 style={h1Style}>Match Component</h1>
-        <button type="button" onClick={this.clearFilter}> Clear Filter </button>
+        {nameFilter
+        && <button type="button" onClick={this.clearFilter}> Clear Filter </button>
+        }
         <h2 style={h2Style}>Trade Proposal</h2>
         <table style={tableStyle}>
           <thead>
