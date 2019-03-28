@@ -18,7 +18,6 @@ export class LogIn extends Component {
     });
   }
 
-
   authenticateUser = (username, password) => {
     axios
       .post(`/api/auth`, {

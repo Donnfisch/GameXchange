@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 // const axios = require('axios');
 import { Route } from 'react-router-dom';
 
@@ -20,13 +21,14 @@ class Search extends Component {
 
   render() {
     const { searchTerm, platform } = this.state;
+    const { handleSearch } = this.props;
 
     return (
       <Route
         render={({ history }) => (
           <form
             className="form-search"
-            onSubmit={this.props.handleSearch.bind(this, searchTerm)}
+            onSubmit={handleSearch.bind(this, searchTerm)}
           >
             <select
               name="platform"
@@ -64,5 +66,9 @@ class Search extends Component {
     );
   }
 }
+
+Search.propTypes = {
+  handleSearch: PropTypes.func.isRequired,
+};
 
 export default Search;
