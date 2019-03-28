@@ -1,4 +1,3 @@
-/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 const axios = require('axios');
 
@@ -36,14 +35,17 @@ export class LogIn extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.authenticateUser(this.state.userName, this.state.password);
+    const { userName, password } = this.state;
+    this.authenticateUser(userName, password);
   }
 
   validateForm() {
-    return this.state.userName.length > 0 && this.state.password.length > 0;
+    const { userName, password } = this.state;
+    return userName.length > 0 && password.length > 0;
   }
 
   render() {
+    const { userName, password } = this.state;
     return (
       <form className="form-signin" onSubmit={this.handleSubmit}>
         <input
@@ -51,24 +53,22 @@ export class LogIn extends Component {
           className="form-control mb-2"
           placeholder="Username"
           id="userName"
-          value={this.state.userName}
+          value={userName}
           onChange={this.handleChange}
           required
-          // autoFocus
         />
         <input
           type="password"
           className="form-control mb-2"
           placeholder="Password"
           id="password"
-          value={this.state.password}
+          value={password}
           onChange={this.handleChange}
           required
         />
         <button
           className="btn btn-lg btn-primary btn-block mb-1"
           type="submit"
-          // id="loginSubmit"
         >
         Sign in
         </button>

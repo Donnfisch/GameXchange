@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// const axios = require('axios');
 import { Route } from 'react-router-dom';
 
 class Search extends Component {

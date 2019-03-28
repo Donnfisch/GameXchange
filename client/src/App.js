@@ -91,18 +91,20 @@ class App extends Component {
         },
       })
       .then(res => {
+        const { games } = this.state;
         this.setState({
-          games: this.state.games.map(game => {
+          games: games.map(game => {
+            const updatedGame = game;
             if (game.id === boxId) {
-              game.inventories[0].have = have;
-              game.inventories[0].want = want;
-              game.inventories[0].trade = trade;
+              updatedGame.inventories[0].have = have;
+              updatedGame.inventories[0].want = want;
+              updatedGame.inventories[0].trade = trade;
             }
-            return game;
+            return updatedGame;
           }),
 
         });
-        // console.log(res.data);
+        console.log(res.data);
       })
       .catch(error => {
         console.log(error);
@@ -131,6 +133,7 @@ class App extends Component {
   }
 
   render() {
+    const { games, matchesOut, matchesIn } = this.state;
     return (
       <Router>
         <React.Fragment>
@@ -154,12 +157,12 @@ class App extends Component {
             <Route
               exact
               path="/games"
-              component={() => <Games games={this.state.games} changeGameStatus={this.changeGameStatus} />}
+              component={() => <Games games={games} changeGameStatus={this.changeGameStatus} />}
             />
             <Route
               exact
               path="/matches"
-              component={() => <Matches matchesOut={this.state.matchesOut} matchesIn={this.state.matchesIn} />}
+              component={() => <Matches matchesOut={matchesOut} matchesIn={matchesIn} />}
             />
             <Route
               path="/profile"
