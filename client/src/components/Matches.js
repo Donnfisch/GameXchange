@@ -1,24 +1,50 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MatchItem from './MatchItem';
+import TradeItem from "./TradeItem";
 
 class Matches extends Component {
   state = {
+    nameFilter: null,
     gameFilter: [],
+    outboundTrade: [],
+    inboundTrade: [],
+  };
+
+  filterTrade = (matches) => {
+    const tradeFiltered = [];
+    if (matches.length > 0) {
+      const trade = matches.filter(match => match.user.username === this.state.nameFilter);
+      for (let i = 0; i < trade.length; i++) {
+        for (let j = 0; j < this.state.gameFilter.length; j++) {
+          if (trade[i].game.id === this.state.gameFilter[j]) {
+            tradeFiltered.push(trade[i]);
+          }
+        }
+      }
+    }
+    return tradeFiltered;
+  };
+
+  generateTradeData = () => {
+    this.setState({
+      outboundTrade: this.filterTrade(this.props.matchesOut),
+      inboundTrade: this.filterTrade(this.props.matchesIn),
+    });
   };
 
   onClickGame = (nameFilter, gameId, event) => {
     event.preventDefault();
-    console.log(gameId);
+    const { gameFilter } = this.state;
     this.setState({
-      gameFilter: [...this.state.gameFilter, gameId],
-    });
-    this.setState({ nameFilter });
+      gameFilter: [...gameFilter, gameId],
+      nameFilter,
+    }, () => { this.generateTradeData(); });
   };
 
   mapFilter = direction => {
     const { matchesOut, matchesIn } = this.props;
-    const { nameFilter } = this.state;
+    const { nameFilter, gameFilter } = this.state;
     let matches;
     (direction === 'out') ? matches = matchesOut : matches = matchesIn;
     return (
@@ -27,11 +53,7 @@ class Matches extends Component {
         && matches.map((match) => (this.renderRow(match)))}
         {matches.length > 0 && nameFilter
             && matches.filter(match => match.user.username === nameFilter)
-            // .filter(match => match.game.id !== this.state.gameFilter[0])
-
-              .filter(match => this.state.gameFilter.every((gameFilter) => gameFilter !== match.game.id))
-
-
+              .filter(match => gameFilter.every((game) => game !== match.game.id))
               .map((match) => (this.renderRow(match)))}
       </tbody>
     );
@@ -39,7 +61,13 @@ class Matches extends Component {
 
   clearFilter = (event) => {
     event.preventDefault();
-    this.setState({ nameFilter: undefined });
+    this.setState({
+      nameFilter: undefined,
+      gameFilter: [],
+      outboundTrade: [],
+      inboundTrade: [],
+
+    });
   }
 
   renderRow = (match) => (
@@ -49,7 +77,7 @@ class Matches extends Component {
   )
 
   render() {
-    const { nameFilter } = this.state;
+    const { nameFilter, outboundTrade, inboundTrade } = this.state;
     return (
       <div>
         <h1 style={h1Style}>Match Component</h1>
@@ -64,6 +92,42 @@ class Matches extends Component {
               <th>Game you are receiving</th>
             </tr>
           </thead>
+          <tbody>
+            <tr>
+              <td style={noPadding}>
+                <table style={tableStyleNested}>
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Platform</th>
+                      <th>Region</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {outboundTrade.map((tradeItem) => (
+                      <TradeItem key={tradeItem.id} trade={tradeItem} />
+                    ))}
+                  </tbody>
+                </table>
+              </td>
+              <td style={noPadding}>
+                <table style={tableStyleNested}>
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Platform</th>
+                      <th>Region</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {inboundTrade.map((tradeItem) => (
+                      <TradeItem key={tradeItem.id} trade={tradeItem} />
+                    ))}
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
         </table>
         <h2 style={h2Style}>Users Searching for Your Games</h2>
         <table style={tableStyle}>
@@ -107,9 +171,20 @@ Matches.propTypes = {
 
 export default Matches;
 
+const noPadding = {
+  padding: "0px",
+  width: "50%",
+  verticalAlign: "top",
+};
+
 const tableStyle = {
   marginLeft: "auto",
   marginRight: "auto",
+};
+
+const tableStyleNested = {
+  width: "100%",
+  margin: "0px",
 };
 
 const h1Style = {
