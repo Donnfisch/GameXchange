@@ -12,12 +12,13 @@ class Matches extends Component {
   };
 
   filterTrade = (matches) => {
+    const { nameFilter, gameFilter } = this.state;
     const tradeFiltered = [];
     if (matches.length > 0) {
-      const trade = matches.filter(match => match.user.username === this.state.nameFilter);
+      const trade = matches.filter(match => match.user.username === nameFilter);
       for (let i = 0; i < trade.length; i++) {
-        for (let j = 0; j < this.state.gameFilter.length; j++) {
-          if (trade[i].game.id === this.state.gameFilter[j]) {
+        for (let j = 0; j < gameFilter.length; j++) {
+          if (trade[i].game.id === gameFilter[j]) {
             tradeFiltered.push(trade[i]);
           }
         }
@@ -27,9 +28,10 @@ class Matches extends Component {
   };
 
   generateTradeData = () => {
+    const { matchesIn, matchesOut } = this.props;
     this.setState({
-      outboundTrade: this.filterTrade(this.props.matchesOut),
-      inboundTrade: this.filterTrade(this.props.matchesIn),
+      outboundTrade: this.filterTrade(matchesOut),
+      inboundTrade: this.filterTrade(matchesIn),
     });
   };
 
