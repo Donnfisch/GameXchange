@@ -1,22 +1,36 @@
-import React from 'react';
-
-const Footer = () => (
-  <footer className="bg-secondary" style={footerStyle}>
-    <div className="container">
-      <p>Copyright © 2019</p>
-    </div>
-  </footer>
-);
+import React from "react";
 
 const footerStyle = {
-  position: "fixed",
-  bottom: "0",
-  width: "100%",
-  height: "65px",
-  lineHeight: "55px",
+  backgroundColor: "none",
+  fontSize: "20px",
+  color: "white",
+  borderTop: "10px solid black",
   textAlign: "center",
-  borderTop: "8px solid #000000",
-  fontSize: "24px",
+  padding: "20px",
+  position: "fixed",
+  left: "0",
+  bottom: "0",
+  height: "60px",
+  width: "100%"
 };
 
+const phantomStyle = {
+  display: "block",
+  padding: "20px",
+  height: "60px",
+  width: "100%"
+};
+
+function Footer({ children }) {
+  return (
+    <div>
+      <div style={phantomStyle} />
+      <div style={footerStyle}>{children}</div>
+    </div>
+  );
+}
+
+
 export default Footer;
+
+
