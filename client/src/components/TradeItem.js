@@ -3,12 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TradeItem = ({ trade }) => {
-  console.log(trade);
+  // console.log(trade);
   const { game } = trade;
   const {
     id, title, platform, region, publisher, version,
   } = game;
-  console.log(title);
+  // console.log(title);
   return (
     <tr>
       <td>
