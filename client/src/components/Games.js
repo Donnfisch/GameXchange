@@ -31,7 +31,6 @@ class Games extends Component {
     );
   }
 }
-
 Games.propTypes = {
   games: PropTypes.object.isRequired,
 };

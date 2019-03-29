@@ -9,6 +9,7 @@ import './styles/Welcome.css';
 
 
 const Welcome = () => (
+
   <div className="ui internally celled grid">
     <div className="row">
       <div className="three wide column">
@@ -29,7 +30,7 @@ const Welcome = () => (
                 <li>Make a wish list of all the games you would like to play</li>
               </ul>
             </p>
-            <Button className="menuButton" primary size="small" as="a">
+            <Button className="menuButton" primary size="small" as="a" href="./register">
               Register &raquo;
             </Button>
           </Message>

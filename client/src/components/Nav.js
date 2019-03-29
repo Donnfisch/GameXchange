@@ -5,7 +5,6 @@ import Search from "./Search";
 import NavLinks from "./NavLinks";
 import LogIn from "./LogIn";
 import navLogo from "./styles/images/GXnavlogo.png";
-import Welcome from "./Welcome";
 import "./styles/Navbar.css";
 
 export default class Nav extends Component {
@@ -18,26 +17,27 @@ export default class Nav extends Component {
 
     return (
       <Menu secondary>
-        <Menu.Item name="home" active={activeItem === 'home'} onClick={this.handleItemClick}>
+        <Menu.Item>
           <Image
             src={navLogo}
             size="small"
             as="a"
-            href={Welcome}
-            target="_blank"
+            href="/"
           />
         </Menu.Item>
         <Menu.Item>
-          <Search handleSearch={this.props.handleSearch} />
+          <Search className="navBarComp" handleSearch={this.props.handleSearch} />
         </Menu.Item>
         <Menu.Item>
-          <NavLinks history={this.props.history} handleMyGames={this.props.handleMyGames} handleMatches={this.props.handleMatches} />
+          <NavLinks history={this.props.history} handleMyGames={this.props.handleMyGames} />
         </Menu.Item>
         <Menu.Menu position="right">
+
           <Menu.Item>
             <LogIn />
           </Menu.Item>
           <Menu.Item>
+
           </Menu.Item>
           <Menu.Item
             name="logout"
