@@ -2,8 +2,10 @@
 const jwt = require('jsonwebtoken');
 const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
+const Sequelize = require('sequelize');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const uuid = require('uuid');
 const db = require("../models");
 // const User = require("../models/user");
 
@@ -100,19 +102,32 @@ module.exports = {
   },
 
   createUser: (req, res) => {
-    db.user.findOrCreate({
-      where: {
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
+    console.log(req.body);
+    const { Op } = Sequelize;
+    const {
+      username,
+      email,
+      password,
+      firstname,
+      lastname,
+      address,
+    } = req.body;
+
+    return db.user.findOrCreate({
+      where: { [Op.or]: [{ username }, { email }] },
+      // where: {username: "JDoe"},
+      defaults: {
+        id: uuid(),
+        username,
+        email,
+        address,
+        firstname,
+        lastname,
+        password,
       },
     })
       .then(([user, created]) => {
-        console.log(user.get({
-          plain: true,
-        }));
-        console.log(created);
-        res.send(user);
+        res.send({ user, created });
       });
   },
 };
