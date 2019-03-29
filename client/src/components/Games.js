@@ -3,36 +3,6 @@ import PropTypes from 'prop-types';
 import GameItem from './GameItem';
 import "./styles/Games.css";
 
-<<<<<<< HEAD
-class Games extends Component {
-  render() {
-    return (
-      <div>
-        <h1 style={h1Style}>Games Component</h1>
-        <table style={tableStyle}>
-          <thead>
-            <tr>
-              <th>Have</th>
-              <th>Want</th>
-              <th>Trade</th>
-              <th>Title</th>
-              <th>Platform</th>
-              <th>Region</th>
-              <th>Publisher</th>
-              <th>Version</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.games.map((game) => (
-              <GameItem changeGameStatus={this.props.changeGameStatus} key={game.id} game={game} />
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-}
-=======
 const Games = ({ games, changeGameStatus }) => (
   <div>
     <h1 style={h1Style}>Games Component</h1>
@@ -58,7 +28,6 @@ const Games = ({ games, changeGameStatus }) => (
   </div>
 );
 
->>>>>>> master
 Games.propTypes = {
   games: PropTypes.array.isRequired,
   changeGameStatus: PropTypes.func.isRequired,

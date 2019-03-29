@@ -9,7 +9,6 @@ import Registration from "./components/Registration";
 import Welcome from "./components/Welcome";
 import Matches from "./components/Matches";
 const axios = require('axios');
-
 class App extends Component {
   state = {
     games: [{

@@ -7,10 +7,6 @@ import {
 } from "semantic-ui-react";
 import './styles/Welcome.css';
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 const Welcome = () => (
 
   <div className="ui internally celled grid">
@@ -24,15 +20,14 @@ const Welcome = () => (
             <Header className="head" size="huge" as="h1">
               GameXchange
             </Header>
-            <p className="lead">
       GameXchange is an online database designed to with the gaming community in mind.
-              <ul>
-                <li>Browse from a library of every game you could have or want</li>
-                <li>Even find rare games or titles that are out of print!</li>
-                <li>Proudly display your library and</li>
-                <li>Make a wish list of all the games you would like to play</li>
-              </ul>
-            </p>
+            <ul>
+              <li>Browse from a library of every game you could have or want</li>
+              <li>Even find rare games or titles that are out of print!</li>
+              <li>Proudly display your library and</li>
+              <li>Make a wish list of all the games you would like to play</li>
+            </ul>
+
             <Button className="menuButton" primary size="small" as="a" href="./register">
               Register &raquo;
             </Button>
