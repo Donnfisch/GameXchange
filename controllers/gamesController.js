@@ -40,13 +40,13 @@ module.exports = {
       }],
     }).then(dbGames => {
       console.log(dbGames);
+      // console.log('FART');
       res.json(dbGames);
     });
   },
 
   // Create game
   create: (req, res) => {
-    // req.body.status = "requested";
     db.game.create(req.body)
       .then(dbGame => res.json(dbGame))
       .catch(err => res.status(422).json(err));

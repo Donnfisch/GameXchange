@@ -5,7 +5,6 @@ const ExtractJWT = require("passport-jwt").ExtractJwt;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const db = require("../models");
-// const User = require("../models/user");
 
 // Defining methods for the authController
 passport.use(
@@ -46,7 +45,6 @@ passport.use(
       secretOrKey: "your_jwt_secret",
     },
     ((jwtPayload, done) => {
-    // find the user in db if needed
       try {
         return done(null, jwtPayload);
       } catch (error) {
@@ -57,19 +55,13 @@ passport.use(
 );
 
 module.exports = {
-
-  // auth: ()
-
   // Login user
   login: (req, res) => {
-    console.log('AUTH CONTROLLER');
     passport.authenticate(
       "local", {
         session: false,
       },
       (error, user, info) => {
-        // console.log(error);
-        // console.log(user);
         if (error || !user) {
           return res.status(403).json({
             message: "Unable to Authorize",
@@ -95,59 +87,8 @@ module.exports = {
             token,
           });
         });
+        return null;
       }
     )(req, res);
   },
 };
-
-// router.get('/login', (req, res, next) => {
-//   passport.authenticate('local', (err, user) => {
-//     console.log('fart');
-//     if (err) { return next(err); }
-//     if (!user) { return res.redirect('/login'); }
-//     req.logIn(user, () => {
-//       if (err) { return next(err); }
-//       return res.redirect(`/users/${user.username}`);
-//     });
-//     return res.status(403);
-//   })(req, res, next);
-// });
-// const auth = (req, res, next) => {
-//   res.send('Poop');
-//   passport.authenticate('local', (req, res) => {
-//     res.json({ id: req.user.id, username: req.user.username });
-//   });
-// };
-
-// app.post('/api/posts', verifyToken, (req, res) => {
-//   jwt.verify(req.token, 'secretkey', (err, authData) => {
-//     if (err) {
-//       res.sendStatus(403);
-//     } else {
-//       res.json({
-//         messge: 'Post created...',
-//         authData,
-//       });
-//     }
-//   });
-// });
-
-// Verify Token
-// function verifyToken(req, res, next) {
-//   // Get auth header value
-//   const bearerHeader = req.headers.authorization;
-//   // check it bearer is undefined
-//   if (typeof bearerHeader !== 'undefined') {
-//     // Split at the space
-//     const bearer = bearerHeader.split(' ');
-//     // Get token from array
-//     const bearerToken = bearer[1];
-//     // Set the token
-//     req.token = bearerToken;
-//     // Next middleware
-//     next();
-//   } else {
-//     // Forbidden
-//     res.sendStatus(403);
-//   }
-// }

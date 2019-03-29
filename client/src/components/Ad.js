@@ -9,7 +9,11 @@ function serveAd() {
 
 const Ad = () => (
   <div style={adDivStyle}>
+<<<<<<< HEAD
     { <img src={serveAd()} style={adStyle} alt="legoad" /> }
+=======
+    <img src={serveAd()} style={adStyle} alt="legoad" />
+>>>>>>> master
   </div>
 );
 

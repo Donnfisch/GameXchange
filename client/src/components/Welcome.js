@@ -7,7 +7,10 @@ import {
 } from "semantic-ui-react";
 import './styles/Welcome.css';
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 const Welcome = () => (
 
   <div className="ui internally celled grid">
