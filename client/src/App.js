@@ -1,78 +1,33 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import axios from "axios";
 import Ad from "./components/Ad";
 import Footer from "./components/Footer";
 import Games from "./components/Games";
 import Nav from "./components/Nav";
 import Profile from "./components/Profile";
-
 import Registration from "./components/Registration";
 import Welcome from "./components/Welcome";
-
 import Matches from "./components/Matches";
-
-const axios = require('axios');
+import API from "./utils/API";
 
 class App extends Component {
   state = {
-    games: [
-      {
-        id: 1,
-        title: "TEST Black Desert Online",
-        platform: "PS4",
-        region: "USA",
-        publisher: "Pearl Abyss",
-        version: null,
-        upVotes: null,
-        downVotes: null,
-        status: "approved",
-        createdAt: "2019-03-12T00:13:09.000Z",
-        updatedAt: "2019-03-12T00:13:09.000Z",
-        userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
-        // inventories: [
-        //   {
-        //     have: "false",
-        //     want: "false",
-        //     trade: "false",
-        //   },
-        // ],
-      },
-    ],
-    matches: [
-      {
-        id: 1,
-        game: {
-          id: 1,
-          title: "MATCH Black Desert Online",
-          platform: "PS4",
-          region: "USA",
-          publisher: "Pearl Abyss",
-          version: null,
-          upVotes: null,
-          downVotes: null,
-          status: "approved",
-        },
-        user: {
-          address: "address",
-          email: "email",
-          firstname: "first name",
-          lastname: "last name",
-        },
-      },
-    ],
+    games: [{
+      id: "0",
+      inventories: [{}],
+    }],
+    matchesOut: [],
+    matchesIn: [],
   };
 
   refreshGames = gamesArray => {
-    // this.state.games = (gamesArray);
     this.setState({ games: gamesArray });
   }
 
   handleSearch = (searchTerm, event) => {
+    const { token } = this.state;
     event.preventDefault();
-    const token = document.cookie.split("; ")
-      .filter(
-        (element) => element.indexOf('token=') === 0
-      )[0].split("=")[1];
     axios
       .get(`/api/games/title/${searchTerm}`, {
         headers: {
@@ -81,7 +36,6 @@ class App extends Component {
         },
       })
       .then(res => {
-        console.log(res.data);
         res.data.map(game => {
           if (!game.inventories[0]) {
             game.inventories.push({ have: false, want: false, trade: false });
@@ -96,12 +50,7 @@ class App extends Component {
   }
 
   handleMyGames = () => {
-    // event.preventDefault();
-    console.log('My Games ROUTE');
-    const token = document.cookie.split("; ")
-      .filter(
-        (element) => element.indexOf('token=') === 0
-      )[0].split("=")[1];
+    const { token } = this.state;
     axios
       .get(`/api/inventory/`, {
         headers: {
@@ -110,84 +59,88 @@ class App extends Component {
         },
       })
       .then(res => {
-        // console.log(res.data);
         this.setState({ games: res.data });
-        // console.log(this.state.games[0].inventories[0].have);
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  changeGameStatus = (have, want, trade, boxId, event) => {
-    // console.log(event);
-    console.log(`${boxId}:HAVE=${have} WANT=${want} TRADE=${trade}`);
-    const token = document.cookie.split("; ")
-      .filter(
-        (element) => element.indexOf('token=') === 0
-      )[0].split("=")[1];
+  changeGameStatus = (have, want, trade, boxId) => {
+    const { token } = this.state;
     axios
       .post(`/api/inventory/`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
         have,
         want,
         trade,
         gameId: boxId,
-        userId: "5272e292-3c40-4eea-a3df-707b760fdf00",
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then(() => {
+        const { games } = this.state;
         this.setState({
-          games: this.state.games.map(game => {
+          games: games.map(game => {
+            const updatedGame = game;
             if (game.id === boxId) {
-              game.inventories[0].have = have;
-              game.inventories[0].want = want;
-              game.inventories[0].trade = trade;
+              updatedGame.inventories[0].have = have;
+              updatedGame.inventories[0].want = want;
+              updatedGame.inventories[0].trade = trade;
             }
-            return game;
+            return updatedGame;
           }),
-
         });
-        console.log(res.data);
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  handleMatches = () => {
-    // event.preventDefault();
-    console.log('Match Route');
-    const token = document.cookie.split("; ")
-      .filter(
-        (element) => element.indexOf('token=') === 0
-      )[0].split("=")[1];
+  handleMatches = (direction) => {
+    const { token } = this.state;
     axios
-      .get(`/api/inventory/match/`, {
+      .get(`/api/inventory/match/${direction}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       })
       .then(res => {
-        console.log(res.data);
-        this.setState({ matches: res.data });
-        // console.log(this.state.games[0].inventories[0].have);
+        (direction === 'out') ? this.setState({ matchesOut: res.data }) : this.setState({ matchesIn: res.data });
       })
       .catch(error => {
         console.log(error);
       });
   }
 
+  setUserState = (username, token) => {
+    this.setState({
+      username,
+      token,
+    });
+  }
+
   render() {
+    const {
+      username, games, matchesOut, matchesIn, token,
+    } = this.state;
+    if (!username && (document.cookie) !== '') API.getUserInfo().then(res => this.setUserState(res.username, res.token));
     return (
       <Router>
         <React.Fragment>
           <Route
             render={({ history }) => (
-              <Nav handleSearch={this.handleSearch} handleMyGames={this.handleMyGames} handleMatches={this.handleMatches} history={history} />
+              <Nav
+                handleSearch={this.handleSearch}
+                handleMyGames={this.handleMyGames}
+                handleMatches={this.handleMatches}
+                history={history}
+                setUserState={this.setUserState}
+                token={token}
+              />
             )}
           />
           <Ad />
@@ -200,12 +153,12 @@ class App extends Component {
             <Route
               exact
               path="/games"
-              component={() => <Games games={this.state.games} changeGameStatus={this.changeGameStatus} />}
+              component={() => <Games games={games} changeGameStatus={this.changeGameStatus} />}
             />
             <Route
               exact
               path="/matches"
-              component={() => <Matches matches={this.state.matches} />}
+              component={() => <Matches matchesOut={matchesOut} matchesIn={matchesIn} username={username} />}
             />
             <Route
               path="/profile"

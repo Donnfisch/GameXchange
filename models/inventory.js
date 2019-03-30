@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const inventory = sequelize.define("inventory", {
     have: {
       type: Sequelize.BOOLEAN,

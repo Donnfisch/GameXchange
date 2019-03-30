@@ -7,7 +7,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const uuid = require('uuid');
 const db = require("../models");
-// const User = require("../models/user");
 
 // Defining methods for the authController
 passport.use(
@@ -48,7 +47,6 @@ passport.use(
       secretOrKey: "your_jwt_secret",
     },
     ((jwtPayload, done) => {
-    // find the user in db if needed
       try {
         return done(null, jwtPayload);
       } catch (error) {
@@ -59,19 +57,13 @@ passport.use(
 );
 
 module.exports = {
-
-  // auth: ()
-
   // Login user
   login: (req, res) => {
-    console.log('AUTH CONTROLLER');
     passport.authenticate(
       "local", {
         session: false,
       },
       (error, user, info) => {
-        // console.log(error);
-        // console.log(user);
         if (error || !user) {
           return res.status(403).json({
             message: "Unable to Authorize",
@@ -97,6 +89,7 @@ module.exports = {
             token,
           });
         });
+        return null;
       }
     )(req, res);
   },
