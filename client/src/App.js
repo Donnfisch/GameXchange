@@ -156,7 +156,7 @@ class App extends Component {
             <Route
               exact
               path="/matches"
-              component={() => <Matches matchesOut={matchesOut} matchesIn={matchesIn} />}
+              component={() => <Matches matchesOut={matchesOut} matchesIn={matchesIn} username={username} />}
             />
             <Route
               path="/profile"
