@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import GameItem from "./GameItem";
-import "./styles/Games.css";
+import "../styles/Games.css";
 
 const Games = ({ games, changeGameStatus }) => (
   <div>

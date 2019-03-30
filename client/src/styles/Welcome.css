@@ -1,5 +1,5 @@
 .ui.message {
-    background-image: url('./images/welcome.png') !important;
+    background-image: url('../../public/images/welcome.png') !important;
     background-size: contain !important;
     
   }

@@ -6,7 +6,7 @@ import NavLinks from "./NavLinks";
 import LogIn from "./LogIn";
 import navLogo from "./styles/images/GXnavlogo.png";
 import Welcome from "./Welcome";
-import "./styles/Navbar.css";
+import "../styles/Navbar.css";
 
 export default class Nav extends Component {
   state = {

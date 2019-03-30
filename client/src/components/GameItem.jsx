@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./styles/Games.css";
+import "../styles/Games.css";
 
 const GameItem = ({ game, changeGameStatus }) => {
   const { id, title, platform, region, publisher, version, inventories } = game;

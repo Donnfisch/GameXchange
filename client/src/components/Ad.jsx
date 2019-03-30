@@ -1,6 +1,6 @@
 import React from 'react';
-import legoAd from './styles/images/legoad.jpg';
-import tacoAd from './styles/images/tacoad.gif';
+import legoAd from '../../public/images/legoad.jpg';
+import tacoAd from '../../public/images/tacoad.gif';
 
 function serveAd() {
   const adArray = [tacoAd, legoAd];
