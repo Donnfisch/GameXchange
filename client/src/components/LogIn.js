@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-const axios = require('axios');
+// const axios = require('axios');
 
 export class LogIn extends Component {
   constructor(props) {
@@ -18,27 +18,11 @@ export class LogIn extends Component {
     });
   }
 
-  authenticateUser = (username, password) => {
-    const { setUserState } = this.props;
-    axios
-      .post(`/api/auth`, {
-        username,
-        password,
-      })
-      .then(res => {
-        document.cookie = `uuid=${res.data.user.id}`;
-        document.cookie = `token=${res.data.token}`;
-        setUserState(res.data.user.username, res.data.token);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
   handleSubmit = event => {
     event.preventDefault();
     const { username, password } = this.state;
-    this.authenticateUser(username, password);
+    const { authenticateUser } = this.props;
+    authenticateUser(username, password);
     this.setState({ username: '', password: '' });
   }
 
@@ -99,5 +83,5 @@ export default LogIn;
 
 LogIn.propTypes = {
   token: PropTypes.string,
-  setUserState: PropTypes.func.isRequired,
+  authenticateUser: PropTypes.func.isRequired,
 };

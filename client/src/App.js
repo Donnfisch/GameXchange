@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import axios from "axios";
 import Ad from "./components/Ad";
 import Footer from "./components/Footer";
 import Games from "./components/Games";
@@ -26,101 +25,67 @@ class App extends Component {
   }
 
   handleSearch = (searchTerm, event) => {
-    const { token } = this.state;
     event.preventDefault();
-    axios
-      .get(`/api/games/title/${searchTerm}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    const { token } = this.state;
+    API.searchGames(token, searchTerm)
       .then(res => {
-        res.data.map(game => {
+        res.map(game => {
           if (!game.inventories[0]) {
             game.inventories.push({ have: false, want: false, trade: false });
           }
           return game;
         });
-        this.setState({ games: res.data });
-      })
-      .catch(error => {
-        console.log(error);
+        this.setState({ games: res });
       });
   }
 
   handleMyGames = () => {
     const { token } = this.state;
-    axios
-      .get(`/api/inventory/`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(res => {
-        this.setState({ games: res.data });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    API.getUserGames(token).then(res => {
+      this.setState({ games: res });
+    });
   }
 
   changeGameStatus = (have, want, trade, boxId) => {
     const { token } = this.state;
-    axios
-      .post(`/api/inventory/`, {
-        have,
-        want,
-        trade,
-        gameId: boxId,
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(() => {
-        const { games } = this.state;
-        this.setState({
-          games: games.map(game => {
-            const updatedGame = game;
-            if (game.id === boxId) {
-              updatedGame.inventories[0].have = have;
-              updatedGame.inventories[0].want = want;
-              updatedGame.inventories[0].trade = trade;
-            }
-            return updatedGame;
-          }),
-        });
-      })
-      .catch(error => {
-        console.log(error);
+    API.updateGameStatus(have, want, trade, boxId, token).then(() => {
+      const { games } = this.state;
+      this.setState({
+        games: games.map(game => {
+          const updatedGame = game;
+          if (game.id === boxId) {
+            updatedGame.inventories[0].have = have;
+            updatedGame.inventories[0].want = want;
+            updatedGame.inventories[0].trade = trade;
+          }
+          return updatedGame;
+        }),
       });
+    });
   }
 
   handleMatches = (direction) => {
     const { token } = this.state;
-    axios
-      .get(`/api/inventory/match/${direction}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    API.getMatches(token, direction)
       .then(res => {
-        (direction === 'out') ? this.setState({ matchesOut: res.data }) : this.setState({ matchesIn: res.data });
-      })
-      .catch(error => {
-        console.log(error);
+        (direction === 'out') ? this.setState({ matchesOut: res }) : this.setState({ matchesIn: res });
       });
-  }
+  };
 
   setUserState = (username, token) => {
     this.setState({
       username,
       token,
     });
+  }
+
+  authenticateUser = (username, password) => {
+    API.validateUser(username, password)
+      .then(res => {
+        document.cookie = `uuid=${res.user.id}`;
+        document.cookie = `token=${res.token}`;
+        this.setUserState(res.user.username, res.token);
+      });
   }
 
   render() {
@@ -134,11 +99,11 @@ class App extends Component {
           <Route
             render={({ history }) => (
               <Nav
+                authenticateUser={this.authenticateUser}
                 handleSearch={this.handleSearch}
                 handleMyGames={this.handleMyGames}
                 handleMatches={this.handleMatches}
                 history={history}
-                setUserState={this.setUserState}
                 token={token}
               />
             )}
