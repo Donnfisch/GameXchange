@@ -9,7 +9,7 @@ function serveAd() {
 
 const Ad = () => (
   <div style={adDivStyle}>
-    <img src={serveAd()} style={adStyle} alt="legoad" />
+    {/* <img src={serveAd()} style={adStyle} alt="legoad" /> */}
   </div>
 );
 

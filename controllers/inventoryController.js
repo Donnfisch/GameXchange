@@ -52,6 +52,7 @@ module.exports = {
           'id',
           'title',
           'platform',
+          'region',
           'publisher',
           'version',
         ],

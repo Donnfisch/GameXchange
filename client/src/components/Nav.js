@@ -15,7 +15,7 @@ export default class Nav extends Component {
 
   render() {
     const {
-      handleSearch, handleMyGames, handleMatches, history, setUserState,
+      handleSearch, handleMyGames, handleMatches, history, setUserState, token,
     } = this.props;
     const { activeItem } = this.state;
     return (
@@ -41,7 +41,7 @@ export default class Nav extends Component {
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>
-            <LogIn setUserState={setUserState} />
+            <LogIn setUserState={setUserState} token={token} />
           </Menu.Item>
           <Menu.Item>
           </Menu.Item>
@@ -62,4 +62,5 @@ Nav.propTypes = {
   handleMatches: PropTypes.func.isRequired,
   setUserState: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  token: PropTypes.string,
 };
