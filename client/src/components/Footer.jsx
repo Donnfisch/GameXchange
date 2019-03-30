@@ -7,7 +7,7 @@ const Footer = () => (
     </div>
   </footer>
 );
-
+  
 const footerStyle = {
   position: "fixed",
   bottom: "0",

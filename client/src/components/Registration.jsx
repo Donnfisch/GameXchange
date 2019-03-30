@@ -76,7 +76,7 @@ class Registration extends Component {
             message: "USER OR EMAIL ALREADY IN USE"
           });
         } else {
-          window.location.replace("/profile")
+          window.location.replace("/profile");
         }
       })
       .catch(error => {

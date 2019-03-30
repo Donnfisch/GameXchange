@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import GameItem from './GameItem';
+import React from "react";
+import PropTypes from "prop-types";
+import GameItem from "./GameItem";
 import "./styles/Games.css";
 
 const Games = ({ games, changeGameStatus }) => (
@@ -20,8 +20,12 @@ const Games = ({ games, changeGameStatus }) => (
         </tr>
       </thead>
       <tbody>
-        {games.map((game) => (
-          <GameItem changeGameStatus={changeGameStatus} key={game.id} game={game} />
+        {games.map(game => (
+          <GameItem
+            changeGameStatus={changeGameStatus}
+            key={game.id}
+            game={game}
+          />
         ))}
       </tbody>
     </table>
@@ -30,17 +34,17 @@ const Games = ({ games, changeGameStatus }) => (
 
 Games.propTypes = {
   games: PropTypes.array.isRequired,
-  changeGameStatus: PropTypes.func.isRequired,
+  changeGameStatus: PropTypes.func.isRequired
 };
 
 export default Games;
 
 const tableStyle = {
   marginLeft: "auto",
-  marginRight: "auto",
+  marginRight: "auto"
 };
 
 const h1Style = {
   align: "center",
-  textAlign: "center",
+  textAlign: "center"
 };

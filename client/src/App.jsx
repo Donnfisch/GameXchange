@@ -13,17 +13,19 @@ import API from "./utils/API";
 
 class App extends Component {
   state = {
-    games: [{
-      id: "0",
-      inventories: [{}],
-    }],
+    games: [
+      {
+        id: "0",
+        inventories: [{}]
+      }
+    ],
     matchesOut: [],
-    matchesIn: [],
+    matchesIn: []
   };
 
   refreshGames = gamesArray => {
     this.setState({ games: gamesArray });
-  }
+  };
 
   handleSearch = (searchTerm, event) => {
     const { token } = this.state;
@@ -32,8 +34,8 @@ class App extends Component {
       .get(`/api/games/title/${searchTerm}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       })
       .then(res => {
         res.data.map(game => {
@@ -47,7 +49,7 @@ class App extends Component {
       .catch(error => {
         console.log(error);
       });
-  }
+  };
 
   handleMyGames = () => {
     const { token } = this.state;
@@ -55,8 +57,8 @@ class App extends Component {
       .get(`/api/inventory/`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       })
       .then(res => {
         this.setState({ games: res.data });
@@ -64,22 +66,26 @@ class App extends Component {
       .catch(error => {
         console.log(error);
       });
-  }
+  };
 
   changeGameStatus = (have, want, trade, boxId) => {
     const { token } = this.state;
     axios
-      .post(`/api/inventory/`, {
-        have,
-        want,
-        trade,
-        gameId: boxId,
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      .post(
+        `/api/inventory/`,
+        {
+          have,
+          want,
+          trade,
+          gameId: boxId
         },
-      })
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
       .then(() => {
         const { games } = this.state;
         this.setState({
@@ -91,43 +97,44 @@ class App extends Component {
               updatedGame.inventories[0].trade = trade;
             }
             return updatedGame;
-          }),
+          })
         });
       })
       .catch(error => {
         console.log(error);
       });
-  }
+  };
 
-  handleMatches = (direction) => {
+  handleMatches = direction => {
     const { token } = this.state;
     axios
       .get(`/api/inventory/match/${direction}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       })
       .then(res => {
-        (direction === 'out') ? this.setState({ matchesOut: res.data }) : this.setState({ matchesIn: res.data });
+        direction === "out"
+          ? this.setState({ matchesOut: res.data })
+          : this.setState({ matchesIn: res.data });
       })
       .catch(error => {
         console.log(error);
       });
-  }
+  };
 
   setUserState = (username, token) => {
     this.setState({
       username,
-      token,
+      token
     });
-  }
+  };
 
   render() {
-    const {
-      username, games, matchesOut, matchesIn, token,
-    } = this.state;
-    if (!username && (document.cookie) !== '') API.getUserInfo().then(res => this.setUserState(res.username, res.token));
+    const { username, games, matchesOut, matchesIn, token } = this.state;
+    if (!username && document.cookie !== "")
+      API.getUserInfo().then(res => this.setUserState(res.username, res.token));
     return (
       <Router>
         <React.Fragment>
@@ -145,29 +152,27 @@ class App extends Component {
           />
           <Ad />
           <Switch>
-            <Route
-              exact
-              path="/"
-              component={Welcome}
-            />
+            <Route exact path="/" component={Welcome} />
             <Route
               exact
               path="/games"
-              component={() => <Games games={games} changeGameStatus={this.changeGameStatus} />}
+              component={() => (
+                <Games games={games} changeGameStatus={this.changeGameStatus} />
+              )}
             />
             <Route
               exact
               path="/matches"
-              component={() => <Matches matchesOut={matchesOut} matchesIn={matchesIn} username={username} />}
+              component={() => (
+                <Matches
+                  matchesOut={matchesOut}
+                  matchesIn={matchesIn}
+                  username={username}
+                />
+              )}
             />
-            <Route
-              path="/profile"
-              component={Profile}
-            />
-            <Route
-              path="/register"
-              component={Registration}
-            />
+            <Route path="/profile" component={Profile} />
+            <Route path="/register" component={Registration} />
           </Switch>
           <Ad />
           <Footer />

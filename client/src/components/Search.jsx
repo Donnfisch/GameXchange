@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Route } from "react-router-dom";
 
 class Search extends Component {
   constructor(props) {
@@ -8,15 +8,15 @@ class Search extends Component {
 
     this.state = {
       platform: "",
-      searchTerm: "",
+      searchTerm: ""
     };
   }
 
   handleChange = event => {
     this.setState({
-      [event.target.id]: event.target.value,
+      [event.target.id]: event.target.value
     });
-  }
+  };
 
   render() {
     const { searchTerm, platform } = this.state;
@@ -54,10 +54,10 @@ class Search extends Component {
             <button
               className="btn btn-lg btn-primary btn-block mb-1"
               type="submit"
-              onClick={() => history.push('/games')}
+              onClick={() => history.push("/games")}
               // id="loginSubmit"
             >
-            Search
+              Search
             </button>
           </form>
         )}
@@ -67,7 +67,7 @@ class Search extends Component {
 }
 
 Search.propTypes = {
-  handleSearch: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired
 };
 
 export default Search;

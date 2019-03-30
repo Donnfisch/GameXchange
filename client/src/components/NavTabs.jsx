@@ -14,10 +14,8 @@ function NavTabs({ isLoggedIn }) {
   return <Link to="/login"> Log In </Link>;
 }
 
-
 NavTabs.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 };
 
 export default NavTabs;
-w
