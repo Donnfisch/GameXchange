@@ -6,7 +6,7 @@ const TradeItem = ({ trade }) => {
   // console.log(trade);
   const { game } = trade;
   const {
-    id, title, platform, region, publisher, version,
+    title, platform, region,
   } = game;
   // console.log(title);
   return (
@@ -32,8 +32,7 @@ const TradeItem = ({ trade }) => {
 
 
 TradeItem.propTypes = {
-  matchesOut: PropTypes.array.isRequired,
-  matchesIn: PropTypes.array.isRequired,
+  trade: PropTypes.array.isRequired,
 };
 
 export default TradeItem;

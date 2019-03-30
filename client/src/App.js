@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import axios from "axios";
 import Ad from "./components/Ad";
 import Footer from "./components/Footer";
 import Games from "./components/Games";
@@ -8,7 +9,7 @@ import Profile from "./components/Profile";
 import Registration from "./components/Registration";
 import Welcome from "./components/Welcome";
 import Matches from "./components/Matches";
-const axios = require('axios');
+import API from "./utils/API";
 
 class App extends Component {
   state = {
@@ -25,20 +26,16 @@ class App extends Component {
   }
 
   handleSearch = (searchTerm, event) => {
+    const { token } = this.state;
     event.preventDefault();
-    // const token = document.cookie.split("; ")
-    //   .filter(
-    //     (element) => element.indexOf('token=') === 0
-    //   )[0].split("=")[1];
     axios
       .get(`/api/games/title/${searchTerm}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.state.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then(res => {
-        // console.log(res.data);
         res.data.map(game => {
           if (!game.inventories[0]) {
             game.inventories.push({ have: false, want: false, trade: false });
@@ -53,15 +50,12 @@ class App extends Component {
   }
 
   handleMyGames = () => {
-    // const token = document.cookie.split("; ")
-    //   .filter(
-    //     (element) => element.indexOf('token=') === 0
-    //   )[0].split("=")[1];
+    const { token } = this.state;
     axios
       .get(`/api/inventory/`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.state.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then(res => {
@@ -73,11 +67,7 @@ class App extends Component {
   }
 
   changeGameStatus = (have, want, trade, boxId) => {
-    // const token = document.cookie.split("; ")
-    //   .filter(
-    //     (element) => element.indexOf('token=') === 0
-    //   )[0].split("=")[1];
-    // console.log(token);
+    const { token } = this.state;
     axios
       .post(`/api/inventory/`, {
         have,
@@ -87,10 +77,10 @@ class App extends Component {
       }, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.state.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
-      .then(res => {
+      .then(() => {
         const { games } = this.state;
         this.setState({
           games: games.map(game => {
@@ -102,9 +92,7 @@ class App extends Component {
             }
             return updatedGame;
           }),
-
         });
-        console.log(res.data);
       })
       .catch(error => {
         console.log(error);
@@ -112,19 +100,15 @@ class App extends Component {
   }
 
   handleMatches = (direction) => {
-    // const token = document.cookie.split("; ")
-    //   .filter(
-    //     (element) => element.indexOf('token=') === 0
-    //   )[0].split("=")[1];
+    const { token } = this.state;
     axios
       .get(`/api/inventory/match/${direction}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.state.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then(res => {
-        // console.log(res.data);
         (direction === 'out') ? this.setState({ matchesOut: res.data }) : this.setState({ matchesIn: res.data });
       })
       .catch(error => {
@@ -139,34 +123,9 @@ class App extends Component {
     });
   }
 
-  getUserInfo = () => {
-    const token = document.cookie.split("; ")
-      .filter(
-        (element) => element.indexOf('token=') === 0
-      )[0].split("=")[1];
-    axios
-      .get(`/api/user/`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(res => {
-        console.log(res.data);
-        this.setUserState(res.data.username, token);
-        // this.setState({
-        //   username: res.data.username,
-        //   token,
-        // });
-        // }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
   render() {
-    if (!this.state.username && document.cookie !== '') this.getUserInfo();
+    const { username } = this.state;
+    if (!username && document.cookie !== '') API.getUserInfo().then(res => this.setUserState(res.username, res.token));
     const { games, matchesOut, matchesIn } = this.state;
     return (
       <Router>
