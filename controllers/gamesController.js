@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const db = require("../models");
 
 // Defining methods for the gamesController
@@ -22,16 +23,30 @@ module.exports = {
 
   // Search games by title
   findByTitle: (req, res) => {
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const user = jwt.verify(token, 'your_jwt_secret');
     db.game.findAll({
-      where: { title: { $like: `%${req.params.title}%` } }, limit: 50,
+      where: {
+        title: {
+          $like: `%${req.params.title}%`,
+        },
+        status: "approved",
+      },
+      limit: 50,
+      include: [{
+        model: db.inventory,
+        where: { userId: user.id },
+        required: false,
+      }],
     }).then(dbGames => {
+      console.log(dbGames);
+      // console.log('FART');
       res.json(dbGames);
     });
   },
 
   // Create game
   create: (req, res) => {
-    // req.body.status = "requested";
     db.game.create(req.body)
       .then(dbGame => res.json(dbGame))
       .catch(err => res.status(422).json(err));

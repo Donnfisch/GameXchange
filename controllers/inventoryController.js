@@ -1,35 +1,53 @@
+const jwt = require("jsonwebtoken");
 const db = require("../models");
+
+const jwtSecret = 'your_jwt_secret';
 
 module.exports = {
 
   // Returns user's games along with have/want/trade status
-  // TODO: Need to catch currentUser
   findAll: (req, res) => {
-    const currentUser = "5272e292-3c40-4eea-a3df-707b760fdf00";
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const user = jwt.verify(token, jwtSecret);
     db.game.findAll({
       include: [{
         model: db.inventory,
-        where: { userId: currentUser },
+        where: { userId: user.id },
       }],
     }).then(dbInventory => {
       res.json(dbInventory);
     });
   },
 
-  // Matches users trades with others
-  // TODO: Need to catch currentUser
+  // Matches games others want, with games user has to trade
   findMatches: (req, res) => {
-    const currentUser = "5272e292-3c40-4eea-a3df-707b760fdf00";
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const user = jwt.verify(token, jwtSecret);
+    let outerTradeWant = 'want';
+    let innerTradeWant = 'trade';
+    if (req.params.direction === 'in') {
+      outerTradeWant = 'trade';
+      innerTradeWant = 'want';
+    }
     db.inventory.findAll({
       where: {
-        trade: true,
+        [outerTradeWant]: true,
+        userId: { $not: user.id },
       },
       attributes: [
         'id',
-        'trade',
       ],
       include: [{
+        model: db.user,
+        attributes: [
+          'id',
+          'username',
+          'email',
+        ],
+      },
+      {
         model: db.game,
+        required: true,
         attributes: [
           'id',
           'title',
@@ -37,73 +55,52 @@ module.exports = {
           'publisher',
           'version',
         ],
-        required: true,
         include: [{
           model: db.inventory,
           where: {
-            userId: {
-              $not: currentUser,
-            },
-            want: true,
+            [innerTradeWant]: true,
+            userId: user.id,
           },
-          attributes: ['want'],
-          include: [{
-            model: db.user,
-            attributes: [
-              'id',
-              'username',
-              'email',
-              'firstname',
-              'lastname',
-              'address',
-              'email',
-            ],
-          }],
+          attributes: [],
         }],
       }],
+      order: [
+        [db.user, 'email', 'DESC'],
+        [db.game, 'title', 'ASC'],
+      ],
     }).then(dbInventory => {
       res.json(dbInventory);
     });
   },
 
   // Add or update inventory items
-  // TODO: catch currentUser
-  // TOTO: Bless the rains down in Africa
   upsertOrDelete: (req, res) => {
-    // const currentUser = "5272e292-3c40-4eea-a3df-707b760fdf00";
-    db.inventory.findOne({
-      where: {
-        userId: req.body.userId,
-        gameId: req.body.gameId,
-      },
-    }).then(dbUpdate => {
-      if (dbUpdate) {
-        if (req.body.have === "false" && req.body.want === "false" && req.body.trade === "false") {
-          db.inventory.destroy({
-            where: {
-              userId: req.body.userId,
-              gameId: req.body.gameId,
-            },
-          }).then(dbInventory => res.json(dbInventory))
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const user = jwt.verify(token, jwtSecret);
+    const searchData = {
+      userId: user.id,
+      gameId: req.body.gameId,
+    };
+    db.inventory.findOne({ where: searchData })
+      .then(dbUpdate => {
+        if (dbUpdate) {
+          if (!req.body.have && !req.body.want && !req.body.trade) {
+            db.inventory.destroy({ where: searchData })
+              .then(dbInventory => res.json(dbInventory))
+              .catch(err => res.status(422).json(err));
+          } else {
+            db.inventory.update(
+              req.body, { where: searchData }
+            ).then(dbInventory => res.json(dbInventory))
+              .catch(err => res.status(422).json(err));
+          }
+        } else if (req.body.have || req.body.want || req.body.trade) {
+          db.inventory.create(Object.assign(req.body, { userId: user.id }))
+            .then(dbInventory => res.json(dbInventory))
             .catch(err => res.status(422).json(err));
         } else {
-          db.inventory.update(
-            req.body, {
-              where: {
-                userId: req.body.userId,
-                gameId: req.body.gameId,
-              },
-            }
-          ).then(dbInventory => res.json(dbInventory))
-            .catch(err => res.status(422).json(err));
+          res.json("Nothing added to DB");
         }
-      } else if (req.body.have === "true" || req.body.want === "true" || req.body.trade === "true") {
-        db.inventory.create(req.body)
-          .then(dbInventory => res.json(dbInventory))
-          .catch(err => res.status(422).json(err));
-      } else {
-        res.json("Nothing added to DB");
-      }
-    });
+      });
   },
 };
