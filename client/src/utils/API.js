@@ -1,20 +1,22 @@
 import axios from "axios";
 
 export default {
-  // Gets all books
-  getBooks: function() {
-    return axios.get("/api/books");
+  // Gets user data from cookie to update state
+  getUserInfo: () => {
+    const token = document.cookie.split("; ")
+      .filter(
+        (element) => element.indexOf('token=') === 0
+      )[0].split("=")[1];
+    return axios
+      .get(`/api/user/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(res => {
+        res.data.token = token;
+        return (res.data);
+      });
   },
-  // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
-  },
-  // Deletes the book with the given id
-  deleteBook: function(id) {
-    return axios.delete("/api/books/" + id);
-  },
-  // Saves a book to the database
-  saveBook: function(bookData) {
-    return axios.post("/api/books", bookData);
-  }
 };
