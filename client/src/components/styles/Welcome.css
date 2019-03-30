@@ -1,10 +1,40 @@
-.ui.message {
-    background-image: url('./images/welcome.png') !important;
-    background-size: contain !important;
-    
-  }
+.ui.container.welcomeBox {
+    max-width: 750px;
+    max-height: 350px;
+
+}
 
 .ui.message {
-    height: 450px;
-    width: 900px;
+    background:url('./images/welcome.png') no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100% 100%;
+    height: 350px;
+    max-width: 750px;
+   }
+
+.ui.small.primary.button.menuButton {
+    z-index: 9999999999999;
+    position: absolute;
+    bottom: 30px;
+    right: 3px;
+    font-family: 'Press Start 2P', cursive;
+    color: #ffcc37;
+    background-color: blueviolet;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.ui.huge.header.head {
+    font-family: 'Press Start 2P', cursive;
+    color: #ffcc37;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+p.lead {
+    color: #ffcc37;
+    background-color: black;
+    max-width: 500px;
+    font-size: 16px;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
