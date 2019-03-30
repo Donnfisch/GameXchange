@@ -1,14 +1,9 @@
-.ui.fluid.container {
-  width: 80%;
-  margin-top: 5%;
-  border-color: black;
-  border-width: 10px;
+.ui.three.column.grid {
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
-.ui.card>.extra {
-  float: right;
-}
-
-.ui.content.mainContent {
-  float: right;
+.ui.grid>.row>.column {
+  padding: 0px;
 }
