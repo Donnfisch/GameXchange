@@ -68,7 +68,6 @@ class Matches extends Component {
       gameFilter: [],
       outboundTrade: [],
       inboundTrade: [],
-
     });
   }
 
@@ -105,8 +104,6 @@ class Matches extends Component {
         {nameFilter
         && (
           <React.Fragment>
-            <button type="button" onClick={this.clearFilter}> Clear Filter </button>
-            <button type="button" onClick={this.generateRequest}> Generate Request </button>
             <table style={tableStyle}>
               <thead>
                 <tr>
@@ -151,6 +148,12 @@ class Matches extends Component {
                 </tr>
               </tbody>
             </table>
+            <div style={buttonDivOuter}>
+              <div style={buttonDivInner}>
+                <button type="button" onClick={this.clearFilter}> Clear Filter </button>
+                <button type="button" onClick={this.generateRequest}> Generate Request </button>
+              </div>
+            </div>
           </React.Fragment>
         )}
         <h2 style={h2Style}>Users Searching for Your Games</h2>
@@ -194,6 +197,16 @@ Matches.propTypes = {
 };
 
 export default Matches;
+
+const buttonDivOuter = {
+  padding: "10px",
+  textAlign: "center",
+};
+
+const buttonDivInner = {
+  display: "inline-block",
+  // padding: "50px",
+};
 
 const noPadding = {
   padding: "0px",

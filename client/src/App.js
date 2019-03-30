@@ -16,13 +16,7 @@ class App extends Component {
       id: "0",
       inventories: [{}],
     }],
-    matchesOut: [
-      //     {
-      //     user: {
-      //       username: 'test user',
-      //     },
-      //   }
-    ],
+    matchesOut: [],
     matchesIn: [],
   };
 
@@ -32,15 +26,15 @@ class App extends Component {
 
   handleSearch = (searchTerm, event) => {
     event.preventDefault();
-    const token = document.cookie.split("; ")
-      .filter(
-        (element) => element.indexOf('token=') === 0
-      )[0].split("=")[1];
+    // const token = document.cookie.split("; ")
+    //   .filter(
+    //     (element) => element.indexOf('token=') === 0
+    //   )[0].split("=")[1];
     axios
       .get(`/api/games/title/${searchTerm}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${this.state.token}`,
         },
       })
       .then(res => {
@@ -59,15 +53,15 @@ class App extends Component {
   }
 
   handleMyGames = () => {
-    const token = document.cookie.split("; ")
-      .filter(
-        (element) => element.indexOf('token=') === 0
-      )[0].split("=")[1];
+    // const token = document.cookie.split("; ")
+    //   .filter(
+    //     (element) => element.indexOf('token=') === 0
+    //   )[0].split("=")[1];
     axios
       .get(`/api/inventory/`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${this.state.token}`,
         },
       })
       .then(res => {
@@ -79,10 +73,10 @@ class App extends Component {
   }
 
   changeGameStatus = (have, want, trade, boxId) => {
-    const token = document.cookie.split("; ")
-      .filter(
-        (element) => element.indexOf('token=') === 0
-      )[0].split("=")[1];
+    // const token = document.cookie.split("; ")
+    //   .filter(
+    //     (element) => element.indexOf('token=') === 0
+    //   )[0].split("=")[1];
     // console.log(token);
     axios
       .post(`/api/inventory/`, {
@@ -93,7 +87,7 @@ class App extends Component {
       }, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${this.state.token}`,
         },
       })
       .then(res => {
@@ -118,15 +112,15 @@ class App extends Component {
   }
 
   handleMatches = (direction) => {
-    const token = document.cookie.split("; ")
-      .filter(
-        (element) => element.indexOf('token=') === 0
-      )[0].split("=")[1];
+    // const token = document.cookie.split("; ")
+    //   .filter(
+    //     (element) => element.indexOf('token=') === 0
+    //   )[0].split("=")[1];
     axios
       .get(`/api/inventory/match/${direction}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${this.state.token}`,
         },
       })
       .then(res => {
@@ -138,7 +132,41 @@ class App extends Component {
       });
   }
 
+  setUserState = (username, token) => {
+    this.setState({
+      username,
+      token,
+    });
+  }
+
+  getUserInfo = () => {
+    const token = document.cookie.split("; ")
+      .filter(
+        (element) => element.indexOf('token=') === 0
+      )[0].split("=")[1];
+    axios
+      .get(`/api/user/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(res => {
+        console.log(res.data);
+        this.setUserState(res.data.username, token);
+        // this.setState({
+        //   username: res.data.username,
+        //   token,
+        // });
+        // }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   render() {
+    if (!this.state.username && document.cookie !== '') this.getUserInfo();
     const { games, matchesOut, matchesIn } = this.state;
     return (
       <Router>
@@ -150,6 +178,7 @@ class App extends Component {
                 handleMyGames={this.handleMyGames}
                 handleMatches={this.handleMatches}
                 history={history}
+                setUserState={this.setUserState}
               />
             )}
           />

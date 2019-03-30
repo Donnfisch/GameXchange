@@ -6,7 +6,7 @@ export class LogIn extends Component {
     super(props);
 
     this.state = {
-      userName: "",
+      username: "",
       password: "",
     };
   }
@@ -27,6 +27,7 @@ export class LogIn extends Component {
         // console.log(res.data.user.id);
         document.cookie = `uuid=${res.data.user.id}`;
         document.cookie = `token=${res.data.token}`;
+        this.props.setUserState(res.data.user.username, res.data.token);
       })
       .catch(error => {
         console.log(error);
@@ -35,32 +36,33 @@ export class LogIn extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { userName, password } = this.state;
-    this.authenticateUser(userName, password);
+    const { username, password } = this.state;
+    this.authenticateUser(username, password);
+    this.setState({ username: '', password: '' });
   }
 
   validateForm() {
-    const { userName, password } = this.state;
-    return userName.length > 0 && password.length > 0;
+    const { username, password } = this.state;
+    return username.length > 0 && password.length > 0;
   }
 
   render() {
-    const { userName, password } = this.state;
+    const { username, password } = this.state;
     return (
       <form className="form-signin" onSubmit={this.handleSubmit}>
         <input
           type="text"
           className="form-control mb-2"
-          placeholder="Username"
-          id="userName"
-          value={userName}
+          placeholder="username"
+          id="username"
+          value={username}
           onChange={this.handleChange}
           required
         />
         <input
           type="password"
           className="form-control mb-2"
-          placeholder="Password"
+          placeholder="password"
           id="password"
           value={password}
           onChange={this.handleChange}

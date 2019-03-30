@@ -41,7 +41,7 @@ export default class Nav extends Component {
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>
-            <LogIn />
+            <LogIn setUserState={this.props.setUserState} />
           </Menu.Item>
           <Menu.Item>
           </Menu.Item>
