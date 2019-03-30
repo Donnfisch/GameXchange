@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { FormErrors } from "./FormErrors";
-import { Redirect } from 'react-router-dom'
 
 class Registration extends Component {
   constructor(props) {
