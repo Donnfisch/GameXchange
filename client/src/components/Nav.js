@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Menu, Image } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import Search from "./Search";
 import NavLinks from "./NavLinks";
 import LogIn from "./LogIn";
-import navLogo from "./styles/images/GXnavlogo.png";
 import "./styles/Navbar.css";
 
 export default class Nav extends Component {
@@ -19,14 +18,6 @@ export default class Nav extends Component {
     const { activeItem } = this.state;
     return (
       <Menu secondary>
-        <Menu.Item>
-          <Image
-            src={navLogo}
-            size="small"
-            as="a"
-            href="/"
-          />
-        </Menu.Item>
         <Menu.Item>
           <Search handleSearch={handleSearch} />
         </Menu.Item>

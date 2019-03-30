@@ -4,6 +4,10 @@
 
 }
 
+element.style {
+    margin-top: 0px;
+}
+
 .ui.message {
     background:url('./images/welcome.png') no-repeat center center; 
     -webkit-background-size: cover;
