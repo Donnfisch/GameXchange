@@ -124,9 +124,10 @@ class App extends Component {
   }
 
   render() {
-    const { username } = this.state;
-    if (!username && document.cookie !== '') API.getUserInfo().then(res => this.setUserState(res.username, res.token));
-    const { games, matchesOut, matchesIn } = this.state;
+    const {
+      username, games, matchesOut, matchesIn, token,
+    } = this.state;
+    if (!username && (document.cookie) !== '') API.getUserInfo().then(res => this.setUserState(res.username, res.token));
     return (
       <Router>
         <React.Fragment>
@@ -138,6 +139,7 @@ class App extends Component {
                 handleMatches={this.handleMatches}
                 history={history}
                 setUserState={this.setUserState}
+                token={token}
               />
             )}
           />
