@@ -1,51 +1,52 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Ad from "./components/Ad";
-import Footer from "./components/Footer";
-import Games from "./components/Games";
-import Header from "./components/Header";
-import Nav from "./components/Nav";
-import Profile from "./components/Profile";
-import Registration from "./components/Registration";
-import Welcome from "./components/Welcome";
-import Matches from "./components/Matches";
-import API from "./utils/API";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Ad from './components/Ad';
+import Footer from './components/Footer';
+import Games from './components/Games';
+import Header from './components/Header';
+import Nav from './components/Nav';
+import Profile from './components/Profile';
+import Registration from './components/Registration';
+import Welcome from './components/Welcome';
+import Matches from './components/Matches';
+import API from './utils/API';
 
 class App extends Component {
   state = {
-    games: [{
-      id: "0",
-      inventories: [{}],
-    }],
+    games: [
+      {
+        id: '0',
+        inventories: [{}],
+      },
+    ],
     matchesOut: [],
     matchesIn: [],
   };
 
   refreshGames = gamesArray => {
     this.setState({ games: gamesArray });
-  }
+  };
 
   handleSearch = (searchTerm, event) => {
     event.preventDefault();
     const { token } = this.state;
-    API.searchGames(token, searchTerm)
-      .then(res => {
-        res.map(game => {
-          if (!game.inventories[0]) {
-            game.inventories.push({ have: false, want: false, trade: false });
-          }
-          return game;
-        });
-        this.setState({ games: res });
+    API.searchGames(token, searchTerm).then(res => {
+      res.map(game => {
+        if (!game.inventories[0]) {
+          game.inventories.push({ have: false, want: false, trade: false });
+        }
+        return game;
       });
-  }
+      this.setState({ games: res });
+    });
+  };
 
   handleMyGames = () => {
     const { token } = this.state;
     API.getUserGames(token).then(res => {
       this.setState({ games: res });
     });
-  }
+  };
 
   changeGameStatus = (have, want, trade, boxId) => {
     const { token } = this.state;
@@ -63,14 +64,15 @@ class App extends Component {
         }),
       });
     });
-  }
+  };
 
-  handleMatches = (direction) => {
+  handleMatches = direction => {
     const { token } = this.state;
-    API.getMatches(token, direction)
-      .then(res => {
-        (direction === 'out') ? this.setState({ matchesOut: res }) : this.setState({ matchesIn: res });
-      });
+    API.getMatches(token, direction).then(res => {
+      direction === 'out'
+        ? this.setState({ matchesOut: res })
+        : this.setState({ matchesIn: res });
+    });
   };
 
   setUserState = (username, token) => {
@@ -78,22 +80,21 @@ class App extends Component {
       username,
       token,
     });
-  }
+  };
 
   authenticateUser = (username, password) => {
-    API.validateUser(username, password)
-      .then(res => {
-        document.cookie = `uuid=${res.user.id}`;
-        document.cookie = `token=${res.token}`;
-        this.setUserState(res.user.username, res.token);
-      });
-  }
+    API.validateUser(username, password).then(res => {
+      document.cookie = `uuid=${res.user.id}`;
+      document.cookie = `token=${res.token}`;
+      this.setUserState(res.user.username, res.token);
+    });
+  };
 
   render() {
     const {
       username, games, matchesOut, matchesIn, token,
     } = this.state;
-    if (!username && (document.cookie) !== '') API.getUserInfo().then(res => this.setUserState(res.username, res.token));
+    if (!username && document.cookie !== '') { API.getUserInfo().then(res => this.setUserState(res.username, res.token)); }
     return (
       <Router>
         <React.Fragment>
@@ -112,29 +113,27 @@ class App extends Component {
           />
           <Ad />
           <Switch>
-            <Route
-              exact
-              path="/"
-              component={Welcome}
-            />
+            <Route exact path="/" component={Welcome} />
             <Route
               exact
               path="/games"
-              component={() => <Games games={games} changeGameStatus={this.changeGameStatus} />}
+              component={() => (
+                <Games games={games} changeGameStatus={this.changeGameStatus} />
+              )}
             />
             <Route
               exact
               path="/matches"
-              component={() => <Matches matchesOut={matchesOut} matchesIn={matchesIn} username={username} />}
+              component={() => (
+                <Matches
+                  matchesOut={matchesOut}
+                  matchesIn={matchesIn}
+                  username={username}
+                />
+              )}
             />
-            <Route
-              path="/profile"
-              component={Profile}
-            />
-            <Route
-              path="/register"
-              component={Registration}
-            />
+            <Route path="/profile" component={Profile} />
+            <Route path="/register" component={Registration} />
           </Switch>
           <Ad />
           <Footer />
