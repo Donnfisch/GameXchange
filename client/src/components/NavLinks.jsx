@@ -1,33 +1,33 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class NavLinks extends Component {
   onClickGames = event => {
     event.preventDefault();
     const { handleMyGames, history } = this.props;
-    history.push("/games");
+    history.push('/games');
     handleMyGames();
   };
 
   onClickMatches = event => {
     event.preventDefault();
     const { handleMatches, history } = this.props;
-    history.push("/matches");
-    handleMatches("out");
-    handleMatches("in");
+    history.push('/matches');
+    handleMatches('out');
+    handleMatches('in');
   };
 
   onClickProfile = event => {
     event.preventDefault();
     const { handleMyGames, history } = this.props;
-    history.push("/profile");
+    history.push('/profile');
     handleMyGames();
   };
 
   onClickRegister = event => {
     event.preventDefault();
     const { history } = this.props;
-    history.push("/register");
+    history.push('/register');
   };
 
   render() {
@@ -37,35 +37,31 @@ export class NavLinks extends Component {
         <button
           type="button"
           className="link-button"
-          onClick={this.onClickGames}
-        >
-          {" "}
-          My Games{" "}
+          onClick={this.onClickGames}>
+          {' '}
+          My Games{' '}
         </button>
         <button
           type="button"
           className="link-button"
-          onClick={this.onClickMatches}
-        >
-          {" "}
-          Matches{" "}
+          onClick={this.onClickMatches}>
+          {' '}
+          Matches{' '}
         </button>
         <button
           type="button"
           className="link-button"
-          onClick={this.onClickProfile}
-        >
-          {" "}
-          Profile{" "}
+          onClick={this.onClickProfile}>
+          {' '}
+          Profile{' '}
         </button>
         {!token && (
           <button
             type="button"
             className="link-button"
-            onClick={this.onClickRegister}
-          >
-            {" "}
-            Register{" "}
+            onClick={this.onClickRegister}>
+            {' '}
+            Register{' '}
           </button>
         )}
         {/* <Link to="/logout"> Log Out </Link> */}
@@ -78,7 +74,7 @@ NavLinks.propTypes = {
   handleMyGames: PropTypes.func.isRequired,
   handleMatches: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  token: PropTypes.string.isRequired
+  token: PropTypes.string.isRequired,
 };
 
 export default NavLinks;

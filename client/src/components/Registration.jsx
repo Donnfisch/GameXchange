@@ -1,24 +1,24 @@
-import axios from "axios";
-import React, { Component } from "react";
-import { FormErrors } from "./FormErrors";
+import axios from 'axios';
+import React, { Component } from 'react';
+import { FormErrors } from './FormErrors';
 
 class Registration extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      firstname: "",
-      lastname: "",
-      address: "",
-      username: "",
-      password: "",
+      email: '',
+      firstname: '',
+      lastname: '',
+      address: '',
+      username: '',
+      password: '',
       formErrors: {
-        email: "",
-        firstname: "",
-        lastname: "",
-        address: "",
-        password: "",
-        password2: ""
+        email: '',
+        firstname: '',
+        lastname: '',
+        address: '',
+        password: '',
+        password2: '',
       },
       emailValid: false,
       firstnameValid: false,
@@ -28,7 +28,7 @@ class Registration extends Component {
       passwordValid: false,
       password2Valid: false,
       formValid: false,
-      message: ""
+      message: '',
     };
   }
 
@@ -36,12 +36,12 @@ class Registration extends Component {
     const { name, value } = e.target;
     this.setState(
       {
-        message: "",
-        [name]: value
+        message: '',
+        [name]: value,
       },
       () => {
         this.validateField(name, value);
-      }
+      },
     );
   };
 
@@ -52,7 +52,7 @@ class Registration extends Component {
       lastname,
       address,
       username,
-      password
+      password,
     } = this.state;
     event.preventDefault();
     // this.validateUserData(email, username)
@@ -61,22 +61,22 @@ class Registration extends Component {
 
   createUser = (email, firstname, lastname, address, username, password) => {
     axios
-      .post("/api/auth/user/create", {
+      .post('/api/auth/user/create', {
         email,
         firstname,
         lastname,
         address,
         username,
-        password
+        password,
       })
       .then(res => {
         console.log(res.data.user);
         if (!res.data.created) {
           this.setState({
-            message: "USER OR EMAIL ALREADY IN USE"
+            message: 'USER OR EMAIL ALREADY IN USE',
           });
         } else {
-          window.location.replace("/profile");
+          window.location.replace('/profile');
         }
       })
       .catch(error => {
@@ -93,48 +93,48 @@ class Registration extends Component {
       usernameValid,
       passwordValid,
       password2Valid,
-      formErrors
+      formErrors,
     } = this.state;
 
     switch (fieldName) {
-      case "email":
+      case 'email':
         emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-        formErrors.email = emailValid ? "" : "Invalid email address";
+        formErrors.email = emailValid ? '' : 'Invalid email address';
         break;
-      case "firstname":
+      case 'firstname':
         firstnameValid =
           value.length <= 20 && value.match(/^[a-z0-9]+$/i) !== [];
         formErrors.firstname = firstnameValid
-          ? ""
-          : "Must contain only letters";
+          ? ''
+          : 'Must contain only letters';
         break;
-      case "lastname":
+      case 'lastname':
         lastnameValid =
           value.length <= 20 && value.match(/^[a-z0-9]+$/i) !== [];
-        formErrors.lastname = lastnameValid ? "" : "Must contain only letters";
+        formErrors.lastname = lastnameValid ? '' : 'Must contain only letters';
         break;
-      case "address":
+      case 'address':
         addressValid = value.match(/^[a-z 0-9]+$/i) !== [];
-        formErrors.address = addressValid ? "" : "Must contain only letters";
+        formErrors.address = addressValid ? '' : 'Must contain only letters';
         break;
-      case "username":
+      case 'username':
         usernameValid =
           value.length >= 4 &&
           value.length <= 16 &&
           value.match(/^[a-z0-9]+$/i) !== [];
         formErrors.username = usernameValid
-          ? ""
-          : "Username must be alphanumeric and between 4 and 16 characters";
+          ? ''
+          : 'Username must be alphanumeric and between 4 and 16 characters';
         break;
-      case "password":
+      case 'password':
         passwordValid = value.length >= 6;
         formErrors.password = passwordValid
-          ? ""
-          : "Password must be at least 6 characters";
+          ? ''
+          : 'Password must be at least 6 characters';
         break;
-      case "password2":
+      case 'password2':
         password2Valid = value === this.state.password;
-        formErrors.password2 = password2Valid ? "" : "Passwords must match";
+        formErrors.password2 = password2Valid ? '' : 'Passwords must match';
         break;
       default:
         break;
@@ -148,9 +148,9 @@ class Registration extends Component {
         addressValid,
         usernameValid,
         passwordValid,
-        password2Valid
+        password2Valid,
       },
-      this.validateForm
+      this.validateForm,
     );
   }
 
@@ -162,7 +162,7 @@ class Registration extends Component {
       lastnameValid,
       addressValid,
       passwordValid,
-      password2Valid
+      password2Valid,
     } = this.state;
     this.setState({
       formValid:
@@ -172,12 +172,12 @@ class Registration extends Component {
         lastnameValid &&
         addressValid &&
         passwordValid &&
-        password2Valid
+        password2Valid,
     });
   }
 
   errorClass(error) {
-    return error.length === 0 ? "" : "has-error";
+    return error.length === 0 ? '' : 'has-error';
   }
 
   render() {
@@ -191,14 +191,14 @@ class Registration extends Component {
       password,
       password2,
       formValid,
-      message
+      message,
     } = this.state;
 
     return (
       <form className="demoForm">
-        <h2> Sign up </h2>{" "}
+        <h2> Sign up </h2>{' '}
         <div className={`form-group ${this.errorClass(formErrors.email)}`}>
-          <label htmlFor="email"> Email address </label>{" "}
+          <label htmlFor="email"> Email address </label>{' '}
           <input
             type="email"
             required
@@ -207,10 +207,10 @@ class Registration extends Component {
             placeholder="Email"
             value={email}
             onChange={this.handleUserInput}
-          />{" "}
-        </div>{" "}
+          />{' '}
+        </div>{' '}
         <div className={`form-group ${this.errorClass(formErrors.email)}`}>
-          <label htmlFor="firstname"> First Name </label>{" "}
+          <label htmlFor="firstname"> First Name </label>{' '}
           <input
             type="text"
             required
@@ -219,10 +219,10 @@ class Registration extends Component {
             placeholder="First Name"
             value={firstname}
             onChange={this.handleUserInput}
-          />{" "}
-        </div>{" "}
+          />{' '}
+        </div>{' '}
         <div className={`form-group ${this.errorClass(formErrors.firstname)}`}>
-          <label htmlFor="lastname"> Last Name </label>{" "}
+          <label htmlFor="lastname"> Last Name </label>{' '}
           <input
             type="text"
             required
@@ -231,10 +231,10 @@ class Registration extends Component {
             placeholder="Last Name"
             value={lastname}
             onChange={this.handleUserInput}
-          />{" "}
-        </div>{" "}
+          />{' '}
+        </div>{' '}
         <div className={`form-group ${this.errorClass(formErrors.lastname)}`}>
-          <label htmlFor="address"> Street Address </label>{" "}
+          <label htmlFor="address"> Street Address </label>{' '}
           <input
             type="text"
             required
@@ -243,10 +243,10 @@ class Registration extends Component {
             placeholder="Address"
             value={address}
             onChange={this.handleUserInput}
-          />{" "}
-        </div>{" "}
+          />{' '}
+        </div>{' '}
         <div className={`form-group ${this.errorClass(formErrors.address)}`}>
-          <label htmlFor="username"> Username </label>{" "}
+          <label htmlFor="username"> Username </label>{' '}
           <input
             type="text"
             required
@@ -255,10 +255,10 @@ class Registration extends Component {
             placeholder="Username"
             value={username}
             onChange={this.handleUserInput}
-          />{" "}
-        </div>{" "}
+          />{' '}
+        </div>{' '}
         <div className={`form-group ${this.errorClass(formErrors.password)}`}>
-          <label htmlFor="password"> Password </label>{" "}
+          <label htmlFor="password"> Password </label>{' '}
           <input
             type="password"
             className="form-control"
@@ -266,10 +266,10 @@ class Registration extends Component {
             placeholder="Password"
             value={password}
             onChange={this.handleUserInput}
-          />{" "}
-        </div>{" "}
+          />{' '}
+        </div>{' '}
         <div className={`form-group ${this.errorClass(formErrors.password)}`}>
-          <label htmlFor="password2"> Password </label>{" "}
+          <label htmlFor="password2"> Password </label>{' '}
           <input
             type="password"
             className="form-control"
@@ -277,19 +277,18 @@ class Registration extends Component {
             placeholder="Enter Password Again"
             value={password2}
             onChange={this.handleUserInput}
-          />{" "}
-        </div>{" "}
+          />{' '}
+        </div>{' '}
         <div className="panel panel-default">
-          <FormErrors formErrors={formErrors} /> <p> {message} </p>{" "}
-        </div>{" "}
+          <FormErrors formErrors={formErrors} /> <p> {message} </p>{' '}
+        </div>{' '}
         <button
           type="submit"
           onClick={this.handleSubmit}
           className="btn btn-primary"
-          disabled={!formValid}
-        >
-          Sign up{" "}
-        </button>{" "}
+          disabled={!formValid}>
+          Sign up{' '}
+        </button>{' '}
       </form>
     );
   }

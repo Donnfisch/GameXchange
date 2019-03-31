@@ -4,7 +4,8 @@ table {
   border: 1px solid #ddd;
 }
 
-th, td {
+th,
+td {
   text-align: left;
   padding: 8px;
 }
@@ -17,11 +18,15 @@ th {
   color: white;
 }
 
-tr:nth-child(even) {background-color: #f2f2f2;}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-tr:hover {background-color: #afafaf;}
+tr:hover {
+  background-color: #afafaf;
+}
 
 .inventoryCheckbox {
-  text-align: center; 
+  text-align: center;
   vertical-align: middle;
 }

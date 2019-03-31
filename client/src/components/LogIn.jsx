@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-const axios = require("axios");
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+const axios = require('axios');
 
 export class LogIn extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: "",
-      password: ""
+      username: '',
+      password: '',
     };
   }
 
   handleChange = event => {
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.id]: event.target.value,
     });
   };
 
@@ -23,7 +23,7 @@ export class LogIn extends Component {
     axios
       .post(`/api/auth`, {
         username,
-        password
+        password,
       })
       .then(res => {
         document.cookie = `uuid=${res.data.user.id}`;
@@ -39,7 +39,7 @@ export class LogIn extends Component {
     event.preventDefault();
     const { username, password } = this.state;
     this.authenticateUser(username, password);
-    this.setState({ username: "", password: "" });
+    this.setState({ username: '', password: '' });
   };
 
   validateForm() {
@@ -48,15 +48,15 @@ export class LogIn extends Component {
   }
 
   logOut() {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    document.cookie = "uuid=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    window.location.href = "/";
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'uuid=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    window.location.href = '/';
   }
 
   render() {
     const { username, password } = this.state;
     const { token } = this.props;
-    if (!token && window.location.pathname !== "/") window.location.href = "/";
+    if (!token && window.location.pathname !== '/') window.location.href = '/';
     return (
       <React.Fragment>
         {!token && (
@@ -81,16 +81,15 @@ export class LogIn extends Component {
             />
             <button
               className="btn btn-lg btn-primary btn-block mb-1"
-              type="submit"
-            >
+              type="submit">
               Sign in
             </button>
           </form>
         )}
         {token && (
           <button type="button" className="link-button" onClick={this.logOut}>
-            {" "}
-            Log Out{" "}
+            {' '}
+            Log Out{' '}
           </button>
         )}
       </React.Fragment>
@@ -102,5 +101,5 @@ export default LogIn;
 
 LogIn.propTypes = {
   token: PropTypes.string,
-  setUserState: PropTypes.func.isRequired
+  setUserState: PropTypes.func.isRequired,
 };

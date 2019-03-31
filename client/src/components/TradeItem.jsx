@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const TradeItem = ({ trade }) => {
   // console.log(trade);
@@ -12,18 +12,14 @@ const TradeItem = ({ trade }) => {
       <td>{title}</td>
       <td>{platform}</td>
       <td>{region}</td>
-      {/* <td>
-        {publisher}
-      </td>
-      <td>
-        {version}
-      </td> */}
+      {/* <td>{publisher}</td>
+      <td>{version}</td> */}
     </tr>
   );
 };
 
 TradeItem.propTypes = {
-  trade: PropTypes.array.isRequired
+  trade: PropTypes.array.isRequired,
 };
 
 export default TradeItem;

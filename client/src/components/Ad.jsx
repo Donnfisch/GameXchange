@@ -1,6 +1,6 @@
 import React from 'react';
-import legoAd from '../../public/images/legoad.jpg';
-import tacoAd from '../../public/images/tacoad.gif';
+import legoAd from '../images/legoad.jpg';
+import tacoAd from '../images/tacoad.gif';
 
 function serveAd() {
   const adArray = [tacoAd, legoAd];
@@ -9,18 +9,18 @@ function serveAd() {
 
 const Ad = () => (
   <div style={adDivStyle}>
-    {/* <img src={serveAd()} style={adStyle} alt="legoad" /> */}
+    {<img src={serveAd()} style={adStyle} alt="legoad" />}
   </div>
 );
 
 const adDivStyle = {
-  position: "center",
-  textAlign: "center",
+  position: 'center',
+  textAlign: 'center',
 };
 
 const adStyle = {
-  height: "100px",
-  margin: "15px",
+  height: '100px',
+  margin: '15px',
 };
 
 export default Ad;

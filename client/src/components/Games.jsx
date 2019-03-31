@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import GameItem from "./GameItem";
-import "../styles/Games.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import GameItem from './GameItem';
+import '../styles/Games.css';
 
 const Games = ({ games, changeGameStatus }) => (
   <div>
@@ -34,17 +34,17 @@ const Games = ({ games, changeGameStatus }) => (
 
 Games.propTypes = {
   games: PropTypes.array.isRequired,
-  changeGameStatus: PropTypes.func.isRequired
+  changeGameStatus: PropTypes.func.isRequired,
 };
 
 export default Games;
 
 const tableStyle = {
-  marginLeft: "auto",
-  marginRight: "auto"
+  marginLeft: 'auto',
+  marginRight: 'auto',
 };
 
 const h1Style = {
-  align: "center",
-  textAlign: "center"
+  align: 'center',
+  textAlign: 'center',
 };

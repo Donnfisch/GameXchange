@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Route } from "react-router-dom";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 
 class Search extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      platform: "",
-      searchTerm: ""
+      platform: '',
+      searchTerm: '',
     };
   }
 
   handleChange = event => {
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.id]: event.target.value,
     });
   };
 
@@ -27,15 +27,13 @@ class Search extends Component {
         render={({ history }) => (
           <form
             className="form-search"
-            onSubmit={handleSearch.bind(this, searchTerm)}
-          >
+            onSubmit={handleSearch.bind(this, searchTerm)}>
             <select
               name="platform"
               value={platform}
               id="platform"
               onChange={this.handleChange}
-              onSubmit={this.handleSubmit}
-            >
+              onSubmit={this.handleSubmit}>
               <option value="all">All Platforms</option>
               <option value="PS4">PS4</option>
               <option value="XBox One">XBox One</option>
@@ -54,7 +52,7 @@ class Search extends Component {
             <button
               className="btn btn-lg btn-primary btn-block mb-1"
               type="submit"
-              onClick={() => history.push("/games")}
+              onClick={() => history.push('/games')}
               // id="loginSubmit"
             >
               Search
@@ -67,7 +65,7 @@ class Search extends Component {
 }
 
 Search.propTypes = {
-  handleSearch: PropTypes.func.isRequired
+  handleSearch: PropTypes.func.isRequired,
 };
 
 export default Search;

@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const MatchItem = props => {
   const { match } = props;
@@ -20,7 +20,7 @@ const MatchItem = props => {
 };
 
 MatchItem.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
 };
 
 export default MatchItem;

@@ -4,6 +4,7 @@ import axios from "axios";
 import Ad from "./components/Ad";
 import Footer from "./components/Footer";
 import Games from "./components/Games";
+import Header from "./components/Header";
 import Nav from "./components/Nav";
 import Profile from "./components/Profile";
 import Registration from "./components/Registration";
@@ -138,6 +139,7 @@ class App extends Component {
     return (
       <Router>
         <React.Fragment>
+          <Header />
           <Route
             render={({ history }) => (
               <Nav
