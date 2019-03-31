@@ -4,7 +4,7 @@ import {
   Container,
   Header,
   Message,
-} from "semantic-ui-react";
+} from 'semantic-ui-react';
 import './styles/Welcome.css';
 
 const Welcome = () => (

@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const db = require("../models");
+const jwt = require('jsonwebtoken');
+const db = require('../models');
 
 // Defining methods for the gamesController
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
   // Lists all games
   findAll: (req, res) => {
     db.game.findAll({
-      where: { status: "approved" }, limit: 50,
+      where: { status: 'approved' }, limit: 50,
     }).then(dbGames => {
       res.json(dbGames);
     });
@@ -30,7 +30,7 @@ module.exports = {
         title: {
           $like: `%${req.params.title}%`,
         },
-        status: "approved",
+        status: 'approved',
       },
       limit: 50,
       include: [{

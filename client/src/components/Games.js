@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GameItem from './GameItem';
-import "./styles/Games.css";
+import './styles/Games.css';
 
 const Games = ({ games, changeGameStatus }) => (
   <div>
@@ -36,11 +36,11 @@ Games.propTypes = {
 export default Games;
 
 const tableStyle = {
-  marginLeft: "auto",
-  marginRight: "auto",
+  marginLeft: 'auto',
+  marginRight: 'auto',
 };
 
 const h1Style = {
-  align: "center",
-  textAlign: "center",
+  align: 'center',
+  textAlign: 'center',
 };

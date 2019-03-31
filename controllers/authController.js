@@ -1,19 +1,19 @@
 
 const jwt = require('jsonwebtoken');
-const JWTStrategy = require("passport-jwt").Strategy;
-const ExtractJWT = require("passport-jwt").ExtractJwt;
+const JWTStrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
 const Sequelize = require('sequelize');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const uuid = require('uuid');
-const db = require("../models");
+const db = require('../models');
 
 // Defining methods for the authController
 passport.use(
   new LocalStrategy(
     {
-      usernameField: "username",
-      passwordField: "password",
+      usernameField: 'username',
+      passwordField: 'password',
     },
     ((username, password, done) => {
       db.user.findOne({
@@ -27,9 +27,9 @@ passport.use(
               return done(null, false, { message: 'Incorrect username or password.' });
             }
             if (!user.validatePassword(password)) {
-              return done(null, false, { message: "Incorrect username or password." });
+              return done(null, false, { message: 'Incorrect username or password.' });
             }
-            return done(null, user, { message: "Logged In Successfully" });
+            return done(null, user, { message: 'Logged In Successfully' });
           }
         )
         .catch((error) => {
@@ -44,7 +44,7 @@ passport.use(
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: "your_jwt_secret",
+      secretOrKey: 'your_jwt_secret',
     },
     ((jwtPayload, done) => {
       try {
@@ -60,13 +60,13 @@ module.exports = {
   // Login user
   login: (req, res) => {
     passport.authenticate(
-      "local", {
+      'local', {
         session: false,
       },
       (error, user, info) => {
         if (error || !user) {
           return res.status(403).json({
-            message: "Unable to Authorize",
+            message: 'Unable to Authorize',
             user,
             error,
             info,
@@ -83,7 +83,7 @@ module.exports = {
             username: user.username,
             email: user.email,
           };
-          const token = jwt.sign(sanitizedUser, "your_jwt_secret");
+          const token = jwt.sign(sanitizedUser, 'your_jwt_secret');
           res.json({
             user: sanitizedUser,
             token,
