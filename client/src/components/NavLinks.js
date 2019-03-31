@@ -24,12 +24,21 @@ export class NavLinks extends Component {
     handleMyGames();
   }
 
+  onClickRegister = (event) => {
+    event.preventDefault();
+    const { history } = this.props;
+    history.push('/register');
+  }
+
+
   render() {
+    const { token } = this.props;
     return (
       <React.Fragment>
         <button type="button" className="link-button" onClick={this.onClickGames}> My Games </button>
         <button type="button" className="link-button" onClick={this.onClickMatches}> Matches </button>
         <button type="button" className="link-button" onClick={this.onClickProfile}> Profile </button>
+        {!token && <button type="button" className="link-button" onClick={this.onClickRegister}> Register </button>}
         {/* <Link to="/logout"> Log Out </Link> */}
       </React.Fragment>
     );
