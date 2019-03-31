@@ -17,7 +17,7 @@ const TradeItem = ({ trade }) => {
       <td>
         {platform}
       </td>
-      <td>
+      <td>   
         {region}
       </td>
       {/* <td>
@@ -30,7 +30,7 @@ const TradeItem = ({ trade }) => {
   );
 };
 
-
+  
 TradeItem.propTypes = {
   trade: PropTypes.array.isRequired,
 };
