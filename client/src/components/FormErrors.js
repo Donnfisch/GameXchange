@@ -6,8 +6,6 @@ export const FormErrors = ({ formErrors }) => (
       if (formErrors[fieldName].length > 0) {
         return (
           <p key={i}>
-            {fieldName}
-            {' '}
             {formErrors[fieldName]}
           </p>
         );

@@ -40,7 +40,7 @@ export class LogIn extends Component {
   render() {
     const { username, password } = this.state;
     const { token } = this.props;
-    if (!token && window.location.pathname !== '/') window.location.href = '/';
+    if (!token && (window.location.pathname !== '/' && window.location.pathname !== '/register')) window.location.href = '/';
     return (
       <React.Fragment>
         {!token
