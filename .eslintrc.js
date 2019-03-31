@@ -24,7 +24,8 @@ module.exports = {
   },
   "rules": {
     "arrow-parens": 0,
-    "quotes": 0,
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "jsx-quotes": ["error", "prefer-double"],
     "react/jsx-no-undef": [
       2,
       {
