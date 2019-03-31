@@ -7,8 +7,8 @@ class Search extends Component {
     super(props);
 
     this.state = {
-      platform: "",
-      searchTerm: "",
+      platform: '',
+      searchTerm: '',
     };
   }
 

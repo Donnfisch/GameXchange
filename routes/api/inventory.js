@@ -1,15 +1,15 @@
-const router = require("express").Router();
-const inventoryController = require("../../controllers/inventoryController");
+const router = require('express').Router();
+const inventoryController = require('../../controllers/inventoryController');
 
 // Matches with "/api/inventory..."
 
 // Return user's inventory
-router.route("/")
+router.route('/')
   .get(inventoryController.findAll)
   .post(inventoryController.upsertOrDelete);
 
 // Return trade matches
-router.route("/match/:direction")
+router.route('/match/:direction')
   .get(inventoryController.findMatches);
 
 module.exports = router;

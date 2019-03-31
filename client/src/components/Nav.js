@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Menu } from 'semantic-ui-react';
-import Search from "./Search";
-import NavLinks from "./NavLinks";
-import LogIn from "./LogIn";
-import "./styles/Navbar.css";
+import Search from './Search';
+import NavLinks from './NavLinks';
+import LogIn from './LogIn';
+import './styles/Navbar.css';
 
 export default class Nav extends Component {
   state = { activeItem: 'home' }
@@ -13,7 +13,7 @@ export default class Nav extends Component {
 
   render() {
     const {
-      handleSearch, handleMyGames, handleMatches, history, setUserState, token,
+      handleSearch, handleMyGames, handleMatches, history, authenticateUser, token,
     } = this.props;
     const { activeItem } = this.state;
     return (
@@ -26,11 +26,12 @@ export default class Nav extends Component {
             history={history}
             handleMyGames={handleMyGames}
             handleMatches={handleMatches}
+            token={token}
           />
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>
-            <LogIn setUserState={setUserState} token={token} />
+            <LogIn authenticateUser={authenticateUser} token={token} />
           </Menu.Item>
           <Menu.Item>
           </Menu.Item>
@@ -49,7 +50,7 @@ Nav.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   handleMyGames: PropTypes.func.isRequired,
   handleMatches: PropTypes.func.isRequired,
-  setUserState: PropTypes.func.isRequired,
+  authenticateUser: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   token: PropTypes.string,
 };
