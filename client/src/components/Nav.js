@@ -26,6 +26,7 @@ export default class Nav extends Component {
             history={history}
             handleMyGames={handleMyGames}
             handleMatches={handleMatches}
+            token={token}
           />
         </Menu.Item>
         <Menu.Menu position="right">
