@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Menu } from 'semantic-ui-react';
-import Search from "./Search";
-import NavLinks from "./NavLinks";
-import LogIn from "./LogIn";
-import "./styles/Navbar.css";
+import Search from './Search';
+import NavLinks from './NavLinks';
+import LogIn from './LogIn';
+import './styles/Navbar.css';
 
 export default class Nav extends Component {
   state = { activeItem: 'home' }

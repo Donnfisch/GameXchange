@@ -1,6 +1,6 @@
-const Sequelize = require("sequelize");
-const bcrypt = require("bcrypt");
-const uuid = require("uuid/v4");
+const Sequelize = require('sequelize');
+const bcrypt = require('bcrypt');
+const uuid = require('uuid/v4');
 
 /*
   ? Is this where error handling (or at least messages) supposed to happen?
@@ -12,7 +12,7 @@ const uuid = require("uuid/v4");
 */
 
 module.exports = (sequelize) => {
-  const user = sequelize.define("user", {
+  const user = sequelize.define('user', {
     id: {
       allowNull: false,
       type: Sequelize.UUID,
@@ -81,7 +81,7 @@ module.exports = (sequelize) => {
 
 
   user.associate = models => {
-    user.hasMany(models.inventory, { onDelete: "cascade" });
+    user.hasMany(models.inventory, { onDelete: 'cascade' });
     user.hasMany(models.game, {});
   };
 
