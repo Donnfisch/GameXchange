@@ -2,19 +2,19 @@ import React from 'react';
 import {
   Button,
   Container,
+  Grid,
   Header,
   Message,
 } from "semantic-ui-react";
 import './styles/Welcome.css';
 
 const Welcome = () => (
+  <Grid columns={3} divided>
+    <Grid.Row>
+      <Grid.Column width={3}>
 
-  <div className="ui internally celled grid">
-    <div className="row">
-      <div className="three wide column">
-
-      </div>
-      <div className="ten wide column">
+      </Grid.Column>
+      <Grid.Column stretched width={9}>
         <Container className="welcomeBox">
           <Message>
             <Header className="head" size="huge" as="h1">
@@ -33,23 +33,10 @@ const Welcome = () => (
             </Button>
           </Message>
         </Container>
-      </div>
-      <div className="three wide column">
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
 
-      </div>
-    </div>
-    <div className="row">
-      <div className="three wide column">
-
-      </div>
-      <div className="ten wide column">
-        <p></p>
-      </div>
-      <div className="three wide column">
-
-      </div>
-    </div>
-  </div>
 
 );
 

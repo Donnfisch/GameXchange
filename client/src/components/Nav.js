@@ -17,7 +17,7 @@ export default class Nav extends Component {
     } = this.props;
     const { activeItem } = this.state;
     return (
-      <Menu secondary>
+      <Menu secondary className="navStyle">
         <Menu.Item>
           <Search handleSearch={handleSearch} />
         </Menu.Item>
