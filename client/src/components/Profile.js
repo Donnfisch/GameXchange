@@ -1,6 +1,6 @@
 import React from 'react';
-import profilePic from "./styles/images/SnoopProfile.jpg";
 import { Card, Image, Grid } from 'semantic-ui-react';
+import profilePic from "./styles/images/SnoopProfile.jpg";
 import './styles/Profile.css';
 
 const Profile = () => (
