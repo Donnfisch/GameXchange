@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Ad from "./components/Ad";
-import Footer from "./components/Footer";
-import Games from "./components/Games";
-import Header from "./components/Header";
-import Nav from "./components/Nav";
-import Profile from "./components/Profile";
-import Registration from "./components/Registration";
-import Welcome from "./components/Welcome";
-import Matches from "./components/Matches";
-import "./components/styles/Home.css";
-import API from "./utils/API";
-=======
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Ad from './components/Ad';
@@ -24,8 +9,8 @@ import Profile from './components/Profile';
 import Registration from './components/Registration';
 import Welcome from './components/Welcome';
 import Matches from './components/Matches';
+import './components/styles/Home.css';
 import API from './utils/API';
->>>>>>> master
 
 class App extends Component {
   state = {
