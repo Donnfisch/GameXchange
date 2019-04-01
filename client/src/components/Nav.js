@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Menu } from 'semantic-ui-react';
 import Search from './Search';
 import NavLinks from './NavLinks';
-import Login from './LogIn';
+import Login from './Login';
 import './styles/Navbar.css';
 
 export default class Nav extends Component {
