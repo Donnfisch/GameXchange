@@ -14,7 +14,7 @@ const Welcome = () => (
       <Grid.Column width={3}>
 
       </Grid.Column>
-      <Grid.Column stretched width={9}>
+      <Grid.Column width={9}>
         <Container className="welcomeBox">
           <Message>
             <Header className="head" size="huge" as="h1">
