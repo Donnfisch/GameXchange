@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Menu } from 'semantic-ui-react';
 import Search from './Search';
 import NavLinks from './NavLinks';
-import LogIn from './LogIn';
+import Login from './Login';
 import './styles/Navbar.css';
 
 export default class Nav extends Component {
@@ -31,7 +31,7 @@ export default class Nav extends Component {
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>
-            <LogIn authenticateUser={authenticateUser} token={token} />
+            <Login authenticateUser={authenticateUser} token={token} />
           </Menu.Item>
           <Menu.Item>
           </Menu.Item>
