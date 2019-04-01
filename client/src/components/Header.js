@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Segment } from 'semantic-ui-react';
 import './styles/Header.css';
-import GXLogo from "./styles/images/GXlogo.png";
+import GXLogo from './styles/images/GXlogo.png';
 
 
 const Header = () => (

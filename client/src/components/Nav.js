@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Menu } from 'semantic-ui-react';
 import Search from './Search';
 import NavLinks from './NavLinks';
-import Login from './Login';
+import Login from './LogIn';
 import './styles/Navbar.css';
 
 export default class Nav extends Component {
@@ -17,7 +17,7 @@ export default class Nav extends Component {
     } = this.props;
     const { activeItem } = this.state;
     return (
-      <Menu secondary>
+      <Menu secondary className="navStyle">
         <Menu.Item>
           <Search handleSearch={handleSearch} />
         </Menu.Item>
@@ -35,11 +35,6 @@ export default class Nav extends Component {
           </Menu.Item>
           <Menu.Item>
           </Menu.Item>
-          <Menu.Item
-            name="logout"
-            active={activeItem === 'logout'}
-            onClick={this.handleItemClick}
-          />
         </Menu.Menu>
       </Menu>
     );
