@@ -10,8 +10,7 @@ const authRoutes = require('./auth');
 
 router.use('/games', passport.authenticate('jwt', { session: false }), gameRoutes);
 router.use('/inventory', passport.authenticate('jwt', { session: false }), inventoryRoutes);
-// router.use('/user', passport.authenticate('jwt', { session: false }), userRoutes);
-router.use('/user', userRoutes);
+router.use('/user', passport.authenticate('jwt', { session: false }), userRoutes);
 router.use('/auth', authRoutes);
 
 module.exports = router;

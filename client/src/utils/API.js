@@ -93,7 +93,7 @@ export default {
       console.log(error);
     }),
 
-  updateUser: (token, email, firstname, lastname, address, password) => axios
+  updateUser: (token, email, firstname, lastname, address, password, oldPassword) => axios
     .post('/api/user', {
       email,
       firstname,
@@ -101,6 +101,7 @@ export default {
       address,
       // username,
       password,
+      oldPassword,
     }, { headers: formatHeader(token) })
     .then(res => (res.data))
     .catch(error => {

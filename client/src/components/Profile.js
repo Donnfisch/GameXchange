@@ -63,17 +63,12 @@ class Profile extends Component {
       firstname,
       lastname,
       address,
-      // username,
       password,
+      oldPassword,
     } = this.state;
     event.preventDefault();
-    // this.validateUserData(email, username)
-    this.updateUser(email, firstname, lastname, address, password);
-  };
-
-  updateUser = (email, firstname, lastname, address, password) => {
-    API.updateUser(this.props.token, email, firstname, lastname, address, password).then(res => {
-      console.log(`token: ${this.props.token}`);
+    API.updateUser(this.props.token, email, firstname, lastname, address, password, oldPassword).then(res => {
+      // console.log(`token: ${this.props.token}`);
       if (!res.created) {
         this.setState({ message: 'USER OR EMAIL ALREADY IN USE' });
       } else {

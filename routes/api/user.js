@@ -7,6 +7,5 @@ const userController = require('../../controllers/userController');
 router.route('/')
   .get(userController.findOne)
   .post(userController.update);
-console.log('fart');
 
 module.exports = router;

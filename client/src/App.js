@@ -82,18 +82,13 @@ class App extends Component {
     API.validateUser(username, password).then(res => {
       document.cookie = `uuid=${res.user.id}`;
       document.cookie = `token=${res.token}`;
-      this.setState({ token: res.token });
+      this.setState({ user: res.user });
     });
   };
 
-  // getUserInfo = () => {
-  //   API.getUserInfo().then
-  // }
-
-
   render() {
     const {
-      username, games, matchesOut, matchesIn, token,
+      games, matchesOut, matchesIn, token, user,
     } = this.state;
     if (!token && document.cookie !== '') {
       API.getUserInfo().then(res => this.setState({ user: res.user, token: res.token }));
@@ -131,7 +126,7 @@ class App extends Component {
                 <Matches
                   matchesOut={matchesOut}
                   matchesIn={matchesIn}
-                  username={this.state.user.username}
+                  username={user.username}
                 />
               )}
             />
@@ -139,7 +134,7 @@ class App extends Component {
               path="/profile"
               component={() => (
                 <Profile
-                  user={this.state.user}
+                  user={user}
                   token={token}
                 />
               )}
