@@ -24,7 +24,8 @@ module.exports = {
   },
   "rules": {
     "arrow-parens": 0,
-    "quotes": 0,
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "jsx-quotes": ["error", "prefer-double"],
     "react/jsx-no-undef": [
       2,
       {
@@ -40,6 +41,12 @@ module.exports = {
       2,
       "always-multiline"
     ],
+    "object-curly-newline": ["error", {
+      "ObjectExpression": { "multiline": true, "minProperties": 5 },
+      "ObjectPattern": { "multiline": true, "minProperties": 5 },
+      "ImportDeclaration": { "multiline": true, "minProperties": 5 },
+      "ExportDeclaration": { "multiline": true, "minProperties": 5 }
+    }],
     "no-trailing-spaces": 2,
     "no-plusplus": 0,
     "import/imports-first": 0,

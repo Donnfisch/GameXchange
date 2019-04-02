@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const db = require("../models");
+const jwt = require('jsonwebtoken');
+const db = require('../models');
 
 const jwtSecret = 'your_jwt_secret';
 
@@ -100,7 +100,7 @@ module.exports = {
             .then(dbInventory => res.json(dbInventory))
             .catch(err => res.status(422).json(err));
         } else {
-          res.json("Nothing added to DB");
+          res.json('Nothing added to DB');
         }
       });
   },

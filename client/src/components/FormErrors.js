@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const FormErrors = ({ formErrors }) => (
   <div className="formErrors">
@@ -6,8 +6,6 @@ export const FormErrors = ({ formErrors }) => (
       if (formErrors[fieldName].length > 0) {
         return (
           <p key={i}>
-            {fieldName}
-            {' '}
             {formErrors[fieldName]}
           </p>
         );

@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  const game = sequelize.define("game", {
+  const game = sequelize.define('game', {
     title: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        isIn: [["PS4", "XBox One", "Switch"]],
+        isIn: [['PS4', 'XBox One', 'Switch']],
       },
     },
     region: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        isIn: [["USA", "Japan", "Europe"]],
+        isIn: [['USA', 'Japan', 'Europe']],
       },
     },
     publisher: DataTypes.STRING,
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        isIn: [["requested", "approved", "denied"]],
+        isIn: [['requested', 'approved', 'denied']],
       },
     },
   },
@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: (gameData) => {
         const updatedGameData = gameData;
-        updatedGameData.status = "requested";
+        updatedGameData.status = 'requested';
         updatedGameData.upVotes = 0;
         updatedGameData.downVotes = 0;
         return updatedGameData;

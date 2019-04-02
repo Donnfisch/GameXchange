@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Menu } from 'semantic-ui-react';
-import Search from "./Search";
-import NavLinks from "./NavLinks";
-import LogIn from "./LogIn";
-import "./styles/Navbar.css";
+import Search from './Search';
+import NavLinks from './NavLinks';
+import Login from './Login';
+import './styles/Navbar.css';
 
 export default class Nav extends Component {
   state = { activeItem: 'home' }
@@ -13,11 +13,11 @@ export default class Nav extends Component {
 
   render() {
     const {
-      handleSearch, handleMyGames, handleMatches, history, setUserState, token,
+      handleSearch, handleMyGames, handleMatches, history, authenticateUser, token,
     } = this.props;
     const { activeItem } = this.state;
     return (
-      <Menu secondary>
+      <Menu secondary className="navStyle">
         <Menu.Item>
           <Search handleSearch={handleSearch} />
         </Menu.Item>
@@ -26,19 +26,15 @@ export default class Nav extends Component {
             history={history}
             handleMyGames={handleMyGames}
             handleMatches={handleMatches}
+            token={token}
           />
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>
-            <LogIn setUserState={setUserState} token={token} />
+            <Login authenticateUser={authenticateUser} token={token} />
           </Menu.Item>
           <Menu.Item>
           </Menu.Item>
-          <Menu.Item
-            name="logout"
-            active={activeItem === 'logout'}
-            onClick={this.handleItemClick}
-          />
         </Menu.Menu>
       </Menu>
     );
@@ -49,7 +45,7 @@ Nav.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   handleMyGames: PropTypes.func.isRequired,
   handleMatches: PropTypes.func.isRequired,
-  setUserState: PropTypes.func.isRequired,
+  authenticateUser: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   token: PropTypes.string,
 };

@@ -14,13 +14,13 @@ const Ad = () => (
 );
 
 const adDivStyle = {
-  position: "center",
-  textAlign: "center",
+  position: 'center',
+  textAlign: 'center',
 };
 
 const adStyle = {
-  height: "100px",
-  margin: "15px",
+  height: '100px',
+  margin: '15px',
 };
 
 export default Ad;

@@ -1,103 +1,148 @@
 import axios from 'axios';
-import React, { Component } from "react";
-import { FormErrors } from "./FormErrors";
+import React, { Component } from 'react';
+import { Button, Input, Container, Header } from 'semantic-ui-react';
+import { FormErrors } from './FormErrors';
 
 class Registration extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      username: "",
-      password: "",
+      email: '',
+      firstname: '',
+      lastname: '',
+      address: '',
+      username: '',
+      password: '',
       formErrors: {
-        email: "",
-        password: "",
-        password2: "",
+        email: '',
+        firstname: '',
+        lastname: '',
+        address: '',
+        password: '',
+        password2: '',
       },
       emailValid: false,
+      firstnameValid: false,
+      lastnameValid: false,
+      addressValid: false,
       usernameValid: false,
       passwordValid: false,
       password2Valid: false,
       formValid: false,
+      message: '',
     };
   }
 
   handleUserInput = e => {
     const { name, value } = e.target;
-    this.setState({ [name]: value }, () => {
-      this.validateField(name, value);
-    });
+    this.setState(
+      {
+        message: '',
+        [name]: value,
+      },
+      () => {
+        this.validateField(name, value);
+      }
+    );
   };
 
   handleSubmit = event => {
-    const { email, username, password } = this.state;
+    const {
+      email,
+      firstname,
+      lastname,
+      address,
+      username,
+      password,
+    } = this.state;
     event.preventDefault();
-    this.validateUserData(email, username)
-      .then(this.createUser(email, username, password));
-  }
+    // this.validateUserData(email, username)
+    this.createUser(email, firstname, lastname, address, username, password);
+  };
 
-  validateUserData = (email, username) => {
+  createUser = (email, firstname, lastname, address, username, password) => {
     axios
-      .post(`/api/user/validate`, {
+      .post('/api/auth/user/create', {
         email,
-        username,
-      })
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  createUser = (email, username, password) => {
-    axios
-      .post('api/user/create', {
-        email,
+        firstname,
+        lastname,
+        address,
         username,
         password,
       })
       .then(res => {
         console.log(res.data.user);
+        if (!res.data.created) {
+          this.setState({ message: 'USER OR EMAIL ALREADY IN USE' });
+        } else {
+          window.location.replace('/profile');
+        }
       })
       .catch(error => {
         console.log(error);
       });
-  }
+  };
 
   validateField(fieldName, value) {
-    const fieldValidationErrors = this.state.formErrors;
     let {
       emailValid,
+      firstnameValid,
+      lastnameValid,
+      addressValid,
       usernameValid,
       passwordValid,
       password2Valid,
+      formErrors,
     } = this.state;
 
     switch (fieldName) {
-      case "email":
+      case 'email':
         emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-        fieldValidationErrors.email = emailValid ? "" : " is invalid";
+        formErrors.email = emailValid ? '' : 'Invalid email address';
         break;
-      case "username":
-        usernameValid = value.length >= 6;
-        fieldValidationErrors.password = usernameValid ? "" : " is too short";
+      case 'firstname':
+        firstnameValid = value.length <= 20 && value.match(/^[a-z0-9]+$/i) !== [];
+        formErrors.firstname = firstnameValid
+          ? ''
+          : 'Must contain only letters';
         break;
-      case "password":
+      case 'lastname':
+        lastnameValid = value.length <= 20 && value.match(/^[a-z0-9]+$/i) !== [];
+        formErrors.lastname = lastnameValid ? '' : 'Must contain only letters';
+        break;
+      case 'address':
+        addressValid = value.match(/^[a-z 0-9]+$/i) !== [];
+        formErrors.address = addressValid ? '' : 'Must contain only letters';
+        break;
+      case 'username':
+        usernameValid = value.length >= 4
+          && value.length <= 16
+          && value.match(/^[a-z0-9]+$/i) !== [];
+        formErrors.username = usernameValid
+          ? ''
+          : 'Username must be alphanumeric and between 4 and 16 characters';
+        break;
+      case 'password':
         passwordValid = value.length >= 6;
-        fieldValidationErrors.password = passwordValid ? "" : " is too short";
+        formErrors.password = passwordValid
+          ? ''
+          : 'Password must be at least 6 characters';
         break;
-      case "password2":
+      case 'password2':
         password2Valid = value === this.state.password;
-        fieldValidationErrors.password2 = passwordValid ? "" : " must match";
+        formErrors.password2 = password2Valid ? '' : 'Passwords must match';
         break;
       default:
         break;
     }
     this.setState(
       {
-        formErrors: fieldValidationErrors,
+        formErrors,
         emailValid,
+        firstnameValid,
+        lastnameValid,
+        addressValid,
+        usernameValid,
         passwordValid,
         password2Valid,
       },
@@ -106,93 +151,129 @@ class Registration extends Component {
   }
 
   validateForm() {
+    const {
+      emailValid,
+      usernameValid,
+      firstnameValid,
+      lastnameValid,
+      addressValid,
+      passwordValid,
+      password2Valid,
+    } = this.state;
     this.setState({
-      formValid: this.state.emailValid && this.state.passwordValid && this.state.password2Valid,
+      formValid:
+        emailValid
+        && usernameValid
+        && firstnameValid
+        && lastnameValid
+        && addressValid
+        && passwordValid
+        && password2Valid,
     });
   }
 
   errorClass(error) {
-    return error.length === 0 ? "" : "has-error";
+    return error.length === 0 ? '' : 'has-error';
   }
 
   render() {
+    const {
+      formErrors,
+      email,
+      firstname,
+      lastname,
+      address,
+      username,
+      password,
+      password2,
+      formValid,
+      message,
+    } = this.state;
+
     return (
-      <form className="demoForm">
-        <h2>Sign up</h2>
-        <div className="panel panel-default">
-          <FormErrors formErrors={this.state.formErrors} />
-        </div>
-        <div
-          className={`form-group ${this.errorClass(
-            this.state.formErrors.email
-          )}`}
-        >
-          <label htmlFor="email">Email address</label>
-          <input
-            type="email"
-            required
-            className="form-control"
-            name="email"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleUserInput}
-          />
-        </div>
-        <div
-          className={`form-group ${this.errorClass(
-            this.state.formErrors.email
-          )}`}
-        >
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            required
-            className="form-control"
-            name="username"
-            placeholder="Username"
-            value={this.state.username}
-            onChange={this.handleUserInput}
-          />
-        </div>
-        <div
-          className={`form-group ${this.errorClass(
-            this.state.formErrors.password
-          )}`}
-        >
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleUserInput}
-          />
-        </div>
-        <div
-          className={`form-group ${this.errorClass(
-            this.state.formErrors.password
-          )}`}
-        >
-          <label htmlFor="password2">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password2"
-            placeholder="Enter Password Again"
-            value={this.state.password2}
-            onChange={this.handleUserInput}
-          />
-        </div>
-        <button
+      <Container text>
+        <Header as="h2">Register</Header>
+        <Input
+          className={this.errorClass(formErrors.email)}
+          type="email"
+          required
+          name="email"
+          placeholder="Email"
+          value={email}
+          onChange={this.handleUserInput}
+          fluid
+        />
+        <Input
+          className={this.errorClass(formErrors.firstname)}
+          type="text"
+          required
+          name="firstname"
+          placeholder="First Name"
+          value={firstname}
+          onChange={this.handleUserInput}
+          fluid
+        />
+        <Input
+          className={this.errorClass(formErrors.lastname)}
+          type="text"
+          required
+          name="lastname"
+          placeholder="Last Name"
+          value={lastname}
+          onChange={this.handleUserInput}
+          fluid
+        />
+        <Input
+          className={this.errorClass(formErrors.address)}
+          type="text"
+          required
+          name="address"
+          placeholder="Address"
+          value={address}
+          onChange={this.handleUserInput}
+          fluid
+        />
+        <Input
+          type="text"
+          required
+          name="username"
+          placeholder="Username"
+          value={username}
+          onChange={this.handleUserInput}
+          fluid
+        />
+        <Input
+          className={this.errorClass(formErrors.password)}
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={this.handleUserInput}
+          fluid
+        />
+        <Input
+          className={this.errorClass(formErrors.password)}
+          type="password"
+          name="password2"
+          placeholder="Enter Password Again"
+          value={password2}
+          onChange={this.handleUserInput}
+          fluid
+        />
+        <FormErrors formErrors={formErrors} />
+        <p>
+          {message}
+        </p>
+        <Button
           type="submit"
           onClick={this.handleSubmit}
           className="btn btn-primary"
-          disabled={!this.state.formValid}
+          disabled={!formValid}
         >
-          Sign up
-        </button>
-      </form>
+Submit
+
+        </Button>
+      </Container>
     );
   }
 }

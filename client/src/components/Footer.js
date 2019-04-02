@@ -9,14 +9,14 @@ const Footer = () => (
 );
 
 const footerStyle = {
-  position: "fixed",
-  bottom: "0",
-  width: "100%",
-  height: "65px",
-  lineHeight: "55px",
-  textAlign: "center",
-  borderTop: "8px solid #000000",
-  fontSize: "24px",
+  position: 'fixed',
+  bottom: '0',
+  width: '100%',
+  height: '65px',
+  lineHeight: '55px',
+  textAlign: 'center',
+  borderTop: '8px solid #000000',
+  fontSize: '24px',
 };
 
 export default Footer;

@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 
 module.exports = (sequelize) => {
-  const inventory = sequelize.define("inventory", {
+  const inventory = sequelize.define('inventory', {
     have: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
