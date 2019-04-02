@@ -6,7 +6,9 @@ const GameItem = ({ game, changeGameStatus }) => {
   const {
     id, title, platform, region, publisher, version, inventories,
   } = game;
-  const { have, want, trade } = inventories[0];
+  const {
+    have, want, trade,
+  } = inventories[0];
   return (
     <tr>
       <td width="10" className="inventoryCheckbox">
@@ -36,6 +38,7 @@ const GameItem = ({ game, changeGameStatus }) => {
     </tr>
   );
 };
+
 
 GameItem.propTypes = {
   game: PropTypes.object.isRequired,
