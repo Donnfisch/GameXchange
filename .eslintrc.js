@@ -42,10 +42,10 @@ module.exports = {
       "always-multiline"
     ],
     "object-curly-newline": ["error", {
-      "ObjectExpression": { "multiline": true, "minProperties": 5 },
-      "ObjectPattern": { "multiline": true, "minProperties": 5 },
-      "ImportDeclaration": { "multiline": true, "minProperties": 5 },
-      "ExportDeclaration": { "multiline": true, "minProperties": 5 }
+      "ObjectExpression": { "multiline": true, "minProperties": 3 },
+      "ObjectPattern": { "multiline": true, "minProperties": 3 },
+      "ImportDeclaration": { "multiline": true, "minProperties": 3 },
+      "ExportDeclaration": { "multiline": true, "minProperties": 3 }
     }],
     "no-trailing-spaces": 2,
     "no-plusplus": 0,
