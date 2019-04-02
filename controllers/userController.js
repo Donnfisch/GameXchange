@@ -22,16 +22,15 @@ module.exports = {
     const user = jwt.verify(token, jwtSecret);
     db.user.findOne({ where: { id: user.id } })
       .then(dbUser => {
-        if (bcrypt.compareSync(
-          req.body.oldPassword,
-          dbUser.password
-        )) {
+        if (!req.body.password) {
+          console.log('no password');
+
           db.user.findOne({ where: { email: req.body.email, id: { $not: user.id } } })
             .then(emailMatch => {
               if (!emailMatch) {
                 db.user.update(
                   {
-                    email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, address: req.body.address, password: req.body.password,
+                    email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, address: req.body.address,
                   },
                   { where: { id: user.id } }
                 )
@@ -41,8 +40,30 @@ module.exports = {
               }
               return res.status(400).json({ message: 'Email address already in use' });
             });
+        } else {
+          if (bcrypt.compareSync(
+            req.body.oldPassword,
+            dbUser.password
+          )) {
+            db.user.findOne({ where: { email: req.body.email, id: { $not: user.id } } })
+              .then(emailMatch => {
+                if (!emailMatch) {
+                  db.user.update(
+                    {
+                      email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, address: req.body.address, password: req.body.password,
+                    },
+                    { where: { id: user.id } }
+                  )
+                    .then(userInfo => {
+                      res.json(userInfo);
+                    });
+                }
+                return res.status(400).json({ message: 'Email address already in use' });
+              });
+          }
+          return res.status(403).json({ message: 'Unable to Authorize' });
         }
-        return res.status(403).json({ message: 'Unable to Authorize' });
+        return null;
       });
   },
 };
