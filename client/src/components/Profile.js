@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Input, Container, Header } from 'semantic-ui-react';
 import { FormErrors } from './FormErrors';
 import API from '../utils/API';
@@ -8,12 +9,13 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // email: '',
-      // firstname: '',
-      // lastname: '',
-      // address: '',
-      // username: '',
-      // password: '',
+      email: '',
+      firstname: '',
+      lastname: '',
+      address: '',
+      oldPassword: '',
+      password: '',
+      password2: '',
       formErrors: {
         email: '',
         firstname: '',
@@ -22,13 +24,12 @@ class Profile extends Component {
         password: '',
         password2: '',
       },
-      emailValid: false,
-      firstnameValid: false,
-      lastnameValid: false,
-      addressValid: false,
-      // usernameValid: false,
-      passwordValid: false,
-      password2Valid: false,
+      emailValid: true,
+      firstnameValid: true,
+      lastnameValid: true,
+      addressValid: true,
+      passwordValid: true,
+      password2Valid: true,
       formValid: false,
       message: '',
     };
@@ -58,22 +59,17 @@ class Profile extends Component {
   };
 
   handleSubmit = event => {
+    event.preventDefault();
+    const { token } = this.props;
     const {
       email,
       firstname,
       lastname,
       address,
-      // username,
       password,
+      oldPassword,
     } = this.state;
-    event.preventDefault();
-    // this.validateUserData(email, username)
-    this.updateUser(email, firstname, lastname, address, password);
-  };
-
-  updateUser = (email, firstname, lastname, address, password) => {
-    API.updateUser(this.props.token, email, firstname, lastname, address, password).then(res => {
-      console.log(`token: ${this.props.token}`);
+    API.updateUser(token, email, firstname, lastname, address, password, oldPassword).then(res => {
       if (!res.created) {
         this.setState({ message: 'USER OR EMAIL ALREADY IN USE' });
       } else {
@@ -91,7 +87,6 @@ class Profile extends Component {
       firstnameValid,
       lastnameValid,
       addressValid,
-      // usernameValid,
       passwordValid,
       password2Valid,
     } = this.state;
@@ -117,16 +112,9 @@ class Profile extends Component {
         addressValid = value.match(/^[a-z 0-9]+$/i) !== [];
         formErrors.address = addressValid ? '' : 'Must contain only letters';
         break;
-      // case 'username':
-      //   usernameValid = value.length >= 4
-      //     && value.length <= 16
-      //     && value.match(/^[a-z0-9]+$/i) !== [];
-      //   formErrors.username = usernameValid
-      //     ? ''
-      //     : 'Username must be alphanumeric and between 4 and 16 characters';
-      //   break;
       case 'password':
-        passwordValid = value.length >= 6;
+        passwordValid = (value.length >= 6) && (this.state.password2 === this.state.password);
+        console.log(this.state.password2 === this.state.password);
         formErrors.password = passwordValid
           ? ''
           : 'Password must be at least 6 characters';
@@ -145,7 +133,6 @@ class Profile extends Component {
         firstnameValid,
         lastnameValid,
         addressValid,
-        // usernameValid,
         passwordValid,
         password2Valid,
       },
@@ -156,7 +143,6 @@ class Profile extends Component {
   validateForm() {
     const {
       emailValid,
-      // usernameValid,
       firstnameValid,
       lastnameValid,
       addressValid,
@@ -166,7 +152,6 @@ class Profile extends Component {
     this.setState({
       formValid:
         emailValid
-        // && usernameValid
         && firstnameValid
         && lastnameValid
         && addressValid
@@ -180,13 +165,14 @@ class Profile extends Component {
   }
 
   render() {
+    const { user } = this.props;
+    const { username } = user;
     const {
       formErrors,
       email,
       firstname,
       lastname,
       address,
-      // username,
       oldPassword,
       password,
       password2,
@@ -199,7 +185,7 @@ class Profile extends Component {
         <Header as="h2">
 Profile:
           {' '}
-          {this.props.username}
+          {username}
         </Header>
         <div className="regBox">
           <h6 className="email">Email</h6>
@@ -246,7 +232,8 @@ Profile:
             onChange={this.handleUserInput}
             fluid
           />
-          <h6>Old Password</h6>
+          <h2>Password Reset</h2>
+          <h6>Password</h6>
           <Input
             className={this.errorClass(formErrors.password)}
             type="password"
@@ -296,3 +283,8 @@ Profile:
   }
 }
 export default Profile;
+
+Profile.propTypes = {
+  user: PropTypes.object.isRequired,
+  token: PropTypes.string.isRequired,
+};

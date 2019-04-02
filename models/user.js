@@ -62,6 +62,7 @@ module.exports = (sequelize) => {
       beforeBulkUpdate: (userData) => {
         const salt = bcrypt.genSaltSync();
         const updatedUserData = userData.attributes;
+        // console.log(`userData:${JSON.stringify(updatedUserData)}`);
         updatedUserData.password = bcrypt.hashSync(updatedUserData.password, salt);
         return updatedUserData;
       },
@@ -74,10 +75,14 @@ module.exports = (sequelize) => {
     user.hasMany(models.game, {});
   };
 
-  user.prototype.validatePassword = (password) => bcrypt.compareSync(
-    password,
-    this.password
-  );
+  user.prototype.validatePassword = function (password) {
+    // console.log(password);
+    // console.log(this.password);
+    return bcrypt.compareSync(
+      password,
+      this.password
+    );
+  };
 
   user.sync();
 
