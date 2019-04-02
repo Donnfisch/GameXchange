@@ -95,7 +95,9 @@ class Matches extends Component {
   )
 
   render() {
-    const { nameFilter, outboundTrade, inboundTrade } = this.state;
+    const {
+      nameFilter, outboundTrade, inboundTrade,
+    } = this.state;
     return (
       <div>
         <h1 style={h1Style}>Match Component</h1>

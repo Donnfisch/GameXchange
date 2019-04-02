@@ -30,14 +30,18 @@ export class NavLinks extends Component {
     history.push('/register');
   }
 
-
   render() {
     const { token } = this.props;
     return (
       <React.Fragment>
-        <button type="button" className="link-button" onClick={this.onClickGames}> My Games </button>
-        <button type="button" className="link-button" onClick={this.onClickMatches}> Matches </button>
-        <button type="button" className="link-button" onClick={this.onClickProfile}> Profile </button>
+        {token
+        && (
+          <React.Fragment>
+            <button type="button" className="link-button" onClick={this.onClickGames}> My Games </button>
+            <button type="button" className="link-button" onClick={this.onClickMatches}> Matches </button>
+            <button type="button" className="link-button" onClick={this.onClickProfile}> Profile </button>
+          </React.Fragment>
+        )}
         {!token && <button type="button" className="link-button" onClick={this.onClickRegister}> Register </button>}
         {/* <Link to="/logout"> Log Out </Link> */}
       </React.Fragment>
@@ -49,6 +53,7 @@ NavLinks.propTypes = {
   handleMyGames: PropTypes.func.isRequired,
   handleMatches: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  token: PropTypes.string,
 };
 
 export default NavLinks;

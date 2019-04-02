@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Input, Container, Header } from 'semantic-ui-react';
 import { FormErrors } from './FormErrors';
+import API from '../utils/API';
 import './styles/Registration.css';
 
 class Registration extends Component {
@@ -62,23 +62,13 @@ class Registration extends Component {
   };
 
   createUser = (email, firstname, lastname, address, username, password) => {
-    axios
-      .post('/api/auth/user/create', {
-        email,
-        firstname,
-        lastname,
-        address,
-        username,
-        password,
-      })
-      .then(res => {
-        console.log(res.data.user);
-        if (!res.data.created) {
-          this.setState({ message: 'USER OR EMAIL ALREADY IN USE' });
-        } else {
-          window.location.replace('/profile');
-        }
-      })
+    API.newUser(email, firstname, lastname, address, username, password).then(res => {
+      if (!res.created) {
+        this.setState({ message: 'USER OR EMAIL ALREADY IN USE' });
+      } else {
+        window.location.replace('/');
+      }
+    })
       .catch(error => {
         console.log(error);
       });
@@ -93,8 +83,9 @@ class Registration extends Component {
       usernameValid,
       passwordValid,
       password2Valid,
-      formErrors,
     } = this.state;
+
+    const { formErrors, password } = this.state;
 
     switch (fieldName) {
       case 'email':
@@ -130,7 +121,7 @@ class Registration extends Component {
           : 'Password must be at least 6 characters';
         break;
       case 'password2':
-        password2Valid = value === this.state.password;
+        password2Valid = value === password;
         formErrors.password2 = password2Valid ? '' : 'Passwords must match';
         break;
       default:
@@ -272,22 +263,19 @@ class Registration extends Component {
             />
           </div>
         </div>
-
         <Button
           type="submit"
           onClick={this.handleSubmit}
           className="btn btn-primary"
           disabled={!formValid}
         >
-Submit
+          Submit
         </Button>
         <FormErrors formErrors={formErrors} />
         <p>
           {message}
         </p>
-
       </Container>
-
     );
   }
 }
