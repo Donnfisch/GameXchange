@@ -13,9 +13,7 @@ class Search extends Component {
   }
 
   handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value,
-    });
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   render() {
@@ -66,8 +64,6 @@ class Search extends Component {
   }
 }
 
-Search.propTypes = {
-  handleSearch: PropTypes.func.isRequired,
-};
+Search.propTypes = { handleSearch: PropTypes.func.isRequired };
 
 export default Search;

@@ -34,7 +34,9 @@ class App extends Component {
     API.searchGames(token, searchTerm).then(res => {
       res.map(game => {
         if (!game.inventories[0]) {
-          game.inventories.push({ have: false, want: false, trade: false });
+          game.inventories.push({
+            have: false, want: false, trade: false,
+          });
         }
         return game;
       });

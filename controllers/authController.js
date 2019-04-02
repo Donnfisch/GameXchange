@@ -16,11 +16,7 @@ passport.use(
       passwordField: 'password',
     },
     ((username, password, done) => {
-      db.user.findOne({
-        where: {
-          username,
-        },
-      })
+      db.user.findOne({ where: { username } })
         .then(
           (user) => {
             if (!user) {
@@ -60,9 +56,7 @@ module.exports = {
   // Login user
   login: (req, res) => {
     passport.authenticate(
-      'local', {
-        session: false,
-      },
+      'local', { session: false },
       (error, user, info) => {
         if (error || !user) {
           return res.status(403).json({
@@ -72,9 +66,7 @@ module.exports = {
             info,
           });
         }
-        req.login(user, {
-          session: false,
-        }, (newError) => {
+        req.login(user, { session: false }, (newError) => {
           if (newError) {
             res.send(newError);
           }
@@ -95,7 +87,6 @@ module.exports = {
   },
 
   createUser: (req, res) => {
-    console.log(req.body);
     const { Op } = Sequelize;
     const {
       username,
@@ -105,10 +96,8 @@ module.exports = {
       lastname,
       address,
     } = req.body;
-
     return db.user.findOrCreate({
       where: { [Op.or]: [{ username }, { email }] },
-      // where: {username: "JDoe"},
       defaults: {
         id: uuid(),
         username,
@@ -118,6 +107,9 @@ module.exports = {
         lastname,
         password,
       },
+      attributes: [
+        'id',
+      ],
     })
       .then(([user, created]) => {
         res.send({ user, created });

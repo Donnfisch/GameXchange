@@ -35,9 +35,7 @@ module.exports = (sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
-      validation: {
-        isEmail: true,
-      },
+      validation: { isEmail: true },
     },
     firstname: {
       type: Sequelize.STRING,

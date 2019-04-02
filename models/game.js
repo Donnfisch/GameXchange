@@ -9,16 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     platform: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate: {
-        isIn: [['PS4', 'XBox One', 'Switch']],
-      },
+      validate: { isIn: [['PS4', 'XBox One', 'Switch']] },
     },
     region: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate: {
-        isIn: [['USA', 'Japan', 'Europe']],
-      },
+      validate: { isIn: [['USA', 'Japan', 'Europe']] },
     },
     publisher: DataTypes.STRING,
     version: DataTypes.STRING,
@@ -27,9 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate: {
-        isIn: [['requested', 'approved', 'denied']],
-      },
+      validate: { isIn: [['requested', 'approved', 'denied']] },
     },
   },
   {

@@ -77,4 +77,18 @@ export default {
     .catch(error => {
       console.log(error);
     }),
+
+  newUser: (email, firstname, lastname, address, username, password) => axios
+    .post('/api/auth/user', {
+      email,
+      firstname,
+      lastname,
+      address,
+      username,
+      password,
+    })
+    .then(res => (res.data))
+    .catch(error => {
+      console.log(error);
+    }),
 };
