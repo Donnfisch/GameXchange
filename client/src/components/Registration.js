@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Input, Container, Header } from 'semantic-ui-react';
 import { FormErrors } from './FormErrors';
+import './styles/Registration.css';
 
 class Registration extends Component {
   constructor(props) {
@@ -193,77 +194,85 @@ class Registration extends Component {
     return (
       <Container text>
         <Header as="h2">Register</Header>
-        <Input
-          className={this.errorClass(formErrors.email)}
-          type="email"
-          required
-          name="email"
-          placeholder="Email"
-          value={email}
-          onChange={this.handleUserInput}
-          fluid
-        />
-        <Input
-          className={this.errorClass(formErrors.firstname)}
-          type="text"
-          required
-          name="firstname"
-          placeholder="First Name"
-          value={firstname}
-          onChange={this.handleUserInput}
-          fluid
-        />
-        <Input
-          className={this.errorClass(formErrors.lastname)}
-          type="text"
-          required
-          name="lastname"
-          placeholder="Last Name"
-          value={lastname}
-          onChange={this.handleUserInput}
-          fluid
-        />
-        <Input
-          className={this.errorClass(formErrors.address)}
-          type="text"
-          required
-          name="address"
-          placeholder="Address"
-          value={address}
-          onChange={this.handleUserInput}
-          fluid
-        />
-        <Input
-          type="text"
-          required
-          name="username"
-          placeholder="Username"
-          value={username}
-          onChange={this.handleUserInput}
-          fluid
-        />
-        <Input
-          className={this.errorClass(formErrors.password)}
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={this.handleUserInput}
-          fluid
-        />
-        <Input
-          className={this.errorClass(formErrors.password)}
-          type="password"
-          name="password2"
-          placeholder="Enter Password Again"
-          value={password2}
-          onChange={this.handleUserInput}
-          fluid
-        />
-        <FormErrors formErrors={formErrors} />
-        <p>
-          {message}
-        </p>
+        <div className="regBox">
+          <h6 className="email">Email</h6>
+          <Input
+            className={this.errorClass(formErrors.email)}
+            type="email"
+            required
+            name="email"
+            placeholder="Email"
+            value={email}
+            onChange={this.handleUserInput}
+            fluid
+          />
+          <h6>First Name</h6>
+          <Input
+            className={this.errorClass(formErrors.firstname)}
+            type="text"
+            required
+            name="firstname"
+            placeholder="First Name"
+            value={firstname}
+            onChange={this.handleUserInput}
+            fluid
+          />
+          <h6>Last Name</h6>
+          <Input
+            className={this.errorClass(formErrors.lastname)}
+            type="text"
+            required
+            name="lastname"
+            placeholder="Last Name"
+            value={lastname}
+            onChange={this.handleUserInput}
+            fluid
+          />
+          <h6>Address</h6>
+          <Input
+            className={this.errorClass(formErrors.address)}
+            type="text"
+            required
+            name="address"
+            placeholder="Address"
+            value={address}
+            onChange={this.handleUserInput}
+            fluid
+          />
+          <h6>Username</h6>
+          <Input
+            type="text"
+            required
+            name="username"
+            placeholder="Username"
+            value={username}
+            onChange={this.handleUserInput}
+            fluid
+          />
+          <h6>Password</h6>
+          <Input
+            className={this.errorClass(formErrors.password)}
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={password}
+            onChange={this.handleUserInput}
+            fluid
+          />
+          <h6>Re-Type Password</h6>
+          <div className="boxStyle">
+            <Input
+              className={this.errorClass(formErrors.password)}
+              type="password"
+              name="password2"
+              placeholder="Enter Password Again"
+              value={password2}
+              onChange={this.handleUserInput}
+              fluid
+            />
+          </div>
+        </div>
+
         <Button
           type="submit"
           onClick={this.handleSubmit}
@@ -271,9 +280,14 @@ class Registration extends Component {
           disabled={!formValid}
         >
 Submit
-
         </Button>
+        <FormErrors formErrors={formErrors} />
+        <p>
+          {message}
+        </p>
+
       </Container>
+
     );
   }
 }
