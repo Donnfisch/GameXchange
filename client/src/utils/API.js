@@ -22,8 +22,9 @@ export default {
     try {
       const res = await axios
         .get('/api/user/', { headers: formatHeader(token) });
-      res.data.token = token;
-      return (res.data);
+      const userdata = { user: res.data, token };
+      // res.data.token = token;
+      return (userdata);
     } catch (error) {
       console.log(error);
     }
@@ -87,6 +88,20 @@ export default {
       username,
       password,
     })
+    .then(res => (res.data))
+    .catch(error => {
+      console.log(error);
+    }),
+
+  updateUser: (token, email, firstname, lastname, address, password) => axios
+    .post('/api/user', {
+      email,
+      firstname,
+      lastname,
+      address,
+      // username,
+      password,
+    }, { headers: formatHeader(token) })
     .then(res => (res.data))
     .catch(error => {
       console.log(error);

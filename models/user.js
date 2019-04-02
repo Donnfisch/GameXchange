@@ -2,15 +2,6 @@ const Sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid/v4');
 
-/*
-  ? Is this where error handling (or at least messages) supposed to happen?
-  ? In the event a user is attempting to register a name or email that is already in the db
-  ? Sequelize does proper validation saving itself from breaking, but does not handle the error
-  ? gracefully and I'm not sure where/how that would be done. Ultimately, it should flow to the
-  ? DOM to inform the user, but as of now breaks the server with "Unhandled rejection: Validation"
-  ? Would like the server to keep running and handle appropriately.
-*/
-
 module.exports = (sequelize) => {
   const user = sequelize.define('user', {
     id: {
@@ -68,9 +59,9 @@ module.exports = (sequelize) => {
         return updatedUserData;
       },
 
-      beforeUpdate: (userData) => {
+      beforeBulkUpdate: (userData) => {
         const salt = bcrypt.genSaltSync();
-        const updatedUserData = userData;
+        const updatedUserData = userData.attributes;
         updatedUserData.password = bcrypt.hashSync(updatedUserData.password, salt);
         return updatedUserData;
       },
@@ -83,14 +74,10 @@ module.exports = (sequelize) => {
     user.hasMany(models.game, {});
   };
 
-  user.prototype.validatePassword = function (password) {
-    // console.log(password);
-    // console.log(this.password);
-    return bcrypt.compareSync(
-      password,
-      this.password
-    );
-  };
+  user.prototype.validatePassword = (password) => bcrypt.compareSync(
+    password,
+    this.password
+  );
 
   user.sync();
 

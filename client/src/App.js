@@ -78,26 +78,26 @@ class App extends Component {
     });
   };
 
-  setUserState = (username, token) => {
-    this.setState({
-      username,
-      token,
-    });
-  };
-
   authenticateUser = (username, password) => {
     API.validateUser(username, password).then(res => {
       document.cookie = `uuid=${res.user.id}`;
       document.cookie = `token=${res.token}`;
-      this.setUserState(res.user.username, res.token);
+      this.setState({ token: res.token });
     });
   };
+
+  // getUserInfo = () => {
+  //   API.getUserInfo().then
+  // }
+
 
   render() {
     const {
       username, games, matchesOut, matchesIn, token,
     } = this.state;
-    if (!username && document.cookie !== '') { API.getUserInfo().then(res => this.setUserState(res.username, res.token)); }
+    if (!token && document.cookie !== '') {
+      API.getUserInfo().then(res => this.setState({ user: res.user, token: res.token }));
+    }
     return (
       <Router>
         <React.Fragment>
@@ -131,11 +131,19 @@ class App extends Component {
                 <Matches
                   matchesOut={matchesOut}
                   matchesIn={matchesIn}
-                  username={username}
+                  username={this.state.user.username}
                 />
               )}
             />
-            <Route path="/profile" component={Profile} />
+            <Route
+              path="/profile"
+              component={() => (
+                <Profile
+                  user={this.state.user}
+                  token={token}
+                />
+              )}
+            />
             <Route path="/register" component={Registration} />
           </Switch>
           <Ad />
