@@ -42,10 +42,10 @@ module.exports = {
       "always-multiline"
     ],
     "object-curly-newline": ["error", {
-      "ObjectExpression": { "multiline": true, "minProperties": 5 },
-      "ObjectPattern": { "multiline": true, "minProperties": 5 },
-      "ImportDeclaration": { "multiline": true, "minProperties": 5 },
-      "ExportDeclaration": { "multiline": true, "minProperties": 5 }
+      "ObjectExpression": { "multiline": true, "minProperties": 3 },
+      "ObjectPattern": { "multiline": true, "minProperties": 3 },
+      "ImportDeclaration": { "multiline": true, "minProperties": 3 },
+      "ExportDeclaration": { "multiline": true, "minProperties": 3 }
     }],
     "no-trailing-spaces": 2,
     "no-plusplus": 0,
@@ -72,6 +72,7 @@ module.exports = {
     "jsx-a11y/mouse-events-have-key-events": 2,
     "jsx-a11y/role-has-required-aria-props": 2,
     "jsx-a11y/role-supports-aria-props": 2,
+    "linebreak-style": 0,
     "max-len": 0,
     "newline-per-chained-call": 0,
     "no-confusing-arrow": 0,
