@@ -1,6 +1,11 @@
 import React from 'react';
-import { Card, Image, Grid } from 'semantic-ui-react';
-import profilePic from "./styles/images/SnoopProfile.jpg";
+import {
+  Card, 
+  Image, 
+  Grid, 
+  List
+} from 'semantic-ui-react';
+import profilePic from './styles/images/SnoopProfile.jpg';
 import './styles/Profile.css';
 
 const Profile = () => (
@@ -9,15 +14,27 @@ const Profile = () => (
       <Grid.Row>
         <Grid.Column>
           <Card>
-            <Image src={profilePic} alt="profile"/>
+            <Image src={profilePic} alt="profile" />
             <Card.Content>
               <Card.Header>Snoop Dog</Card.Header>
-              <Card.Meta>
-                <span className='date'>Joined in 2019</span>
-              </Card.Meta>
-              <Card.Description>Lives in Oakland, CA.</Card.Description>
+              <List>
+                <List.Item>
+                  <List.Icon name="users" />
+                  <List.Content>Snoop Dog</List.Content>
+                </List.Item>
+                <List.Item>
+                  <List.Icon name="marker">
+                  </List.Icon>
+                  <List.Content>Oakland, CA.</List.Content>
+                </List.Item>
+                <List.Item>
+                  <List.Icon name="mail" />
+                  <List.Content>
+                    <a href="mailto:snoop@doggydog.com">mailto:snoop@doggydog.com</a>
+                  </List.Content>
+                </List.Item>
+              </List>
             </Card.Content>
-            <Card.Content extra>Additional content here</Card.Content>
           </Card>
         </Grid.Column>
         <Grid.Column>
@@ -40,7 +57,7 @@ const Profile = () => (
         </Grid.Column>
       </Grid.Row>
     </Grid>
-  </div>  
-)
+  </div>
+);
 
 export default Profile;
