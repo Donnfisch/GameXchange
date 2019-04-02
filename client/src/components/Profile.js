@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  Card, 
-  Image, 
-  Grid, 
-  List
+  Card,
+  Image,
+  Grid,
+  List,
 } from 'semantic-ui-react';
 import profilePic from './styles/images/SnoopProfile.jpg';
 import './styles/Profile.css';
