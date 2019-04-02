@@ -1,0 +1,49 @@
+h2.ui.header {
+    color: #ddc702;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center; 
+}
+
+h6 {
+    color: #ddc702;
+    font-family: 'Press Start 2P', cursive;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 20px;
+
+}
+
+.regBox {
+    background-color: rgba(75, 16, 131, 0.708);
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 25px;
+}
+
+.ui.input {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.email {
+    padding-left: 20px;
+    padding-top: 5px;
+}
+
+.boxStyle {
+    padding-bottom: 10px;
+}
+
+.ui.button {
+    margin-left: 600px;
+    margin-top: 10px;
+    background-color: rgba(75, 16, 131, 0.708);
+    color: #ddc702;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+}
+
+
+
