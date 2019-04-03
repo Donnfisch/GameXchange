@@ -4,6 +4,7 @@ import { Button, Input, Container, Header } from 'semantic-ui-react';
 import { FormErrors } from './FormErrors';
 import API from '../utils/API';
 import './styles/Registration.css';
+import defaultAvatar from './styles/images/default-avatar.jpg';
 
 class Profile extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class Profile extends Component {
       oldPassword: '',
       password: '',
       password2: '',
+      bio: '',
+      image: '',
       formErrors: {
         email: '',
         firstname: '',
@@ -24,6 +27,8 @@ class Profile extends Component {
         oldPassword: '',
         password: '',
         password2: '',
+        bio: '',
+        image: '',
       },
       emailValid: true,
       firstnameValid: true,
@@ -33,6 +38,8 @@ class Profile extends Component {
       passwordValid: true,
       changedPasswordValid: true,
       password2Valid: true,
+      bioValid: true,
+      imageValid: true,
       formValid: false,
       message: '',
     };
@@ -41,10 +48,10 @@ class Profile extends Component {
   componentDidMount() {
     const { user } = this.props;
     const {
-      email, firstname, lastname, address,
+      email, firstname, lastname, address, bio, image,
     } = user;
     this.setState({
-      email, firstname, lastname, address,
+      email, firstname, lastname, address, bio, image,
     });
   }
 
@@ -65,14 +72,9 @@ class Profile extends Component {
     event.preventDefault();
     const { token } = this.props;
     const {
-      email,
-      firstname,
-      lastname,
-      address,
-      password,
-      oldPassword,
+      email, firstname, lastname, address, password, oldPassword, bio, image,
     } = this.state;
-    API.updateUser(token, email, firstname, lastname, address, password, oldPassword)
+    API.updateUser(token, email, firstname, lastname, address, password, oldPassword, bio, image)
       .then(res => {
         this.setState({ message: res.message });
         if (res.message === 'Password has been changed') {
@@ -93,6 +95,8 @@ class Profile extends Component {
       passwordValid,
       changedPasswordValid,
       password2Valid,
+      bioValid,
+      imageValid,
     } = this.state;
 
     const {
@@ -118,6 +122,11 @@ class Profile extends Component {
         addressValid = value.match(/^[a-z 0-9]+$/i) !== [];
         formErrors.address = addressValid ? '' : 'Must contain only letters';
         break;
+      // case 'bio':
+      //   lastnameValid = value.match(/^[a-z0-9]+$/i);
+      //   break;
+      // case 'image':
+      //   break;
       case 'oldPassword':
       case 'password':
       case 'password2':
@@ -157,6 +166,8 @@ class Profile extends Component {
         passwordValid,
         changedPasswordValid,
         password2Valid,
+        bioValid,
+        imageValid,
       },
       this.validateForm
     );
@@ -171,6 +182,8 @@ class Profile extends Component {
       passwordValid,
       changedPasswordValid,
       password2Valid,
+      bioValid,
+      imageValid,
       oldPasswordValid,
     } = this.state;
     this.setState({
@@ -182,7 +195,9 @@ class Profile extends Component {
         && passwordValid
         && changedPasswordValid
         && oldPasswordValid
-        && password2Valid,
+        && password2Valid
+        && bioValid
+        && imageValid,
     });
   }
 
@@ -202,6 +217,8 @@ class Profile extends Component {
       oldPassword,
       password,
       password2,
+      bio,
+      image,
       formValid,
       message,
     } = this.state;
@@ -212,6 +229,18 @@ class Profile extends Component {
 Profile:
           {' '}
           {username}
+          {image === ''
+        && (
+          <div>
+            <img src={defaultAvatar} alt="avatar" />
+          </div>
+        )}
+          {image !== ''
+        && (
+          <div>
+            <img src={image} alt="avatar" />
+          </div>
+        )}
         </Header>
         <div className="regBox">
           <h6 className="email">Email</h6>
@@ -255,6 +284,28 @@ Profile:
             name="address"
             placeholder="Address"
             value={address}
+            onChange={this.handleUserInput}
+            fluid
+          />
+          <h6>HTML Image Link</h6>
+          <Input
+            className={this.errorClass(formErrors.image)}
+            type="text"
+            name="image"
+            placeholder="Image URL"
+            value={image}
+            onChange={this.handleUserInput}
+            fluid
+          />
+          <h6>Bio</h6>
+          {/* This should be a TEXTAREA.  Room for 255 characters of text */}
+          <Input
+            className={this.errorClass(formErrors.bio)}
+            type="textarea"
+            maxlength="255"
+            name="bio"
+            placeholder="Bio"
+            value={bio}
             onChange={this.handleUserInput}
             fluid
           />
