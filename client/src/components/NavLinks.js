@@ -19,9 +19,9 @@ export class NavLinks extends Component {
 
   onClickProfile = (event) => {
     event.preventDefault();
-    const { handleMyGames, history } = this.props;
+    const { history } = this.props;
     history.push('/profile');
-    handleMyGames();
+    // handleMyGames();
   }
 
   onClickRegister = (event) => {
@@ -43,7 +43,6 @@ export class NavLinks extends Component {
           </React.Fragment>
         )}
         {!token && <button type="button" className="link-button" onClick={this.onClickRegister}> Register </button>}
-        {/* <Link to="/logout"> Log Out </Link> */}
       </React.Fragment>
     );
   }

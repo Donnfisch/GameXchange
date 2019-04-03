@@ -6,9 +6,7 @@ module.exports = {
 
   // Lists all games
   findAll: (req, res) => {
-    db.game.findAll({
-      where: { status: 'approved' }, limit: 50,
-    }).then(dbGames => {
+    db.game.findAll({ where: { status: 'approved' }, limit: 50 }).then(dbGames => {
       res.json(dbGames);
     });
   },
@@ -27,9 +25,7 @@ module.exports = {
     const user = jwt.verify(token, 'your_jwt_secret');
     db.game.findAll({
       where: {
-        title: {
-          $like: `%${req.params.title}%`,
-        },
+        title: { $like: `%${req.params.title}%` },
         status: 'approved',
       },
       limit: 50,

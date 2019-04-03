@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from 'axios';
 
 const formatHeader = (token) => (
@@ -23,7 +24,6 @@ export default {
       const res = await axios
         .get('/api/user/', { headers: formatHeader(token) });
       const userdata = { user: res.data, token };
-      // res.data.token = token;
       return (userdata);
     } catch (error) {
       console.log(error);
@@ -79,6 +79,7 @@ export default {
       console.log(error);
     }),
 
+  // Creates new user
   newUser: (email, firstname, lastname, address, username, password) => axios
     .post('/api/auth/user', {
       email,
@@ -93,13 +94,13 @@ export default {
       console.log(error);
     }),
 
+  // Updates user info and password
   updateUser: (token, email, firstname, lastname, address, password, oldPassword) => axios
     .post('/api/user', {
       email,
       firstname,
       lastname,
       address,
-      // username,
       password,
       oldPassword,
     }, { headers: formatHeader(token) })
