@@ -11,7 +11,7 @@ module.exports = {
         firstname: 'Admin',
         lastname: 'Admin',
         address: '1 Supply Closet',
-        bio: 'I collect games and stuff',
+        bio: 'Calm down, Marty, I didn’t disintegrate anything. The molecular structure of Einstein and the car are completely intact. Marty you gotta come back with me. Of course, from a group of Libyan Nationalists.',
         image: 'https://saturdaynightscreening.files.wordpress.com/2011/08/south-park-warcraft.jpg',
         createdAt: new Date(),
         updatedAt: new Date(),
