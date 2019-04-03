@@ -12,7 +12,7 @@ module.exports = {
         lastname: 'Admin',
         address: '1 Supply Closet',
         bio: 'I collect games and stuff',
-        image: 'http://4.bp.blogspot.com/-4gw1TfUtQS4/UYVPxQ4LkJI/AAAAAAAAUC0/W_OP92fie_E/s1600/nintendo-nerd-lord.jpg',
+        image: 'https://saturdaynightscreening.files.wordpress.com/2011/08/south-park-warcraft.jpg',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
