@@ -20,15 +20,7 @@ class Profile extends Component {
       bio: '',
       image: '',
       formErrors: {
-        email: '',
-        firstname: '',
-        lastname: '',
-        address: '',
-        oldPassword: '',
-        password: '',
-        password2: '',
-        bio: '',
-        image: '',
+        email: '', firstname: '', lastname: '', address: '', oldPassword: '', password: '', password2: '', bio: '', image: '',
       },
       emailValid: true,
       firstnameValid: true,
@@ -38,8 +30,6 @@ class Profile extends Component {
       passwordValid: true,
       changedPasswordValid: true,
       password2Valid: true,
-      bioValid: true,
-      imageValid: true,
       formValid: false,
       message: '',
     };
@@ -74,7 +64,7 @@ class Profile extends Component {
     const {
       email, firstname, lastname, address, password, oldPassword, bio, image,
     } = this.state;
-    API.updateUser(token, email, firstname, lastname, address, password, oldPassword, bio, image)
+    API.updateUser(token, email.trim(), firstname.trim(), lastname.trim(), address.trim(), password, oldPassword, bio.trim(), image.trim())
       .then(res => {
         this.setState({ message: res.message });
         if (res.message === 'Password has been changed') {
@@ -87,16 +77,7 @@ class Profile extends Component {
 
   validateField(fieldName, value) {
     let {
-      emailValid,
-      firstnameValid,
-      lastnameValid,
-      addressValid,
-      oldPasswordValid,
-      passwordValid,
-      changedPasswordValid,
-      password2Valid,
-      bioValid,
-      imageValid,
+      emailValid, firstnameValid, lastnameValid, addressValid, oldPasswordValid, passwordValid, changedPasswordValid, password2Valid,
     } = this.state;
 
     const {
@@ -122,11 +103,6 @@ class Profile extends Component {
         addressValid = value.match(/^[a-z 0-9]+$/i) !== [];
         formErrors.address = addressValid ? '' : 'Must contain only letters';
         break;
-      // case 'bio':
-      //   lastnameValid = value.match(/^[a-z0-9]+$/i);
-      //   break;
-      // case 'image':
-      //   break;
       case 'oldPassword':
       case 'password':
       case 'password2':
@@ -157,17 +133,7 @@ class Profile extends Component {
     }
     this.setState(
       {
-        formErrors,
-        emailValid,
-        firstnameValid,
-        lastnameValid,
-        addressValid,
-        oldPasswordValid,
-        passwordValid,
-        changedPasswordValid,
-        password2Valid,
-        bioValid,
-        imageValid,
+        formErrors, emailValid, firstnameValid, lastnameValid, addressValid, oldPasswordValid, passwordValid, changedPasswordValid, password2Valid,
       },
       this.validateForm
     );
@@ -175,30 +141,11 @@ class Profile extends Component {
 
   validateForm() {
     const {
-      emailValid,
-      firstnameValid,
-      lastnameValid,
-      addressValid,
-      passwordValid,
-      changedPasswordValid,
-      password2Valid,
-      bioValid,
-      imageValid,
-      oldPasswordValid,
+      emailValid, firstnameValid, lastnameValid, addressValid, passwordValid, changedPasswordValid, password2Valid, oldPasswordValid,
     } = this.state;
-    this.setState({
-      formValid:
-        emailValid
-        && firstnameValid
-        && lastnameValid
-        && addressValid
-        && passwordValid
-        && changedPasswordValid
-        && oldPasswordValid
-        && password2Valid
-        && bioValid
-        && imageValid,
-    });
+    this.setState(
+      { formValid: emailValid && firstnameValid && lastnameValid && addressValid && passwordValid && changedPasswordValid && oldPasswordValid && password2Valid }
+    );
   }
 
   errorClass(error) {
@@ -209,24 +156,13 @@ class Profile extends Component {
     const { user } = this.props;
     const { username } = user;
     const {
-      formErrors,
-      email,
-      firstname,
-      lastname,
-      address,
-      oldPassword,
-      password,
-      password2,
-      bio,
-      image,
-      formValid,
-      message,
+      formErrors, email, firstname, lastname, address, oldPassword, password, password2, bio, image, formValid, message,
     } = this.state;
 
     return (
       <Container text>
         <Header as="h2">
-Profile:
+          Profile:
           {' '}
           {username}
           {image === ''
