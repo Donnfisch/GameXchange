@@ -15,6 +15,7 @@ export default {
       Authorization: `Bearer ${token}`,
     }),
 
+  // Gets user's info
   getUserInfo: async () => {
     const token = document.cookie.split('; ')
       .filter(
@@ -95,7 +96,7 @@ export default {
     }),
 
   // Updates user info and password
-  updateUser: (token, email, firstname, lastname, address, password, oldPassword) => axios
+  updateUser: (token, email, firstname, lastname, address, password, oldPassword, bio, image) => axios
     .post('/api/user', {
       email,
       firstname,
@@ -103,6 +104,8 @@ export default {
       address,
       password,
       oldPassword,
+      bio,
+      image,
     }, { headers: formatHeader(token) })
     .then(res => (res.data))
     .catch(error => (error.response.data)),

@@ -48,6 +48,11 @@ module.exports = (sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    bio: { type: Sequelize.STRING },
+    image: {
+      type: Sequelize.STRING,
+      validation: { isUrl: true },
+    },
   },
   {
     hooks: {

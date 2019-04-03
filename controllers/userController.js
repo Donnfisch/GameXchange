@@ -10,7 +10,7 @@ module.exports = {
     const user = jwt.verify(token, jwtSecret);
     db.user.findOne({
       where: { id: user.id },
-      attributes: ['id', 'username', 'email', 'firstname', 'lastname', 'address'],
+      attributes: ['id', 'username', 'email', 'firstname', 'lastname', 'address', 'bio', 'image'],
     })
       .then(userInfo => {
         res.json(userInfo);
@@ -26,9 +26,10 @@ module.exports = {
           db.user.findOne({ where: { email: req.body.email, id: { $not: user.id } } })
             .then(emailMatch => {
               if (!emailMatch) {
+                console.log(req.body);
                 db.user.update(
                   {
-                    email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, address: req.body.address,
+                    email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, address: req.body.address, bio: req.body.bio, image: req.body.image,
                   },
                   { where: { id: user.id } }
                 )
@@ -45,9 +46,11 @@ module.exports = {
           db.user.findOne({ where: { email: req.body.email, id: { $not: user.id } } })
             .then(emailMatch => {
               if (!emailMatch) {
+                console.log(req.body);
+
                 db.user.update(
                   {
-                    email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, address: req.body.address, password: req.body.password,
+                    email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, address: req.body.address, password: req.body.password, bio: req.body.bio, image: req.body.image,
                   },
                   { where: { id: user.id } }
                 )
