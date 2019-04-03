@@ -105,7 +105,7 @@ export default {
       oldPassword,
     }, { headers: formatHeader(token) })
     .then(res => (res.data))
-    .catch(error => {
-      console.log(error);
-    }),
+    .catch(error => (error.response.data)),
+
+  // }),
 };
