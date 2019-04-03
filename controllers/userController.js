@@ -47,7 +47,6 @@ module.exports = {
             .then(emailMatch => {
               if (!emailMatch) {
                 console.log(req.body);
-
                 db.user.update(
                   {
                     email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, address: req.body.address, password: req.body.password, bio: req.body.bio, image: req.body.image,

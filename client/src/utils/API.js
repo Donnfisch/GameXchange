@@ -42,7 +42,7 @@ export default {
 
   // Updates users inventory status flags
   updateGameStatus: (have, want, trade, boxId, token) => axios
-    .post('/api/inventory/', {
+    .put('/api/inventory/', {
       have,
       want,
       trade,
@@ -97,7 +97,7 @@ export default {
 
   // Updates user info and password
   updateUser: (token, email, firstname, lastname, address, password, oldPassword, bio, image) => axios
-    .post('/api/user', {
+    .put('/api/user', {
       email,
       firstname,
       lastname,

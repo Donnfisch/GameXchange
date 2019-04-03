@@ -6,6 +6,6 @@ const userController = require('../../controllers/userController');
 // Return user
 router.route('/')
   .get(userController.findOne)
-  .post(userController.update);
+  .put(userController.update);
 
 module.exports = router;

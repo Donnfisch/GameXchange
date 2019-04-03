@@ -6,7 +6,7 @@ const inventoryController = require('../../controllers/inventoryController');
 // Return user's inventory
 router.route('/')
   .get(inventoryController.findAll)
-  .post(inventoryController.upsertOrDelete);
+  .put(inventoryController.upsertOrDelete);
 
 // Return trade matches
 router.route('/match/:direction')
