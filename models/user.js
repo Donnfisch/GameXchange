@@ -60,16 +60,17 @@ module.exports = (sequelize) => {
       },
 
       beforeBulkUpdate: (userData) => {
-        const salt = bcrypt.genSaltSync();
-        const updatedUserData = userData.attributes;
-        // console.log(`userData:${JSON.stringify(updatedUserData)}`);
-        updatedUserData.password = bcrypt.hashSync(updatedUserData.password, salt);
-        return updatedUserData;
+        if (userData.attributes.password) {
+          const salt = bcrypt.genSaltSync();
+          const updatedUserData = userData;
+          // console.log(userData);
+          updatedUserData.attributes.password = bcrypt.hashSync(updatedUserData.attributes.password, salt);
+          return updatedUserData;
+        }
+        return userData;
       },
     },
   });
-
-
   user.associate = models => {
     user.hasMany(models.inventory, { onDelete: 'cascade' });
     user.hasMany(models.game, {});

@@ -122,12 +122,12 @@ class Profile extends Component {
       case 'oldPassword':
       case 'password':
       case 'password2':
-        // console.log(value);
         if (oldPassword.length === 0 && password.length === 0 && password2.length === 0) {
           changedPasswordValid = true;
           oldPasswordValid = true;
           passwordValid = true;
           password2Valid = true;
+          formErrors.password = '';
         } else {
           changedPasswordValid = oldPassword !== password;
           oldPasswordValid = oldPassword.length >= 6;
