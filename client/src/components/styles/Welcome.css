@@ -1,31 +1,31 @@
 .ui.container.welcomeBox {
-    max-width: 750px;
-    max-height: 350px;
+    background: transparent; 
+   }
 
+.containBox {
+    background-image: url("../styles/images/welcome.png");
 }
 
 .ui.secondary.menu {
     margin-top: 0;
 }
 
-.ui.message {
-    background:url('./images/welcome.png') no-repeat center center; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: 100% 100%;
-   }
-
-.ui.small.primary.button.menuButton {
-    z-index: 9999999999999;
+   .ui.button {
+       margin-left: 0px;
+       z-index: 9999999999999;
     position: absolute;
-    bottom: 30px;
+    bottom: 5px;
     right: 3px;
     font-family: 'Press Start 2P', cursive;
+   }
+
+.ui.primary.button {
     color: #ffcc37;
     background-color: blueviolet;
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
+
+
 
 .ui.huge.header.head {
     font-family: 'Press Start 2P', cursive;

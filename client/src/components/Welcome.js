@@ -15,24 +15,25 @@ const Welcome = () => (
 
       </Grid.Column>
       <Grid.Column width={9}>
-        <Container className="welcomeBox">
-          <Message>
-            <Header className="head" size="huge" as="h1">
+        <div className="containBox">
+          <Container className="welcomeBox">
+            <Message>
+              <Header className="head" size="huge" as="h1">
               GameXchange
-            </Header>
+              </Header>
       GameXchange is an online database designed to with the gaming community in mind.
-            <ul>
-              <li>Browse from a library of every game you could have or want</li>
-              <li>Even find rare games or titles that are out of print!</li>
-              <li>Proudly display your library and</li>
-              <li>Make a wish list of all the games you would like to play</li>
-            </ul>
-
-            <Button className="menuButton" primary size="small" as="a" href="./register">
+              <ul>
+                <li>Browse from a library of every game you could have or want</li>
+                <li>Even find rare games or titles that are out of print!</li>
+                <li>Proudly display your library and</li>
+                <li>Make a wish list of all the games you would like to play</li>
+              </ul>
+              <Button className="menuButton" primary size="tiny" as="a" href="./register">
               Register &raquo;
-            </Button>
-          </Message>
-        </Container>
+              </Button>
+            </Message>
+          </Container>
+        </div>
       </Grid.Column>
     </Grid.Row>
   </Grid>
