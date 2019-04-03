@@ -80,9 +80,13 @@ class App extends Component {
 
   authenticateUser = (username, password) => {
     API.validateUser(username, password).then(res => {
-      document.cookie = `uuid=${res.user.id}`;
-      document.cookie = `token=${res.token}`;
-      this.setState({ user: res.user });
+      if (res) {
+        document.cookie = `uuid=${res.user.id}`;
+        document.cookie = `token=${res.token}`;
+        this.setState({ user: res.user });
+      } else {
+        console.log('LOGIN FAILED');
+      }
     });
   };
 

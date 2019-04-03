@@ -23,7 +23,6 @@ module.exports = {
     db.user.findOne({ where: { id: user.id } })
       .then(dbUser => {
         if (!req.body.password) {
-          // console.log('no password');
           db.user.findOne({ where: { email: req.body.email, id: { $not: user.id } } })
             .then(emailMatch => {
               if (!emailMatch) {
@@ -35,7 +34,6 @@ module.exports = {
                 )
                   .then(() => res.status(200).json({ message: 'User has been updated' }));
               } else {
-                // console.log('FUCK');
                 return res.status(400).json({ message: 'Email address already in use' });
               }
               return null;

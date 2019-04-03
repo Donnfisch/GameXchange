@@ -72,15 +72,14 @@ class Profile extends Component {
       password,
       oldPassword,
     } = this.state;
-    API.updateUser(token, email, firstname, lastname, address, password, oldPassword).then(res => {
-      if (!res.created) {
-        this.setState({ message: 'USER OR EMAIL ALREADY IN USE' });
-      } else {
-        window.location.replace('/');
-      }
-    })
-      .catch(error => {
-        console.log(error);
+    API.updateUser(token, email, firstname, lastname, address, password, oldPassword)
+      .then(res => {
+        this.setState({ message: res.message });
+        if (res.message === 'Password has been changed') {
+          this.setState({
+            oldPassword: '', password: '', password2: '',
+          });
+        }
       });
   };
 
