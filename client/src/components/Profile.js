@@ -21,6 +21,7 @@ class Profile extends Component {
         firstname: '',
         lastname: '',
         address: '',
+        oldPassword: '',
         password: '',
         password2: '',
       },
@@ -28,7 +29,9 @@ class Profile extends Component {
       firstnameValid: true,
       lastnameValid: true,
       addressValid: true,
+      oldPasswordValid: true,
       passwordValid: true,
+      changedPasswordValid: true,
       password2Valid: true,
       formValid: false,
       message: '',
@@ -87,11 +90,15 @@ class Profile extends Component {
       firstnameValid,
       lastnameValid,
       addressValid,
+      oldPasswordValid,
       passwordValid,
+      changedPasswordValid,
       password2Valid,
     } = this.state;
 
-    const { formErrors, password } = this.state;
+    const {
+      formErrors, password, password2, oldPassword,
+    } = this.state;
 
     switch (fieldName) {
       case 'email':
@@ -112,16 +119,30 @@ class Profile extends Component {
         addressValid = value.match(/^[a-z 0-9]+$/i) !== [];
         formErrors.address = addressValid ? '' : 'Must contain only letters';
         break;
+      case 'oldPassword':
       case 'password':
-        passwordValid = (value.length >= 6) && (this.state.password2 === this.state.password);
-        console.log(this.state.password2 === this.state.password);
-        formErrors.password = passwordValid
-          ? ''
-          : 'Password must be at least 6 characters';
-        break;
       case 'password2':
-        password2Valid = value === password;
-        formErrors.password2 = password2Valid ? '' : 'Passwords must match';
+        // console.log(value);
+        if (oldPassword.length === 0 && password.length === 0 && password2.length === 0) {
+          changedPasswordValid = true;
+          oldPasswordValid = true;
+          passwordValid = true;
+          password2Valid = true;
+        } else {
+          changedPasswordValid = oldPassword !== password;
+          oldPasswordValid = oldPassword.length >= 6;
+          passwordValid = password.length >= 6;
+          password2Valid = password2 === password;
+          formErrors.password = passwordValid
+            ? (formErrors.password = password2Valid
+              ? (formErrors.password = oldPasswordValid
+                ? (formErrors.password = changedPasswordValid
+                  ? ''
+                  : 'New password must be different')
+                : 'Original password required to make changes')
+              : 'Passwords must match')
+            : 'Password must be at least 6 characters';
+        }
         break;
       default:
         break;
@@ -133,7 +154,9 @@ class Profile extends Component {
         firstnameValid,
         lastnameValid,
         addressValid,
+        oldPasswordValid,
         passwordValid,
+        changedPasswordValid,
         password2Valid,
       },
       this.validateForm
@@ -147,7 +170,9 @@ class Profile extends Component {
       lastnameValid,
       addressValid,
       passwordValid,
+      changedPasswordValid,
       password2Valid,
+      oldPasswordValid,
     } = this.state;
     this.setState({
       formValid:
@@ -156,6 +181,8 @@ class Profile extends Component {
         && lastnameValid
         && addressValid
         && passwordValid
+        && changedPasswordValid
+        && oldPasswordValid
         && password2Valid,
     });
   }
@@ -232,7 +259,7 @@ Profile:
             onChange={this.handleUserInput}
             fluid
           />
-          <h2>Password Reset</h2>
+          <h2>Change Password</h2>
           <h6>Password</h6>
           <Input
             className={this.errorClass(formErrors.password)}
