@@ -74,12 +74,12 @@ class Profile extends Component {
     } = this.state;
     API.updateUser(token, email, firstname, lastname, address, password, oldPassword)
       .then(res => {
-        this.setState({
-          message: res.message, oldPassword: '', password: '', password2: '',
-        });
-      })
-      .catch(error => {
-        console.log(error);
+        this.setState({ message: res.message });
+        if (res.message === 'Password has been changed') {
+          this.setState({
+            oldPassword: '', password: '', password2: '',
+          });
+        }
       });
   };
 

@@ -106,6 +106,4 @@ export default {
     }, { headers: formatHeader(token) })
     .then(res => (res.data))
     .catch(error => (error.response.data)),
-
-  // }),
 };
