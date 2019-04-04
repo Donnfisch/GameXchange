@@ -71,7 +71,7 @@ export default {
 
   // Validates user and returns token
   validateUser: (username, password) => axios
-    .post('/api/auth', {
+    .post('/api/user/auth', {
       username,
       password,
     })
@@ -82,7 +82,7 @@ export default {
 
   // Creates new user
   newUser: (email, firstname, lastname, address, username, password) => axios
-    .post('/api/auth/user', {
+    .post('/api/user', {
       email,
       firstname,
       lastname,

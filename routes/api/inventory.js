@@ -3,12 +3,12 @@ const inventoryController = require('../../controllers/inventoryController');
 
 // Matches with "/api/inventory..."
 
-// Return user's inventory
+// User Inventory
 router.route('/')
   .get(inventoryController.findAll)
   .put(inventoryController.upsertOrDelete);
 
-// Return trade matches
+// Trade Matches
 router.route('/match/:direction')
   .get(inventoryController.findMatches);
 

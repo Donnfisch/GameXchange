@@ -3,7 +3,7 @@ const userController = require('../../controllers/userController');
 
 // Matches with "/api/user..."
 
-// Return user
+// User
 router.route('/')
   .get(userController.findOne)
   .put(userController.update);
