@@ -81,9 +81,8 @@ module.exports = (sequelize) => {
     user.hasMany(models.game, {});
   };
 
+  // eslint-disable-next-line func-names
   user.prototype.validatePassword = function (password) {
-    // console.log(password);
-    // console.log(this.password);
     return bcrypt.compareSync(
       password,
       this.password

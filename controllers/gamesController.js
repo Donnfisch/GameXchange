@@ -28,14 +28,13 @@ module.exports = {
         title: { $like: `%${req.params.title}%` },
         status: 'approved',
       },
-      limit: 50,
+      limit: 100,
       include: [{
         model: db.inventory,
         where: { userId: user.id },
         required: false,
       }],
     }).then(dbGames => {
-      // console.log(dbGames);
       res.json(dbGames);
     });
   },
