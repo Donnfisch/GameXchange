@@ -1,0 +1,22 @@
+.ui.fluid.container.footStyle {
+    background-image: url("../styles/images/footer.jpg");
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+
+}
+
+.ui.image.label.labelStyle {
+   color:#ddc702;
+   background-color: transparent;
+   float: right;
+}
+
+.ui.image.label.labelStyle1 {
+    color:#ddc702;
+    background-color: transparent;
+ }
+   
