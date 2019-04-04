@@ -18,7 +18,7 @@ class Profile extends Component {
       password: '',
       password2: '',
       bio: '',
-      image: '',
+image: '',
       formErrors: {
         email: '', firstname: '', lastname: '', address: '', oldPassword: '', password: '', password2: '', bio: '', image: '',
       },
