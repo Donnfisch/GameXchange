@@ -24,9 +24,8 @@ module.exports = {
       .then(dbUser => {
         if (!req.body.password) {
           db.user.findOne({ where: { email: req.body.email, id: { $not: user.id } } })
-            .then(emailMatch => {
-              if (!emailMatch) {
-                console.log(req.body);
+            .then(userData => {
+              if (!userData) {
                 db.user.update(
                   {
                     email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, address: req.body.address, bio: req.body.bio, image: req.body.image,
@@ -44,9 +43,8 @@ module.exports = {
           dbUser.password
         )) {
           db.user.findOne({ where: { email: req.body.email, id: { $not: user.id } } })
-            .then(emailMatch => {
-              if (!emailMatch) {
-                console.log(req.body);
+            .then(userData => {
+              if (!userData) {
                 db.user.update(
                   {
                     email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, address: req.body.address, password: req.body.password, bio: req.body.bio, image: req.body.image,
