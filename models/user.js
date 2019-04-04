@@ -2,15 +2,6 @@ const Sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid/v4');
 
-/*
-  ? Is this where error handling (or at least messages) supposed to happen?
-  ? In the event a user is attempting to register a name or email that is already in the db
-  ? Sequelize does proper validation saving itself from breaking, but does not handle the error
-  ? gracefully and I'm not sure where/how that would be done. Ultimately, it should flow to the
-  ? DOM to inform the user, but as of now breaks the server with "Unhandled rejection: Validation"
-  ? Would like the server to keep running and handle appropriately.
-*/
-
 module.exports = (sequelize) => {
   const user = sequelize.define('user', {
     id: {
@@ -35,9 +26,7 @@ module.exports = (sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
-      validation: {
-        isEmail: true,
-      },
+      validation: { isEmail: true },
     },
     firstname: {
       type: Sequelize.STRING,
@@ -59,6 +48,11 @@ module.exports = (sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    bio: { type: Sequelize.STRING },
+    image: {
+      type: Sequelize.STRING,
+      validation: { isUrl: true },
+    },
   },
   {
     hooks: {
@@ -70,24 +64,25 @@ module.exports = (sequelize) => {
         return updatedUserData;
       },
 
-      beforeUpdate: (userData) => {
-        const salt = bcrypt.genSaltSync();
-        const updatedUserData = userData;
-        updatedUserData.password = bcrypt.hashSync(updatedUserData.password, salt);
-        return updatedUserData;
+      beforeBulkUpdate: (userData) => {
+        if (userData.attributes.password) {
+          const salt = bcrypt.genSaltSync();
+          const updatedUserData = userData;
+          // console.log(userData);
+          updatedUserData.attributes.password = bcrypt.hashSync(updatedUserData.attributes.password, salt);
+          return updatedUserData;
+        }
+        return userData;
       },
     },
   });
-
-
   user.associate = models => {
     user.hasMany(models.inventory, { onDelete: 'cascade' });
     user.hasMany(models.game, {});
   };
 
+  // eslint-disable-next-line func-names
   user.prototype.validatePassword = function (password) {
-    // console.log(password);
-    // console.log(this.password);
     return bcrypt.compareSync(
       password,
       this.password

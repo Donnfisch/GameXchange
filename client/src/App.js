@@ -34,7 +34,9 @@ class App extends Component {
     API.searchGames(token, searchTerm).then(res => {
       res.map(game => {
         if (!game.inventories[0]) {
-          game.inventories.push({ have: false, want: false, trade: false });
+          game.inventories.push({
+            have: false, want: false, trade: false,
+          });
         }
         return game;
       });
@@ -76,26 +78,25 @@ class App extends Component {
     });
   };
 
-  setUserState = (username, token) => {
-    this.setState({
-      username,
-      token,
-    });
-  };
-
   authenticateUser = (username, password) => {
     API.validateUser(username, password).then(res => {
-      document.cookie = `uuid=${res.user.id}`;
-      document.cookie = `token=${res.token}`;
-      this.setUserState(res.user.username, res.token);
+      if (res) {
+        document.cookie = `uuid=${res.user.id}`;
+        document.cookie = `token=${res.token}`;
+        this.setState({ user: res.user });
+      } else {
+        console.log('LOGIN FAILED');
+      }
     });
   };
 
   render() {
     const {
-      username, games, matchesOut, matchesIn, token,
+      games, matchesOut, matchesIn, token, user,
     } = this.state;
-    if (!username && document.cookie !== '') { API.getUserInfo().then(res => this.setUserState(res.username, res.token)); }
+    if (!token && document.cookie !== '') {
+      API.getUserInfo().then(res => this.setState({ user: res.user, token: res.token }));
+    }
     return (
       <Router>
         <React.Fragment>
@@ -129,11 +130,19 @@ class App extends Component {
                 <Matches
                   matchesOut={matchesOut}
                   matchesIn={matchesIn}
-                  username={username}
+                  username={user.username}
                 />
               )}
             />
-            <Route path="/profile" component={Profile} />
+            <Route
+              path="/profile"
+              component={() => (
+                <Profile
+                  user={user}
+                  token={token}
+                />
+              )}
+            />
             <Route path="/register" component={Registration} />
           </Switch>
           <Ad />

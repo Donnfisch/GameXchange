@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from 'axios';
 
 const formatHeader = (token) => (
@@ -14,6 +15,7 @@ export default {
       Authorization: `Bearer ${token}`,
     }),
 
+  // Gets user's info
   getUserInfo: async () => {
     const token = document.cookie.split('; ')
       .filter(
@@ -22,8 +24,8 @@ export default {
     try {
       const res = await axios
         .get('/api/user/', { headers: formatHeader(token) });
-      res.data.token = token;
-      return (res.data);
+      const userdata = { user: res.data, token };
+      return (userdata);
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +42,7 @@ export default {
 
   // Updates users inventory status flags
   updateGameStatus: (have, want, trade, boxId, token) => axios
-    .post('/api/inventory/', {
+    .put('/api/inventory/', {
       have,
       want,
       trade,
@@ -69,7 +71,7 @@ export default {
 
   // Validates user and returns token
   validateUser: (username, password) => axios
-    .post('/api/auth', {
+    .post('/api/user/auth', {
       username,
       password,
     })
@@ -77,4 +79,34 @@ export default {
     .catch(error => {
       console.log(error);
     }),
+
+  // Creates new user
+  newUser: (email, firstname, lastname, address, username, password) => axios
+    .post('/api/user', {
+      email,
+      firstname,
+      lastname,
+      address,
+      username,
+      password,
+    })
+    .then(res => (res.data))
+    .catch(error => {
+      console.log(error);
+    }),
+
+  // Updates user info and password
+  updateUser: (token, email, firstname, lastname, address, password, oldPassword, bio, image) => axios
+    .put('/api/user', {
+      email,
+      firstname,
+      lastname,
+      address,
+      password,
+      oldPassword,
+      bio,
+      image,
+    }, { headers: formatHeader(token) })
+    .then(res => (res.data))
+    .catch(error => (error.response.data)),
 };

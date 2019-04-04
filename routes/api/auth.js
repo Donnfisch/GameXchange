@@ -1,13 +1,14 @@
 const router = require('express').Router();
-
-// const jwt = require("jsonwebtoken");
-// const db = require('../../models');
 const authController = require('../../controllers/authController');
 
-router.route('/')
+// resolves to api/game
+
+// game/auth
+router.route('/auth')
   .post(authController.login);
 
-router.route('/user/create')
+// game
+router.route('/')
   .post(authController.createUser);
 
 module.exports = router;

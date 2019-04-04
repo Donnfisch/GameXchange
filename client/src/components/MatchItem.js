@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 const MatchItem = props => {
   const { match } = props;
@@ -32,12 +32,9 @@ const MatchItem = props => {
         {email}
       </td>
     </React.Fragment>
-
   );
 };
 
-MatchItem.propTypes = {
-  match: PropTypes.object.isRequired,
-};
+MatchItem.propTypes = { match: PropTypes.object.isRequired };
 
 export default MatchItem;

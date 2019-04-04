@@ -3,12 +3,12 @@ const gamesController = require('../../controllers/gamesController');
 
 // Matches with "/api/games..."
 
-// Return all games
+// Game
 router.route('/')
   .get(gamesController.findAll)
   .post(gamesController.create);
 
-// Return game by id
+// Get by id
 router.route('/id/:id')
   .get(gamesController.findById);
 

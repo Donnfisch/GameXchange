@@ -31,8 +31,6 @@ const TradeItem = ({ trade }) => {
 };
 
 
-TradeItem.propTypes = {
-  trade: PropTypes.array.isRequired,
-};
+TradeItem.propTypes = { trade: PropTypes.array.isRequired };
 
 export default TradeItem;
