@@ -1,10 +1,14 @@
 const router = require('express').Router();
 const authController = require('../../controllers/authController');
 
-router.route('/')
+// resolves to api/game
+
+// game/auth
+router.route('/auth')
   .post(authController.login);
 
-router.route('/user/')
+// game
+router.route('/')
   .post(authController.createUser);
 
 module.exports = router;
