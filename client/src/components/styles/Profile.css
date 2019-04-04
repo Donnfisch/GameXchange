@@ -1,9 +1,28 @@
-.ui.three.column.grid {
-  width: 60%;
-  margin-left: 20%;
-  margin-right: 20%;
+.ui.image.imageStyle {
+  max-width: 200px;
+  max-height: 200px;
+  float: right;
 }
 
-.ui.grid>.row>.column {
-  padding: 0px;
+.ui.list.listStyle {
+  color: #ddc702;
+  text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+    1px 1px 0 #000;
+    padding-left: 5px;
 }
+
+.ui.list>a.item {
+  color: #ddc702;
+  text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+    1px 1px 0 #000;
+    padding-left: 5px;
+}
+
+
+

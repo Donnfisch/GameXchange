@@ -139,7 +139,6 @@ class App extends Component {
               component={() => (
                 <Profile
                   user={user}
-                  token={token}
                 />
               )}
             />

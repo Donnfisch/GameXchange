@@ -16,6 +16,11 @@ a {
     padding-left: 20px;
     padding-right: 20px;
     color: #ddc702;
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
 }
 
 .link-button {
