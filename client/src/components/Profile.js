@@ -54,15 +54,15 @@ class Profile extends Component {
             </Image>
           </Grid.Column>
           <Grid.Column width={2}>
-              <List className="listStyle">
-                <List.Item icon="users" content={username} />
-                <List.Item icon="marker" content={address} />
-                <List.Item
-                  icon="mail"
-                  content={email}
-                />
-                <List.Item icon="id badge" content={bio} />
-              </List>
+            <List className="listStyle">
+              <List.Item icon="users" content={username} />
+              <List.Item icon="marker" content={address} />
+              <List.Item
+                icon="mail"
+                content={email}
+              />
+              <List.Item icon="id badge" content={bio} />
+            </List>
           </Grid.Column>
           <List className="listStyle2">
             <List.Item><Link to="/update"> Update Info </Link></List.Item>
