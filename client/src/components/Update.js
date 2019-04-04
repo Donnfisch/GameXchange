@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Input, Container, Header } from 'semantic-ui-react';
 import { FormErrors } from './FormErrors';
 import API from '../utils/API';
-import './styles/Registration.css';
+import './styles/Update.css';
 import defaultAvatar from './styles/images/default-avatar.jpg';
 
 class Update extends Component {
@@ -168,13 +168,13 @@ class Update extends Component {
           {image === ''
         && (
           <div>
-            <img src={defaultAvatar} alt="avatar" />
+            <img className="imgStyle" src={defaultAvatar} alt="avatar" />
           </div>
         )}
           {image !== ''
         && (
           <div>
-            <img src={image} alt="avatar" />
+            <img className="imgStyle" src={image} alt="avatar" />
           </div>
         )}
         </Header>

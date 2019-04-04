@@ -1,29 +1,33 @@
 .ui.container.welcomeBox {
-    max-width: 750px;
-    max-height: 350px;
+    width: 700px;
+    height: 300px;
+    background:url('./images/welcome.png') no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100%100%;
+}
 
+.messageStyle {
+    margin-top: 60px;
+}
+
+.ui.message {
+    background-color: rgba(31, 30, 30, 0.699);
 }
 
 .ui.secondary.menu {
     margin-top: 0;
 }
 
-.ui.message {
-    background:url('./images/welcome.png') no-repeat center center; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: 100% 100%;
-   }
-
-.ui.small.primary.button.menuButton {
+.ui.tiny.primary.button.menuButton {
     z-index: 9999999999999;
     position: absolute;
-    bottom: 30px;
-    right: 3px;
+    bottom: 2px;
+    right: 2px;
     font-family: 'Press Start 2P', cursive;
     color: #ffcc37;
-    background-color: blueviolet;
+    background-color: rgba(88, 10, 161, 0.831);
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
@@ -31,12 +35,18 @@
     font-family: 'Press Start 2P', cursive;
     color: #ffcc37;
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    padding-bottom: 20px;
 }
 
-p.lead {
+.ui.tiny.header.head {
+    font-family: 'Press Start 2P', cursive;
     color: #ffcc37;
-    background-color: black;
-    max-width: 500px;
-    font-size: 16px;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    padding-bottom: 80px;
+}
+
+.listStyle3 {
+    font-family: 'Press Start 2P', cursive;
+    color: #ffcc37;
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }

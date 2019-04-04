@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import Registration from './components/Registration';
 import Welcome from './components/Welcome';
 import Matches from './components/Matches';
+import Update from './components/Update';
 import './components/styles/Home.css';
 import API from './utils/API';
 
@@ -139,6 +140,16 @@ class App extends Component {
               component={() => (
                 <Profile
                   user={user}
+                  token={token}
+                />
+              )}
+            />
+            <Route
+              path="/update"
+              component={() => (
+                <Update
+                  user={user}
+                  token={token}
                 />
               )}
             />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Grid, List, Image, GridColumn } from 'semantic-ui-react';
 import './styles/Profile.css';
 import defaultAvatar from './styles/images/default-avatar.jpg';
@@ -36,8 +37,8 @@ class Profile extends Component {
     return (
       <Grid columns={3} divided>
         <Grid.Row className="rowStyling">
-          <Grid.Column width={6}>
-            <Image className="imageStyle">
+          <Grid.Column width={7}>
+            <Image className="imageStyle" circular>
               {image === ''
         && (
           <div>
@@ -52,8 +53,7 @@ class Profile extends Component {
         )}
             </Image>
           </Grid.Column>
-          <Grid.Column width={5}>
-            <div>
+          <Grid.Column width={2}>
               <List className="listStyle">
                 <List.Item icon="users" content={username} />
                 <List.Item icon="marker" content={address} />
@@ -63,12 +63,11 @@ class Profile extends Component {
                 />
                 <List.Item icon="id badge" content={bio} />
               </List>
-            </div>
           </Grid.Column>
-          <List>
-            <List.Item className="itemStyle" as="a" href="/update">Update Info</List.Item>
-            <List.Item className="itemStyle" as="a" href="/games">My Games</List.Item>
-            <List.Item className="itemStyle" as="a" href="/wishlist">Wish List</List.Item>
+          <List className="listStyle2">
+            <List.Item><Link to="/update"> Update Info </Link></List.Item>
+            <List.Item><Link to="/games"> My Games </Link></List.Item>
+            <List.Item><Link to="/matches"> My Matches </Link></List.Item>
           </List>
           <GridColumn>
 
