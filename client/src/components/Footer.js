@@ -1,22 +1,32 @@
 import React from 'react';
+import { Container, Label } from 'semantic-ui-react';
+import GitLogo from './styles/images/git.jpg';
+import Copyright from './styles/images/copyright.png';
+import './styles/Footer.css';
 
 const Footer = () => (
-  <footer className="bg-secondary" style={footerStyle}>
-    <div className="container">
-      <p>Copyright © 2019</p>
-    </div>
-  </footer>
+  <Container fluid className="footStyle">
+    <Label className="labelStyle1" as="a" href="https://github.com/1701c" image>
+      <img src={Copyright} alt="copyright" />
+      Copyright 2019
+    </Label>
+    <Label className="labelStyle" as="a" href="https://github.com/1701c" image>
+      <img src={GitLogo} alt="gitLogo" />
+      Alex
+    </Label>
+    <Label className="labelStyle" as="a" href="https://github.com/Donnfisch" image>
+      <img src={GitLogo} alt="gitLogo" />
+      Donnie
+    </Label>
+    <Label className="labelStyle" as="a" href="https://github.com/jeysonp" image>
+      <img src={GitLogo} alt="gitLogo" />
+      Jason
+    </Label>
+    <Label className="labelStyle" as="a" href="https://github.com/shane-lennon" image>
+      <img src={GitLogo} alt="gitLogo" />
+      Shane
+    </Label>
+  </Container>
 );
-
-const footerStyle = {
-  position: 'fixed',
-  bottom: '0',
-  width: '100%',
-  height: '65px',
-  lineHeight: '55px',
-  textAlign: 'center',
-  borderTop: '8px solid #000000',
-  fontSize: '24px',
-};
 
 export default Footer;
