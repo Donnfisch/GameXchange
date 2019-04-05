@@ -9,7 +9,7 @@ const Games = ({ games, changeGameStatus }) => (
     <table style={tableStyle}>
       <thead>
         <tr>
-          <th>Have</th>
+          <th>Collection</th>
           <th>Want</th>
           <th>Trade</th>
           <th>Title</th>

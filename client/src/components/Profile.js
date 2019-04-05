@@ -5,7 +5,6 @@ import { Grid, List, Image, GridColumn } from 'semantic-ui-react';
 import './styles/Profile.css';
 import defaultAvatar from './styles/images/default-avatar.jpg';
 
-
 class Profile extends Component {
   constructor(props) {
     super(props);

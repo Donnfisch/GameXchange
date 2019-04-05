@@ -279,6 +279,10 @@ class Update extends Component {
             />
           </div>
         </div>
+        <FormErrors formErrors={formErrors} />
+        <p>
+          {message}
+        </p>
         <Button
           type="submit"
           onClick={this.handleSubmit}
@@ -287,10 +291,7 @@ class Update extends Component {
         >
           Submit
         </Button>
-        <FormErrors formErrors={formErrors} />
-        <p>
-          {message}
-        </p>
+
       </Container>
     );
   }
