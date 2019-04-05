@@ -5,7 +5,7 @@ import './styles/Games.css';
 
 const Games = ({ games, changeGameStatus }) => (
   <div>
-    <h1 style={h1Style}>Games Component</h1>
+    <h1 style={h1Style}>My Games</h1>
     <table style={tableStyle}>
       <thead>
         <tr>

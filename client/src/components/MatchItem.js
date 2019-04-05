@@ -8,6 +8,8 @@ const MatchItem = props => {
     title, platform, region, publisher, version,
   } = game;
   const { username, email } = user;
+  let updatedVersion = version;
+  if (!version) updatedVersion = 'Standard';
   return (
     <React.Fragment>
       <td>
@@ -23,7 +25,7 @@ const MatchItem = props => {
         {publisher}
       </td>
       <td>
-        {version}
+        {updatedVersion}
       </td>
       <td>
         {username}

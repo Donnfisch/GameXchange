@@ -100,7 +100,7 @@ class Matches extends Component {
     } = this.state;
     return (
       <div>
-        <h1 style={h1Style}>Match Component</h1>
+        <h1 style={h1Style}>My Matches</h1>
         <h2 style={h2Style}>Trade Proposal</h2>
         {!nameFilter
         && <h4 style={h4Style}>(Select a game to create trade proposal)</h4>}

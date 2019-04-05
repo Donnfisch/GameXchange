@@ -17,6 +17,12 @@ th {
   color: white;
 }
 
+h1,h2,h4 {
+  color: #ddc702;
+}
+
+tr:nth-child(odd) {background-color: #ffffff}
+
 tr:nth-child(even) {background-color: #f2f2f2;}
 
 tr:hover {background-color: #afafaf;}

@@ -9,6 +9,8 @@ const GameItem = ({ game, changeGameStatus }) => {
   const {
     have, want, trade,
   } = inventories[0];
+  let updatedVersion = version;
+  if (!version) updatedVersion = 'Standard';
   return (
     <tr>
       <td width="10" className="inventoryCheckbox">
@@ -33,7 +35,7 @@ const GameItem = ({ game, changeGameStatus }) => {
         {publisher}
       </td>
       <td>
-        {version}
+        {updatedVersion}
       </td>
     </tr>
   );
