@@ -16,10 +16,10 @@
     "logging": false
   },
   "production": {
-    "username": "pvt01o4u9t26lmai",
-    "password": "otp4mny5g09dmnqo",
-    "database": "f1j3r2qp2v2euwem",
-    "host": "h7xe2knj2qb6kxal.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "username": "dm7tfzr6kueog3m2",
+    "password": "jbymmqwibscdp9am",
+    "database": "zgjihg6utmixe72n",
+    "host": "gp96xszpzlqupw4k.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql",
     "logging": false
   }
