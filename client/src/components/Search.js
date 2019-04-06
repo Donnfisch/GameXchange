@@ -47,13 +47,11 @@ class Search extends Component {
               value={searchTerm}
               onChange={this.handleChange}
               required
-              // autoFocus
             />
             <button
               className="btn btn-lg btn-primary btn-block mb-1"
               type="submit"
               onClick={() => history.push('/games')}
-              // id="loginSubmit"
             >
             Search
             </button>

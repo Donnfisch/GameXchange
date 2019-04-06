@@ -12,7 +12,6 @@ const Welcome = () => (
   <Grid columns={3} divided>
     <Grid.Row stretched>
       <Grid.Column width={4}>
-
       </Grid.Column>
       <Grid.Column width={8}>
         <Container className="welcomeBox">
@@ -33,8 +32,6 @@ const Welcome = () => (
       </Grid.Column>
     </Grid.Row>
   </Grid>
-
-
 );
 
 export default Welcome;

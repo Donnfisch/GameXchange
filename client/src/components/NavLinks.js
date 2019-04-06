@@ -21,7 +21,6 @@ export class NavLinks extends Component {
     event.preventDefault();
     const { history } = this.props;
     history.push('/profile');
-    // handleMyGames();
   }
 
   onClickRegister = (event) => {
