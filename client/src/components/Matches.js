@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MatchItem from './MatchItem';
 import TradeItem from './TradeItem';
+import './styles/Matches.css';
 
 class Matches extends Component {
   state = {

@@ -6,6 +6,9 @@
     bottom: 0;
     height: 60px;
     width: 100%;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
 
 }
 

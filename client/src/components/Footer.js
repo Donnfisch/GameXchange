@@ -6,7 +6,7 @@ import './styles/Footer.css';
 
 const Footer = () => (
   <Container fluid className="footStyle">
-    <Label className="labelStyle1" as="a" href="https://github.com/1701c" image>
+    <Label className="labelStyle1" image>
       <img src={Copyright} alt="copyright" />
       Copyright 2019
     </Label>
