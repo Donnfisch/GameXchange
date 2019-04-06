@@ -208,10 +208,7 @@ const buttonDivOuter = {
   textAlign: 'center',
 };
 
-const buttonDivInner = {
-  display: 'inline-block',
-  // padding: "50px",
-};
+const buttonDivInner = { display: 'inline-block' };
 
 const noPadding = {
   padding: '0px',

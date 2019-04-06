@@ -57,7 +57,6 @@ class Registration extends Component {
       password,
     } = this.state;
     event.preventDefault();
-    // this.validateUserData(email, username)
     this.createUser(email, firstname, lastname, address, username, password);
   };
 

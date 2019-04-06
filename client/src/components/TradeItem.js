@@ -3,12 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TradeItem = ({ trade }) => {
-  // console.log(trade);
   const { game } = trade;
   const {
     title, platform, region,
   } = game;
-  // console.log(title);
   return (
     <tr>
       <td>
@@ -20,12 +18,6 @@ const TradeItem = ({ trade }) => {
       <td>
         {region}
       </td>
-      {/* <td>
-        {publisher}
-      </td>
-      <td>
-        {version}
-      </td> */}
     </tr>
   );
 };
