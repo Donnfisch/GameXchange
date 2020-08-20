@@ -28,7 +28,7 @@
   "dependencies": {
     "@semantic-ui-react/event-stack": "^3.1.0",
     "babel-eslint": "^10.0.1",
-    "bcrypt": "^3.0.4",
+    "bcrypt": "^5.0.0",
     "eslint-plugin-jsx-control-statements": "^2.2.1",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
